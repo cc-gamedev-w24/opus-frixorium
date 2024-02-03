@@ -6,6 +6,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        Instantiate(_playerPrefab);
+        Instantiate(_playerPrefab, transform);
     }
 }
