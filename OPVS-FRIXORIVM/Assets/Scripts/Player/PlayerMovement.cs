@@ -1,15 +1,29 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+///     Player Movement Handling
+///     TODO: Abstract to allow for network support
+/// </summary>
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement: MonoBehaviour
 {
     private CharacterController _characterController;
     
+    /// <summary>
+    ///     Base player movement speed
+    /// </summary>
     [SerializeField] private float _baseWalkSpeed = 2.0f;
+    
+    /// <summary>
+    ///     Velocity impulse on jump
+    /// </summary>
     [SerializeField] private float _jumpVelocity = 5.0f;
 
-    private Vector3 _moveDir = Vector3.zero;
+    /// <summary>
+    ///      Current velocity of player
+    /// </summary>
+    private Vector3 _velocity = Vector3.zero;
     
     private void Awake()
     {
@@ -18,22 +32,30 @@ public class PlayerMovement: MonoBehaviour
 
     private void Update()
     {
-        _moveDir.y -= 9.81f * Time.deltaTime;
-       _characterController.Move(_moveDir * Time.deltaTime);
+        // Apply gravity
+        _velocity.y -= 9.81f * Time.deltaTime;
+        
+       _characterController.Move(_velocity * Time.deltaTime);
     }
 
+    /// <summary>
+    ///     Triggered on Jump input action
+    /// </summary>
     private void OnJump()
     {
         if (_characterController.isGrounded)
         {
-            _moveDir.y = _jumpVelocity;
+            _velocity.y = _jumpVelocity;
         }
     }
 
+    /// <summary>
+    ///     Triggered on Walk input action
+    /// </summary>
     private void OnWalk(InputValue value)
     {
         var moveValue = value.Get<Vector2>();
-        _moveDir.x = moveValue.x * _baseWalkSpeed;
-        _moveDir.z = moveValue.y * _baseWalkSpeed;
+        _velocity.x = moveValue.x * _baseWalkSpeed;
+        _velocity.z = moveValue.y * _baseWalkSpeed;
     }
 }
