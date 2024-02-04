@@ -14,7 +14,6 @@ namespace Settings
         
         public void OnSaveChangesClick()
         {
-            Screen.fullScreen = fullscreenToggle.isOn;
             QualitySettings.vSyncCount = vSyncToggle == true ? 1 : 0;
             QualitySettings.SetQualityLevel(graphicsQualityDropdown.value, true);
             ApplyResolution();
@@ -31,7 +30,7 @@ namespace Settings
             if (resolutionParts.Length >= 2 && int.TryParse(resolutionParts[0], out var width) && int.TryParse(resolutionParts[1].Split('@')[0], out var height))
             {
                 // Apply the selected resolution
-                Screen.SetResolution(width, height, Screen.fullScreen);
+                Screen.SetResolution(width, height, fullscreenToggle.isOn);
             }
         }
     }
