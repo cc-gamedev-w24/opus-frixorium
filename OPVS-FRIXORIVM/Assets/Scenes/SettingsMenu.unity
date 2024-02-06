@@ -2936,9 +2936,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 906956797}
-        m_TargetAssemblyTypeName: Settings.SettingsManager, Assembly-CSharp
-        m_MethodName: OnSaveChangesClick
+      - m_Target: {fileID: 906956798}
+        m_TargetAssemblyTypeName: Settings.SettingsUIMenuManager, Assembly-CSharp
+        m_MethodName: SaveChangesButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3042,6 +3042,7 @@ MonoBehaviour:
   sfxVolumeSlider: {fileID: 42786330}
   voiceVolumeSlider: {fileID: 452050547}
   musicVolumeSlider: {fileID: 471857558}
+  menuManager: {fileID: 906956798}
 --- !u!114 &906956798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3058,6 +3059,9 @@ MonoBehaviour:
   volumeMenu: {fileID: 944623705}
   controlsMenu: {fileID: 2005046840}
   previousMenu: {fileID: 0}
+  onSaveChangesClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &925432014
 GameObject:
   m_ObjectHideFlags: 0
