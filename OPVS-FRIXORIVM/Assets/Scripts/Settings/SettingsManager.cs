@@ -11,10 +11,18 @@ namespace Settings
         [SerializeField] private TMP_Dropdown graphicsQualityDropdown;
         [SerializeField] private Toggle fullscreenToggle;
         [SerializeField] private Toggle vSyncToggle;
-        
+
+        private void Start()
+        {
+            // Check PlayerPrefs and apply settings 
+            // Graphics settings
+            InitGraphicsSettings();
+        }
+
         public void OnSaveChangesClick()
         {
             ApplyGraphicsChanges();
+            UpdatePlayerPrefs();
         }
 
         private void ApplyGraphicsChanges()
@@ -37,6 +45,26 @@ namespace Settings
                 // Apply the selected resolution
                 Screen.SetResolution(width, height, fullscreenToggle.isOn);
             }
+        }
+
+        private void InitGraphicsSettings()
+        {
+            var graphicsQuality = PlayerPrefs.GetInt("GraphicsQuality", 0);
+            QualitySettings.SetQualityLevel(graphicsQuality, true);
+            graphicsQualityDropdown.value = graphicsQuality;
+            
+            var vSync = PlayerPrefs.GetInt("VSync");
+            QualitySettings.vSyncCount = vSync == 1 ? 1 : 0;
+            vSyncToggle.isOn = vSync == 1;
+        }
+
+        private void UpdatePlayerPrefs()
+        {
+            // Graphics Settings
+            PlayerPrefs.SetInt("GraphicsQuality", graphicsQualityDropdown.value);
+            PlayerPrefs.SetInt("VSync", vSyncToggle.isOn ? 1 : 0);
+            
+            // TODO Volume Settings & Input Settings
         }
     }
 }

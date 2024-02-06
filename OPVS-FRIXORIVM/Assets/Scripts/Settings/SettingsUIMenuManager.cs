@@ -16,7 +16,6 @@ namespace Settings
         [Header("Graphics Settings")] 
         [SerializeField] private TMP_Dropdown resolutionDropdown;
         [SerializeField] private Toggle fullscreenToggle;
-        [SerializeField] private Toggle vSyncToggle;
     
         private GameObject _currentMenu;
 
@@ -30,9 +29,6 @@ namespace Settings
         
             // Check fullscreen
             fullscreenToggle.isOn = Screen.fullScreen;
-        
-            // Check vsync
-            vSyncToggle.isOn = QualitySettings.vSyncCount != 0;
         
             // Default current menu to graphics
             _currentMenu = graphicsMenu;
