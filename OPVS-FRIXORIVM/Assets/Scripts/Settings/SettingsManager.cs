@@ -14,6 +14,11 @@ namespace Settings
         
         public void OnSaveChangesClick()
         {
+            ApplyGraphicsChanges();
+        }
+
+        private void ApplyGraphicsChanges()
+        {
             QualitySettings.vSyncCount = vSyncToggle == true ? 1 : 0;
             QualitySettings.SetQualityLevel(graphicsQualityDropdown.value, true);
             ApplyResolution();

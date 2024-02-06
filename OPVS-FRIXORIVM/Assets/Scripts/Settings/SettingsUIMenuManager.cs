@@ -11,6 +11,7 @@ namespace Settings
         [SerializeField] private GameObject graphicsMenu;
         [SerializeField] private GameObject volumeMenu;
         [SerializeField] private GameObject controlsMenu;
+        [SerializeField] private GameObject previousMenu;
 
         [Header("Graphics Settings")] 
         [SerializeField] private TMP_Dropdown resolutionDropdown;
@@ -65,6 +66,12 @@ namespace Settings
             DisableMenus();
             menu.SetActive(true);
             _currentMenu = menu;
+        }
+
+        public void OnBackClick()
+        {
+            previousMenu.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 }
