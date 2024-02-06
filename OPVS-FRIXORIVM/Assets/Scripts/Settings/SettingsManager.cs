@@ -12,11 +12,17 @@ namespace Settings
         [SerializeField] private Toggle fullscreenToggle;
         [SerializeField] private Toggle vSyncToggle;
 
+        [Header("Volume Settings")] 
+        [SerializeField] private Slider masterVolumeSlider;
+        [SerializeField] private Slider sfxVolumeSlider;
+        [SerializeField] private Slider voiceVolumeSlider;
+        [SerializeField] private Slider musicVolumeSlider;
+
         private void Start()
         {
-            // Check PlayerPrefs and apply settings 
-            // Graphics settings
+            // Initialize settings from PlayerPrefs
             InitGraphicsSettings();
+            InitVolumeSettings();
         }
 
         public void OnSaveChangesClick()
@@ -53,18 +59,36 @@ namespace Settings
             QualitySettings.SetQualityLevel(graphicsQuality, true);
             graphicsQualityDropdown.value = graphicsQuality;
             
-            var vSync = PlayerPrefs.GetInt("VSync");
+            var vSync = PlayerPrefs.GetInt("VSync", 1);
             QualitySettings.vSyncCount = vSync == 1 ? 1 : 0;
             vSyncToggle.isOn = vSync == 1;
         }
 
+        private void InitVolumeSettings()
+        {
+            // Load volume settings from PlayerPrefs and set slider values
+            // TODO: Implement volume changes when AudioManager is ready
+            masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 100);
+            sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 100);
+            voiceVolumeSlider.value = PlayerPrefs.GetFloat("VoiceVolume", 100);
+            musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 100);
+        }
+
         private void UpdatePlayerPrefs()
         {
-            // Graphics Settings
+            // Update Graphics Settings
             PlayerPrefs.SetInt("GraphicsQuality", graphicsQualityDropdown.value);
             PlayerPrefs.SetInt("VSync", vSyncToggle.isOn ? 1 : 0);
             
-            // TODO Volume Settings & Input Settings
+            // Update Volume Settings
+            PlayerPrefs.SetFloat("MasterVolume", masterVolumeSlider.value);
+            PlayerPrefs.SetFloat("SFXVolume", sfxVolumeSlider.value);
+            PlayerPrefs.SetFloat("VoiceVolume", voiceVolumeSlider.value);
+            PlayerPrefs.SetFloat("MusicVolume", musicVolumeSlider.value);
+            
+            // TODO: Handle Input Settings
+            
+            PlayerPrefs.Save();
         }
     }
 }
