@@ -7770,6 +7770,7 @@ GameObject:
   - component: {fileID: 2091238513}
   - component: {fileID: 2091238512}
   - component: {fileID: 2091238511}
+  - component: {fileID: 2091238515}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -7976,3 +7977,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 906956796}
+  - {fileID: 279429658}
+  - {fileID: 1739493237}
