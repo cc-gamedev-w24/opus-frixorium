@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     [SerializeField] private PlaySoundEventChannel _eventChannel;
-    [SerializeField] private AudioSource _musicSource, _effectsSource;
+    [SerializeField] private AudioSource _musicSource, _effectsSource, _voicesSource;
     [SerializeField] private List<EffectsClipGroup> _clips;
     [SerializeField] AudioMixer mixer;
 
@@ -18,6 +18,7 @@ public class AudioManager : MonoBehaviour
     public const string MASTER_KEY = "MasterVolume";
     public const string MUSIC_KEY = "MusicVolume";
     public const string EFFECTS_KEY = "EffectsVolume";
+    public const string VOICES_KEY = "VoiceVolume";
 
     private void Awake()
     {
@@ -53,10 +54,13 @@ public class AudioManager : MonoBehaviour
         float masterVolume = PlayerPrefs.GetFloat(MASTER_KEY, 1f);
         float musicVolume = PlayerPrefs.GetFloat(MUSIC_KEY, 1f);
         float effectsVolume = PlayerPrefs.GetFloat(EFFECTS_KEY, 1f);
+        float voicesVolume = PlayerPrefs.GetFloat(VOICES_KEY, 1f);
 
         mixer.SetFloat(VolumeSettings.MIXER_MASTER, Mathf.Log10(masterVolume) * 20);
         mixer.SetFloat(VolumeSettings.MIXER_MUSIC, Mathf.Log10(musicVolume) * 20);
         mixer.SetFloat(VolumeSettings.MIXER_EFFECTS, Mathf.Log10(effectsVolume) * 20);
+        mixer.SetFloat(VolumeSettings.MIXER_VOICES, Mathf.Log10(voicesVolume) * 20);
+
     }
 
 
