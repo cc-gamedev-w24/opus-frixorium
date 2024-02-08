@@ -1,3 +1,6 @@
+using System;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,10 +27,19 @@ public class PlayerMovement: MonoBehaviour
     ///      Current velocity of player
     /// </summary>
     private Vector3 _velocity = Vector3.zero;
+
+    /// <summary>
+    ///     Type of device controlling this player
+    /// </summary>
+    private string _deviceClass;
+
+    private Camera _camera;
     
     private void Awake()
     {
         _characterController = gameObject.GetComponent<CharacterController>();
+        _deviceClass = gameObject.GetComponentInParent<PlayerInput>().devices[0].description.deviceClass;
+        _camera = Camera.main;
     }
 
     private void Update()
@@ -36,6 +48,11 @@ public class PlayerMovement: MonoBehaviour
         _velocity.y -= 9.81f * Time.deltaTime;
         
        _characterController.Move(_velocity * Time.deltaTime);
+    }
+
+    private void FixedUpdate()
+    {
+        Debug.DrawLine(transform.position, transform.position + transform.forward * 3.0f, Color.red);
     }
 
     /// <summary>
@@ -57,5 +74,15 @@ public class PlayerMovement: MonoBehaviour
         var moveValue = value.Get<Vector2>();
         _velocity.x = moveValue.x * _baseWalkSpeed;
         _velocity.z = moveValue.y * _baseWalkSpeed;
+    }
+
+    private void OnLook(InputValue value)
+    {
+        var vecValue = value.Get<Vector2>();
+        if (_deviceClass == "Keyboard")
+        {
+            vecValue -= (Vector2)_camera.WorldToScreenPoint(transform.position);
+        }
+        transform.rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan2(-vecValue.y, vecValue.x) + 90f, Vector3.up);
     }
 }
