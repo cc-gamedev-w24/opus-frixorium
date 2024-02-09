@@ -1,13 +1,19 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Events
+/// <summary>
+///     Invokes a Unity event when a given game event is raised
+/// </summary>
+public class InvokeUnityEventOnGameEvent: GameEventListener
 {
-    public class InvokeUnityEventOnGameEvent: GameEventListener
+    /// <summary>
+    ///     Unity event to invoke
+    /// </summary>
+    [SerializeField]
+    private UnityEvent _unityEvent;
+    
+    public override void OnEvent(object value = null)
     {
-        [SerializeField]
-        private UnityEvent _unityEvent;
-
-        public override void RaiseEvent() => _unityEvent.Invoke();
+        _unityEvent.Invoke();
     }
 }

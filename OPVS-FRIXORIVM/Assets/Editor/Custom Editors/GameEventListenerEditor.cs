@@ -6,14 +6,12 @@ public class GameEventListenerEditor: Editor
     private SerializedProperty _gameEvent;
     private SerializedProperty _useChannels;
     private SerializedProperty _channels;
-    private SerializedProperty _unityEvent;
 
     private void OnEnable()
     {
         _gameEvent = serializedObject.FindProperty("_gameEvent");
         _useChannels = serializedObject.FindProperty("_useChannels");
         _channels = serializedObject.FindProperty("_channels");
-        _unityEvent = serializedObject.FindProperty("_unityEvent");
     }
 
     public override void OnInspectorGUI()
@@ -29,8 +27,18 @@ public class GameEventListenerEditor: Editor
                 EditorGUILayout.HelpBox("This listener is currently not subscribing to any channels. For a global listener, uncheck \"Use Channels\".", MessageType.Warning);
             }
         }
-        EditorGUILayout.PropertyField(_unityEvent);
 
+        var prop = serializedObject.GetIterator();
+        prop.NextVisible(true);
+        do {
+            if (
+                prop.name == _channels.name ||
+                prop.name == _useChannels.name ||
+                prop.name == _gameEvent.name ||
+                prop.name == "m_Script") continue;
+            EditorGUILayout.PropertyField(prop);
+        } while (prop.NextVisible(false));
+        
         serializedObject.ApplyModifiedProperties();
     }
 }
