@@ -1,23 +1,46 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-public class GameEventListener: MonoBehaviour
+public abstract class GameEventListener: MonoBehaviour
 {
     [SerializeField]
     private GameEvent _gameEvent;
 
     [SerializeField]
-    private UnityEvent _unityEvent;
+    private bool _useChannels;
+
+    [SerializeField]
+    private List<ushort> _channels;
+    
 
     private void Awake()
     {
-        _gameEvent.Register(this);
+        if (_useChannels)
+        {
+            foreach (var channel in _channels)
+            {
+                _gameEvent.Register(this, channel);
+            }
+        }
+        else
+        {
+            _gameEvent.Register(this);
+        }
     }
 
     private void OnDestroy()
     {
-        _gameEvent.Unregister(this);
+        if (_useChannels)
+        {
+            foreach (var channel in _channels)
+            {
+                _gameEvent.Unregister(this, channel);
+            }
+        }
+        else
+        {
+            _gameEvent.Unregister(this);
+        }
     }
 
-    public void RaiseEvent() => _unityEvent.Invoke();
+    public abstract void RaiseEvent();
 }
