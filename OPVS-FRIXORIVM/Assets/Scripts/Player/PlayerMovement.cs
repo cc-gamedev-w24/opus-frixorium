@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -33,6 +34,14 @@ public class PlayerMovement: MonoBehaviour
     private Vector3 _direction;
     private float _attackCountdown;
     private bool _isAttacking;
+
+    /// <summary>
+    ///     Type of device controlling this player
+    /// </summary>
+    private string _deviceClass;
+
+    private Camera _camera;
+    
     private void Awake()
     {
         _characterController = gameObject.GetComponent<CharacterController>();
@@ -40,6 +49,8 @@ public class PlayerMovement: MonoBehaviour
         _attackTarget.SetActive(false);
         _attackCountdown = 3.0f;
         _isAttacking = false;
+        _deviceClass = gameObject.GetComponentInParent<PlayerInput>().devices[0].description.deviceClass;
+        _camera = Camera.main;
     }
 
     private void Update()
@@ -49,27 +60,21 @@ public class PlayerMovement: MonoBehaviour
         
         _characterController.Move(_velocity * Time.deltaTime);
 
-        //Debug.Log(Mouse.current.position.ReadValue());
-        transform.LookAt(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, Camera.main.transform.position.y)));
+        /*transform.LookAt(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, Camera.main.transform.position.y)));
         Vector3 mousePos = Mouse.current.position.ReadValue();
         Vector3 lookPoint = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, transform.position.z));
         lookPoint.y = transform.position.y;
-        //transform.LookAt(lookPoint);
 
         _direction = lookPoint - transform.position;
-        //_direction.y = transform.position.y;
         Debug.Log(_direction);
-        //_direction.y = 20f;
         
         _lookRotation = Quaternion.LookRotation(_direction);
-        //Debug.Log(_lookRotation);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * 1);
 
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);*/
 
 
-        //Debug.Log(lookPoint);
         _attackTarget.transform.position = transform.position + transform.forward*2.0f;
         
         if (_isAttacking)
@@ -90,6 +95,11 @@ public class PlayerMovement: MonoBehaviour
         _cameraPos = transform.position;
         _cameraPos.y = oldCameraY;
         _camera.transform.position = _cameraPos;*/
+    }
+
+    private void FixedUpdate()
+    {
+        Debug.DrawLine(transform.position, transform.position + transform.forward * 3.0f, Color.red);
     }
 
     /// <summary>
@@ -121,5 +131,15 @@ public class PlayerMovement: MonoBehaviour
             _attackTarget.SetActive(true);
             _attackCountdown = 3.0f;
         }
+    }
+
+    private void OnLook(InputValue value)
+    {
+        var vecValue = value.Get<Vector2>();
+        if (_deviceClass == "Keyboard")
+        {
+            vecValue -= (Vector2)_camera.WorldToScreenPoint(transform.position);
+        }
+        transform.rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan2(-vecValue.y, vecValue.x) + 90f, Vector3.up);
     }
 }
