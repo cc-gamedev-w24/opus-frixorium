@@ -40,8 +40,6 @@ public class PlayerPanel : MonoBehaviour
     {
         _backgroundImage = GetComponent<Image>();
         _backgroundImage.color = _disabledColor;
-
-        _text.text = string.Empty;
         
         _joinedListener = new DelegateGameEventListener(_playerJoinedEvent, _ => OnJoinedEvent(), _playerNumber);
         _leftListener = new DelegateGameEventListener(_playerLeftEvent, _ => OnLeftEvent(), _playerNumber);
@@ -82,7 +80,7 @@ public class PlayerPanel : MonoBehaviour
 
     private void OnLeftEvent()
     {
-        _text.text = string.Empty;
+        _text.text = "Join";
         _backgroundImage.color = _disabledColor;
     }
 }
