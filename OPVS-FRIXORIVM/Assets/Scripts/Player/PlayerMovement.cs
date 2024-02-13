@@ -1,6 +1,3 @@
-using System;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,7 +31,7 @@ public class PlayerMovement: MonoBehaviour
     private string _deviceClass;
 
     private Camera _camera;
-    
+
     private void Awake()
     {
         _characterController = gameObject.GetComponent<CharacterController>();
@@ -76,6 +73,9 @@ public class PlayerMovement: MonoBehaviour
         _velocity.z = moveValue.y * _baseWalkSpeed;
     }
 
+    /// <summary>
+    ///     Triggered on Look input action
+    /// </summary>
     private void OnLook(InputValue value)
     {
         var vecValue = value.Get<Vector2>();

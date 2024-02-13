@@ -200,7 +200,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -236,7 +236,7 @@ PrefabInstance:
     - target: {fileID: 471384380356485568, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
         type: 3}
       propertyPath: _playerNumber
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3139555975389571108, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
         type: 3}
@@ -852,7 +852,7 @@ PrefabInstance:
     - target: {fileID: 471384380356485568, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
         type: 3}
       propertyPath: _playerNumber
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3139555975389571108, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
         type: 3}
@@ -981,7 +981,7 @@ PrefabInstance:
     - target: {fileID: 471384380356485568, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
         type: 3}
       propertyPath: _playerNumber
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3139555975389571108, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
         type: 3}
