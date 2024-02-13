@@ -8,7 +8,7 @@ namespace Settings
     /// <summary>
     ///     Settings and PlayerPref handling
     /// </summary>
-    public class SettingsManager : MonoBehaviour
+    public class GraphicsSettings : MonoBehaviour
     {
         [Header("Graphics Settings")] 
         [SerializeField] private TMP_Dropdown resolutionDropdown;
@@ -16,14 +16,8 @@ namespace Settings
         [SerializeField] private Toggle fullscreenToggle;
         [SerializeField] private Toggle vSyncToggle;
 
-        [Header("Volume Settings")] 
-        [SerializeField] private Slider masterVolumeSlider;
-        [SerializeField] private Slider sfxVolumeSlider;
-        [SerializeField] private Slider voiceVolumeSlider;
-        [SerializeField] private Slider musicVolumeSlider;
-
         [Header("Managers")]
-        [SerializeField] private SettingsUIMenuManager menuManager;
+        [SerializeField] private SettingsUIManager menuManager;
         
         private Resolution[] _availableResolutions;
         
@@ -37,11 +31,10 @@ namespace Settings
             menuManager.onSaveChangesClicked.RemoveListener(ApplyChanges);
         }
 
-        private void Start()
+        private void Awake()
         {
             // Initialize settings from PlayerPrefs
             InitGraphicsSettings();
-            InitVolumeSettings();
         }
 
         private void ApplyChanges()
@@ -50,7 +43,6 @@ namespace Settings
             UpdatePlayerPrefs();
         }
         
-        #region Graphics Settings
         private void ApplyGraphicsChanges()
         {
             QualitySettings.vSyncCount = vSyncToggle.isOn ? 1 : 0;
@@ -122,26 +114,6 @@ namespace Settings
             return -1;
         }
         
-        #endregion
-
-        #region Volume Settings
-        
-        /// <summary>
-        /// Initializes volume sliders from PlayerPrefs
-        /// </summary>
-        private void InitVolumeSettings()
-        {
-            // TODO: Implement volume changes when AudioManager is ready
-            masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 100);
-            sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 100);
-            voiceVolumeSlider.value = PlayerPrefs.GetFloat("VoiceVolume", 100);
-            musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 100);
-        }
-        
-        #endregion
-        
-        #region PlayerPrefs Handling
-        
         /// <summary>
         ///     Saves new settings to PlayerPrefs for persistence
         /// </summary>
@@ -150,18 +122,7 @@ namespace Settings
             // Update Graphics Settings
             PlayerPrefs.SetInt("GraphicsQuality", graphicsQualityDropdown.value);
             PlayerPrefs.SetInt("VSync", vSyncToggle.isOn ? 1 : 0);
-            
-            // Update Volume Settings
-            PlayerPrefs.SetFloat("MasterVolume", masterVolumeSlider.value);
-            PlayerPrefs.SetFloat("SFXVolume", sfxVolumeSlider.value);
-            PlayerPrefs.SetFloat("VoiceVolume", voiceVolumeSlider.value);
-            PlayerPrefs.SetFloat("MusicVolume", musicVolumeSlider.value);
-            
-            // TODO: Handle Input Settings
-            
             PlayerPrefs.Save();
         }
-        
-        #endregion
     }
 }

@@ -6,7 +6,7 @@ namespace Settings
     /// <summary>
     ///     UI handling for switching between settings menus
     /// </summary>
-    public class SettingsUIMenuManager : MonoBehaviour
+    public class SettingsUIManager : MonoBehaviour
     {
         /// <summary>
         ///     Available settings menus
@@ -15,7 +15,6 @@ namespace Settings
         [SerializeField] private GameObject graphicsMenu;
         [SerializeField] private GameObject volumeMenu;
         [SerializeField] private GameObject controlsMenu;
-        [SerializeField] private GameObject previousMenu;
     
         /// <summary>
         ///    Currently selected menu
@@ -30,7 +29,7 @@ namespace Settings
         private void Awake()
         {
             // Default current menu to graphics
-            _currentMenu = graphicsMenu;
+            ToggleMenu(graphicsMenu);
         }
         
         /// <summary>
@@ -64,7 +63,6 @@ namespace Settings
         /// </summary>
         public void OnBackClick()
         {
-            previousMenu.SetActive(true);
             gameObject.SetActive(false);
         }
 
