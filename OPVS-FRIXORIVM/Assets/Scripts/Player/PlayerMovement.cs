@@ -41,12 +41,14 @@ public class PlayerMovement: MonoBehaviour
     private string _deviceClass;
 
     private Camera _camera;
+
+    private GameObject hitbox;
     
     private void Awake()
     {
         _characterController = gameObject.GetComponent<CharacterController>();
-        _attackTarget = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        _attackTarget.SetActive(false);
+        hitbox = Instantiate(_attackTarget, transform);
+        hitbox.SetActive(false);
         _attackCountdown = 3.0f;
         _isAttacking = false;
         _deviceClass = gameObject.GetComponentInParent<PlayerInput>().devices[0].description.deviceClass;
@@ -60,33 +62,32 @@ public class PlayerMovement: MonoBehaviour
         
         _characterController.Move(_velocity * Time.deltaTime);
 
-        /*transform.LookAt(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, Camera.main.transform.position.y)));
         Vector3 mousePos = Mouse.current.position.ReadValue();
         Vector3 lookPoint = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, transform.position.z));
         lookPoint.y = transform.position.y;
 
         _direction = lookPoint - transform.position;
-        Debug.Log(_direction);
+        //Debug.Log(_direction);
         
         _lookRotation = Quaternion.LookRotation(_direction);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * 1);
+        hitbox.transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * 1);
 
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);*/
+        //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
 
-        _attackTarget.transform.position = transform.position + transform.forward*2.0f;
+        
         
         if (_isAttacking)
         {
             if (_attackCountdown == 3.0f)
             {
-                _attackTarget.SetActive(true);
+                hitbox.SetActive(true);
             }
             else if (_attackCountdown <= 0.0f)
             {
                 _isAttacking = false;
-                _attackTarget.SetActive(false);
+                hitbox.SetActive(false);
             }
             _attackCountdown -= Time.deltaTime;
         }
@@ -100,6 +101,9 @@ public class PlayerMovement: MonoBehaviour
     private void FixedUpdate()
     {
         Debug.DrawLine(transform.position, transform.position + transform.forward * 3.0f, Color.red);
+        hitbox.transform.position = transform.position + transform.forward * 2.0f;
+
+        //Debug.Log("x: " + hitbox.transform.position.x + ", z: " + hitbox.transform.position.z);
     }
 
     /// <summary>
@@ -128,7 +132,7 @@ public class PlayerMovement: MonoBehaviour
         if (!_isAttacking)
         {
             _isAttacking = true;
-            _attackTarget.SetActive(true);
+            hitbox.SetActive(true);
             _attackCountdown = 3.0f;
         }
     }

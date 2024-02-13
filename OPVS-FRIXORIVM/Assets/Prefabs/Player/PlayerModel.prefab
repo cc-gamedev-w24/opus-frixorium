@@ -257,4 +257,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseWalkSpeed: 2
   _jumpVelocity: 5
-  _attackTarget: {fileID: 0}
+  _attackTarget: {fileID: 8261348225827988244, guid: 295f2f01fe33fa547a9b4411f46ae438,
+    type: 3}
