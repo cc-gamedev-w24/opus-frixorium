@@ -17,11 +17,16 @@ public class PlayerManager : MonoBehaviour
     ///     Maximum number of total players allowed
     /// </summary>
     [SerializeField] private uint _maxPlayers = 4;
+
+    [Header("Game Events")]
+    [SerializeField] private GameEvent _playerJoinedEvent;
+    [SerializeField]
+    private GameEvent _playerLeftEvent;
     
     /// <summary>
     ///     Current number of players
     /// </summary>
-    private uint _playerCount;
+    private ushort _playerCount;
 
     private void Awake()
     {
@@ -39,6 +44,7 @@ public class PlayerManager : MonoBehaviour
         {
             _playerInputManager.DisableJoining();
         }
+        _playerJoinedEvent.Invoke(_playerCount);
     }
 
     /// <summary>
@@ -47,6 +53,7 @@ public class PlayerManager : MonoBehaviour
     [UsedImplicitly]
     private void OnPlayerLeft()
     {
+        _playerLeftEvent.Invoke(_playerCount);
         _playerCount--;
         if (_playerCount < _maxPlayers)
         {

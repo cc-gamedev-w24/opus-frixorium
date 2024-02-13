@@ -92,3 +92,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxPlayers: 4
+  _playerJoinedEvent: {fileID: 11400000, guid: 617453f55cc0bdbb08b091d9c235de9a, type: 2}
+  _playerLeftEvent: {fileID: 11400000, guid: 9f7c69014829a014d8bbfffaf54a8b87, type: 2}
