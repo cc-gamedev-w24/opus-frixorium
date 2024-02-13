@@ -19,7 +19,7 @@ public class GameEvent : ScriptableObject
     ///     A dictionary mapping a set of unique listeners to a channel.
     ///     Listeners can be part of multiple channels.
     /// </summary>
-    private readonly Dictionary<int, HashSet<GameEventListener>> _channelListeners = new();
+    private readonly Dictionary<int, HashSet<IGameEventListener>> _channelListeners = new();
     
     /// <summary>
     ///     Invoke event on global channel with no data
@@ -58,18 +58,18 @@ public class GameEvent : ScriptableObject
     ///     Register listener on global channel
     /// </summary>
     /// <param name="gameEventListener">Listener to register</param>
-    public void RegisterGlobal(GameEventListener gameEventListener) => Register(gameEventListener, GlobalChannel);
+    public void RegisterGlobal(IGameEventListener gameEventListener) => Register(gameEventListener, GlobalChannel);
 
     /// <summary>
     ///     Register listener on given channel
     /// </summary>
     /// <param name="gameEventListener">Listener to register</param>
     /// <param name="channel">Channel to register on</param>
-    public void Register(GameEventListener gameEventListener, int channel)
+    public void Register(IGameEventListener gameEventListener, int channel)
     {
         if (!_channelListeners.ContainsKey(channel))
         {
-            _channelListeners.Add(channel, new HashSet<GameEventListener>());
+            _channelListeners.Add(channel, new HashSet<IGameEventListener>());
         }
         _channelListeners[channel].Add(gameEventListener);
     }
@@ -78,14 +78,14 @@ public class GameEvent : ScriptableObject
     ///     Unregister listener from global channel. Does NOT unregister from all channels.
     /// </summary>
     /// <param name="gameEventListener">Listener to unregister</param>
-    public void UnregisterGlobal(GameEventListener gameEventListener) => Unregister(gameEventListener, GlobalChannel);
+    public void UnregisterGlobal(IGameEventListener gameEventListener) => Unregister(gameEventListener, GlobalChannel);
 
     /// <summary>
     ///     Unregister listener from given channel.
     /// </summary>
     /// <param name="gameEventListener">Listener to unregister</param>
     /// <param name="channel">Channel to unregister from</param>
-    public void Unregister(GameEventListener gameEventListener, int channel)
+    public void Unregister(IGameEventListener gameEventListener, int channel)
     {
         if (!_channelListeners.ContainsKey(channel))
         {
