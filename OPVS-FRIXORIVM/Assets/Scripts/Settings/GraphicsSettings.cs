@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 namespace Settings
 {
-    public class SettingsManager : MonoBehaviour
+    /// <summary>
+    ///     Settings and PlayerPref handling
+    /// </summary>
+    public class GraphicsSettings : MonoBehaviour
     {
         [Header("Graphics Settings")] 
         [SerializeField] private TMP_Dropdown resolutionDropdown;
@@ -13,39 +16,43 @@ namespace Settings
         [SerializeField] private Toggle fullscreenToggle;
         [SerializeField] private Toggle vSyncToggle;
 
-        [Header("Volume Settings")] 
-        [SerializeField] private Slider masterVolumeSlider;
-        [SerializeField] private Slider sfxVolumeSlider;
-        [SerializeField] private Slider voiceVolumeSlider;
-        [SerializeField] private Slider musicVolumeSlider;
-
+        [Header("Managers")]
+        [SerializeField] private SettingsUIManager menuManager;
+        
         private Resolution[] _availableResolutions;
+        
+        private void OnEnable()
+        {
+            menuManager.onSaveChangesClicked.AddListener(ApplyChanges);
+        }
 
-        private void Start()
+        private void OnDisable()
+        {
+            menuManager.onSaveChangesClicked.RemoveListener(ApplyChanges);
+        }
+
+        private void Awake()
         {
             // Initialize settings from PlayerPrefs
             InitGraphicsSettings();
-            InitVolumeSettings();
         }
 
-        #region UI Events
-        
-        public void OnSaveChangesClick()
+        private void ApplyChanges()
         {
             ApplyGraphicsChanges();
             UpdatePlayerPrefs();
         }
         
-        #endregion
-
-        #region Graphics Settings
         private void ApplyGraphicsChanges()
         {
             QualitySettings.vSyncCount = vSyncToggle.isOn ? 1 : 0;
             QualitySettings.SetQualityLevel(graphicsQualityDropdown.value, true);
             ApplyResolution();
         }
-
+        
+        /// <summary>
+        ///     Applies the new resolution
+        /// </summary>
         private void ApplyResolution()
         {
             // Is new resolution valid?
@@ -55,7 +62,10 @@ namespace Settings
                 Screen.SetResolution(resolution.width, resolution.height, fullscreenToggle.isOn);
             }
         }
-
+        
+        /// <summary>
+        ///     Initializes graphics settings and UI from PlayerPrefs
+        /// </summary>
         private void InitGraphicsSettings()
         {
             // Init graphics quality
@@ -77,12 +87,20 @@ namespace Settings
             fullscreenToggle.isOn = Screen.fullScreen;
         }
         
+        /// <summary>
+        ///     Initializes supported resolutions to dropdown
+        /// </summary>
         private void LoadResolutionsToDropdown()
         {
             resolutionDropdown.ClearOptions();
             resolutionDropdown.AddOptions(_availableResolutions.Select(resolution => resolution.ToString()).ToList());
         }
         
+        /// <summary>
+        ///     Finds the current resolution index for dropdown initialization
+        /// </summary>
+        /// <param name="currentResolution"></param>
+        /// <returns> Index of the current resolution </returns>
         private int FindCurrentResolutionIndex(Resolution currentResolution)
         {
             for (var i = 0; i < _availableResolutions.Length; i++)
@@ -96,41 +114,15 @@ namespace Settings
             return -1;
         }
         
-        #endregion
-
-        #region Volume Settings
-        
-        private void InitVolumeSettings()
-        {
-            // Load volume settings from PlayerPrefs and set slider values
-            // TODO: Implement volume changes when AudioManager is ready
-            masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 100);
-            sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 100);
-            voiceVolumeSlider.value = PlayerPrefs.GetFloat("VoiceVolume", 100);
-            musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 100);
-        }
-        
-        #endregion
-
-        #region PlayerPrefs Handling
-        
+        /// <summary>
+        ///     Saves new settings to PlayerPrefs for persistence
+        /// </summary>
         private void UpdatePlayerPrefs()
         {
             // Update Graphics Settings
             PlayerPrefs.SetInt("GraphicsQuality", graphicsQualityDropdown.value);
             PlayerPrefs.SetInt("VSync", vSyncToggle.isOn ? 1 : 0);
-            
-            // Update Volume Settings
-            PlayerPrefs.SetFloat("MasterVolume", masterVolumeSlider.value);
-            PlayerPrefs.SetFloat("SFXVolume", sfxVolumeSlider.value);
-            PlayerPrefs.SetFloat("VoiceVolume", voiceVolumeSlider.value);
-            PlayerPrefs.SetFloat("MusicVolume", musicVolumeSlider.value);
-            
-            // TODO: Handle Input Settings
-            
             PlayerPrefs.Save();
         }
-        
-        #endregion
     }
 }
