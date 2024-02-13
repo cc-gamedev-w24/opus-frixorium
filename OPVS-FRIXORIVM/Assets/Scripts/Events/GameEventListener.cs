@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 ///     Invokes callback when an event is raised
 /// </summary>
-public abstract class GameEventListener: MonoBehaviour
+public abstract class GameEventListener: MonoBehaviour, IGameEventListener
 {
     
     /// <summary>

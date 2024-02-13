@@ -58,5 +58,4 @@ public class VolumeSettings : MonoBehaviour
     {
         mixer.SetFloat(MIXER_MASTER, Mathf.Log10(value) * 20);
     }
-
 }

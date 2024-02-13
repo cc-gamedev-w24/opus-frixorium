@@ -1,6 +1,3 @@
-using System;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -137,6 +134,9 @@ public class PlayerMovement: MonoBehaviour
         }
     }
 
+    /// <summary>
+    ///     Triggered on Look input action
+    /// </summary>
     private void OnLook(InputValue value)
     {
         var vecValue = value.Get<Vector2>();
