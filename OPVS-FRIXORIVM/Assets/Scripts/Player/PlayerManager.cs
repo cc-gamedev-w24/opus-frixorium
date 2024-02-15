@@ -1,8 +1,14 @@
+using System;
 using System.Linq;
+using Events;
 using JetBrains.Annotations;
+using RotaryHeart.Lib.SerializableDictionary;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
+using static GameStateMachine;
 
 /// <summary>
 ///     Keeps track of number of players in game and prevents PlayerInputManager from adding too many when combined with
@@ -25,17 +31,29 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private Player[] _joinSlots;
     
-    [Header("Game Events")]
+    [Header("Outgoing Events")]
     [SerializeField] private GameEvent _playerJoinedEvent;
     [SerializeField]
     private GameEvent _playerLeftEvent;
     [SerializeField]
     private GameEvent _dataChangedEvent;
+
+    [Header("Incoming Events")]
+    [SerializeField]
+    private GameEvent _gameStateChangedEvent;
+
+    [FormerlySerializedAs("_playerPrefabs")]
+    [SerializeField]
+    private SerializableDictionaryBase<GameState, PlayerControllerValue> _playerControllers;
+    private GameState _currentState;
+
+    private DelegateGameEventListener _gameStateChangedListener;
     
     private void Awake()
     {
         _playerInputManager = gameObject.GetComponent<PlayerInputManager>();
         _joinSlots = new Player[_maxPlayers];
+        _gameStateChangedListener = new DelegateGameEventListener(_gameStateChangedEvent, UpdatePlayerModelOnStateChange);
     }
 
     /// <summary>
@@ -50,6 +68,9 @@ public class PlayerManager : MonoBehaviour
         {
             DeviceClass = input.devices[0].description.deviceClass
         };
+        var controller = _playerControllers[_currentState];
+        _joinSlots[playerIndex].PlayerPrefab = controller.Prefab;
+        _joinSlots[playerIndex].ActionMap = controller.InputActionMap;
         
         if (_joinSlots.All(slot => slot != null))
         {
@@ -72,5 +93,40 @@ public class PlayerManager : MonoBehaviour
         {
             _playerInputManager.EnableJoining();
         }
+    }
+
+    private void UpdatePlayerModelOnStateChange(object value)
+    {
+        if (value is not GameState gameState) return;
+
+        _currentState = gameState;
+        if (!_playerControllers.ContainsKey(gameState))
+        {
+            foreach (var player in _joinSlots.NotNull())
+            {
+                player.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (var player in _joinSlots.NotNull())
+            {
+                player.gameObject.SetActive(true);
+                var controller = _playerControllers[gameState];
+                player.SetController(controller.Prefab, controller.InputActionMap);
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _gameStateChangedListener.Dispose();
+    }
+
+    [Serializable]
+    private struct PlayerControllerValue
+    {
+        public GameObject Prefab;
+        public string InputActionMap;
     }
 }

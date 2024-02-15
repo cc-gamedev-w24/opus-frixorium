@@ -30,13 +30,15 @@ public sealed class GameStateMachine: StateMachine<GameStateMachine.GameState>
     [Header("State Data")]
     [SerializeField]
     private PlayerInputManager _playerInputManager;
+    [SerializeField]
+    private GameEvent _triggerEvent;
     
     protected override void Start()
     {
         States = new Dictionary<GameState, IState<GameState>>
         {
-            [MainMenu] = new MainMenuGameState(),
-            [Lobby] = new LobbyGameState(_playerInputManager),
+            [MainMenu] = new MainMenuGameState(_triggerEvent),
+            [Lobby] = new LobbyGameState(_triggerEvent, _playerInputManager),
             [Game] = new GameGameState()
         };
         
@@ -44,7 +46,7 @@ public sealed class GameStateMachine: StateMachine<GameStateMachine.GameState>
         base.Start();
     }
 
-    protected override void TransitionState(GameState nextStateKey)
+    public override void TransitionState(GameState nextStateKey)
     {
         base.TransitionState(nextStateKey);
         _stateChangedEvent.Invoke(GameEvent.GlobalChannel, nextStateKey);

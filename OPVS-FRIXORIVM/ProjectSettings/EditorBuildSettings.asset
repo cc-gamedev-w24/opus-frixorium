@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Samples/Game States/Scenes/LobbyScene.unity
     guid: 67d3929f7eb4c2a34bf7a52a9fbc4049
+  - enabled: 1
+    path: Assets/Samples/Game States/Scenes/GameScene.unity
+    guid: de43b6536a3a2ea0ab7668e3a2294ec0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: d59462960309a8a73a4dae2639ca34b4,
       type: 2}
