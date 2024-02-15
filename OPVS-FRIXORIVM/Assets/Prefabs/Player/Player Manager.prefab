@@ -40,7 +40,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2353738390595446844}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
@@ -92,6 +92,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxPlayers: 4
-  _dataChangedEvent: {fileID: 11400000, guid: 4c192c652c57cfc5a9a9dbc7a546f4f1, type: 2}
   _playerJoinedEvent: {fileID: 11400000, guid: 617453f55cc0bdbb08b091d9c235de9a, type: 2}
   _playerLeftEvent: {fileID: 11400000, guid: 9f7c69014829a014d8bbfffaf54a8b87, type: 2}
+  _dataChangedEvent: {fileID: 11400000, guid: 4c192c652c57cfc5a9a9dbc7a546f4f1, type: 2}
+  _gameStateChangedEvent: {fileID: 11400000, guid: ee720ea72dd97c68d8658b6c5976b386,
+    type: 2}
+  _playerControllers:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0100000002000000
+    _keys: 0100000002000000
+    _values:
+    - Prefab: {fileID: 555629733928860199, guid: 4963c5c30ea42b12688641ed66a2a426,
+        type: 3}
+      InputActionMap: Lobby
+    - Prefab: {fileID: 9031378577874155225, guid: b677d52d7eca4e280b251c98aa93b197,
+        type: 3}
+      InputActionMap: Player Movement

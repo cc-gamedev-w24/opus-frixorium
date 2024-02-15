@@ -1,18 +1,28 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static GameStateMachine.GameState;
 public class GameGameState: IState<GameStateMachine.GameState>
 {
-
     public GameStateMachine.GameState StateKey => Game;
+    
+    private AsyncOperation _pendingLoad;
+    private const string ScenePath = "Samples/Game States/Scenes/GameScene";
 
     public void EnterState()
     {
-        Debug.Log("Entered game state");
+        _pendingLoad = SceneManager.LoadSceneAsync(ScenePath, LoadSceneMode.Additive);
     }
 
     public void ExitState()
     {
-        Debug.Log("Exited game state");
+        if (_pendingLoad.isDone)
+        {
+            SceneManager.UnloadSceneAsync(ScenePath);
+        }
+        else
+        {
+            _pendingLoad.completed += _ => SceneManager.UnloadSceneAsync(ScenePath);
+        }
     }
 
     public void UpdateState()

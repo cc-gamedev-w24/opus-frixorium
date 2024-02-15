@@ -1,15 +1,20 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 ///     Represents an abstract player instance, handling various input modes and player models
 /// </summary>
+[RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
     /// <summary>
     ///     Prefab to use for player
     /// </summary>
-    [SerializeField] private GameObject _playerPrefab;
+    [SerializeField]
+    public GameObject PlayerPrefab;
 
+    [SerializeField]
+    public string ActionMap;
 
     /// <summary>
     ///     Current player prefab
@@ -20,25 +25,19 @@ public class Player : MonoBehaviour
     ///     Player data
     /// </summary>
     public PlayerData PlayerData { get; set; }
-    
+
+    private PlayerInput _playerInput;
+
     private void Awake()
     {
-        SpawnPlayer();
+        _playerInput = GetComponent<PlayerInput>();
+        if(!_playerObject) SetController(PlayerPrefab, ActionMap);
     }
 
-    /// <summary>
-    ///     Instantiates player prefab as a child of this manager
-    /// </summary>
-    private void SpawnPlayer()
-    { 
-        _playerObject = Instantiate(_playerPrefab, transform);
-    }
-
-    /// <summary>
-    ///     Destroys current player prefab
-    /// </summary>
-    private void DestroyPlayer()
+    public void SetController(GameObject prefab, string actionMap)
     {
-        Destroy(_playerObject);
+        _playerInput.SwitchCurrentActionMap(actionMap);
+        if(_playerObject) Destroy(_playerObject);
+        _playerObject = Instantiate(prefab, transform);
     }
 }

@@ -3,36 +3,46 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using static GameStateMachine.GameState;
 public class LobbyGameState: IState<GameStateMachine.GameState> {
+    private readonly GameEvent _triggerEvent;
     private readonly PlayerInputManager _playerManager;
+    
 
     public GameStateMachine.GameState StateKey => Lobby;
     
     private AsyncOperation _pendingLoad;
     private const string ScenePath = "Samples/Game States/Scenes/LobbyScene";
+    
+    private TriggerGameEventListener _triggerGameEventListener;
 
-    public LobbyGameState(PlayerInputManager playerManager)
+    public LobbyGameState(GameEvent triggerEvent, PlayerInputManager playerManager)
     {
+        _triggerEvent = triggerEvent;
         _playerManager = playerManager;
     }
 
     public void EnterState()
     {
-        Debug.Log("Entered lobby state");
         _playerManager.enabled = true;
-        SceneManager.LoadScene(ScenePath, LoadSceneMode.Additive);
+        _triggerGameEventListener = new TriggerGameEventListener(_triggerEvent);
+        _pendingLoad = SceneManager.LoadSceneAsync(ScenePath, LoadSceneMode.Additive);
     }
 
     public void ExitState()
     {
-        Debug.Log("Exited lobby state");
         if (_pendingLoad.isDone)
         {
-            SceneManager.UnloadSceneAsync(ScenePath);
+            HandleExit();
         }
         else
         { 
-            _pendingLoad.completed += _ => SceneManager.UnloadSceneAsync(ScenePath);
+            _pendingLoad.completed += _ => HandleExit();
         }
+    }
+
+    private void HandleExit()
+    {
+        _triggerGameEventListener.Dispose();
+        SceneManager.UnloadSceneAsync(ScenePath);
     }
 
     public void UpdateState()
@@ -41,6 +51,6 @@ public class LobbyGameState: IState<GameStateMachine.GameState> {
 
     public GameStateMachine.GameState GetNextState()
     {
-        return StateKey;
+        return _triggerGameEventListener.Triggered ? Game : StateKey;
     }
 }

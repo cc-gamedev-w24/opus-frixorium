@@ -41,7 +41,7 @@ public abstract class StateMachine<T>: MonoBehaviour where T: Enum
     ///     Exit current state and enter next
     /// </summary>
     /// <param name="nextStateKey">Next state to enter</param>
-    protected virtual void TransitionState(T nextStateKey)
+    public virtual void TransitionState(T nextStateKey)
     {
         CurrentState.ExitState();
         CurrentState = States[nextStateKey];
