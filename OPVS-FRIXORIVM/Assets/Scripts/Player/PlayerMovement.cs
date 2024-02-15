@@ -1,5 +1,5 @@
-using System;
-using Unity.VisualScripting;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +8,11 @@ using UnityEngine.InputSystem;
 ///     TODO: Abstract to allow for network support
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement: MonoBehaviour
 {
+    private Rigidbody _rigidbody;
     private CharacterController _characterController;
     
     /// <summary>
@@ -21,6 +24,12 @@ public class PlayerMovement: MonoBehaviour
     ///     Velocity impulse on jump
     /// </summary>
     [SerializeField] private float _jumpVelocity = 5.0f;
+
+    /// <summary>
+    ///     Amount of time to stay knocked out
+    /// </summary>
+    [SerializeField]
+    private float _knockoutTime = 4.0f;
 
     /// <summary>
     ///      Current velocity of player
@@ -36,15 +45,19 @@ public class PlayerMovement: MonoBehaviour
 
     private void Awake()
     {
-        _characterController = gameObject.GetComponent<CharacterController>();
-        _deviceClass = gameObject.GetComponentInParent<PlayerInput>().devices[0].description.deviceClass;
+        _characterController = GetComponent<CharacterController>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.isKinematic = true;
+        _deviceClass =  GetComponentInParent<PlayerInput>().devices[0].description.deviceClass;
         _camera = Camera.main;
     }
 
     private void Update()
     {
+        if (!_characterController.enabled) return;
         // Apply gravity
         _velocity.y -= 9.81f * Time.deltaTime;
+        if (_characterController.isGrounded) _velocity.y = 0;
         
        _characterController.Move(_velocity * Time.deltaTime);
     }
@@ -57,11 +70,20 @@ public class PlayerMovement: MonoBehaviour
     /// <summary>
     ///     Triggered on Jump input action
     /// </summary>
-    private void OnJump()
+    private void OnJump(InputValue value)
     {
-        if (_characterController.isGrounded)
+        if (value.Get<float>() == 1f)
         {
-            _velocity.y = _jumpVelocity;
+
+            if (_characterController.isGrounded)
+            {
+                Debug.Log("Boing");
+                _velocity.y = _jumpVelocity;
+            }
+            else
+            {
+                StartCoroutine(KnockOut());
+            }
         }
     }
 
@@ -87,4 +109,16 @@ public class PlayerMovement: MonoBehaviour
         }
         transform.rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan2(-vecValue.y, vecValue.x) + 90f, Vector3.up);
     }
+
+    private IEnumerator KnockOut()
+    {
+        _characterController.enabled = false;
+        _rigidbody.isKinematic = false;
+
+        yield return new WaitForSeconds(_knockoutTime);
+
+        _characterController.enabled = true;
+        _rigidbody.isKinematic = true;
+    }
+    
 }

@@ -1,3 +1,4 @@
+using UnityEditor.Build;
 /// <summary>
 ///     Player state which triggers event when updated
 /// </summary>
@@ -38,6 +39,14 @@ public class PlayerData
         set => SetValue(out _deviceClass, value);
     }
 
+    private bool _isKnockedOut;
+
+    public bool IsKnockedOut
+    {
+        get => _isKnockedOut;
+        set => SetValue(out _isKnockedOut, value);
+    }
+    
     /// <summary>
     ///     Sets value and invokes event
     /// </summary>
