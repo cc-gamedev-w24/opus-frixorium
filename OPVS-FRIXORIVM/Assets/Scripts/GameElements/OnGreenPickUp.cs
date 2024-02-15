@@ -4,16 +4,8 @@ using UnityEngine;
 
 public class OnGreenPickUp : MonoBehaviour
 {
-    public string playerTag = "Player";
-
-    void OnTriggerEnter(Collider other)
+    public void ItemPickedUp()
     {
-        // Check if the colliding object is the player
-
-        if (other.CompareTag(playerTag))
-        {
-            Destroy(gameObject);
-        }
-
+        Debug.Log("Green Bottle Picked Up");
     }
 }

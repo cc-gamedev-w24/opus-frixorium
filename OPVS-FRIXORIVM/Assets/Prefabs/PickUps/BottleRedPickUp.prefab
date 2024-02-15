@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4037252150198518496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1885439700332876511}
+  - component: {fileID: 6160850552865832995}
+  m_Layer: 0
+  m_Name: OnPickUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1885439700332876511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4037252150198518496}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 292322736742669347}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6160850552865832995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4037252150198518496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d71bf573694b02458d4c70d9cc42516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8335498999700606652
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +57,6 @@ GameObject:
   - component: {fileID: 6604429118106032286}
   - component: {fileID: 1851536686600099107}
   - component: {fileID: 1884845498228428035}
-  - component: {fileID: -7379847735021637437}
   m_Layer: 0
   m_Name: BottleRedPickUp
   m_TagString: Untagged
@@ -33,7 +76,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1885439700332876511}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 295, y: 90, z: -90}
 --- !u!114 &7873209863190172434
@@ -50,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inclineDegrees: 23.4
   rotationSpeed: 50
+  actionScript: {fileID: 6160850552865832995}
 --- !u!23 &6604429118106032286
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -122,16 +167,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 887a534051bdbf449b6fc141de3d5c53, type: 3}
---- !u!114 &-7379847735021637437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8335498999700606652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d71bf573694b02458d4c70d9cc42516, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTag: Player
