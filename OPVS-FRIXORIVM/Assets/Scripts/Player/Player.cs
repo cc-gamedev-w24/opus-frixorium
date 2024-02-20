@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 ///     Represents an abstract player instance, handling various input modes and player models
