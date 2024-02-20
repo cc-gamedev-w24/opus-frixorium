@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7300695550202770818}
   - component: {fileID: 517780753750038757}
   - component: {fileID: 4994303382745225529}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 8339211404980963571}
   - component: {fileID: 5072941971346356949}
   - component: {fileID: 4962487966836550660}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 142d47f2fdd3468baea96af5e0a09203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterController: {fileID: 0}
   _baseWalkSpeed: 2
   _jumpVelocity: 5
   _attackTarget: {fileID: 8261348225827988244, guid: 295f2f01fe33fa547a9b4411f46ae438,
+    type: 3}
+  _blockVisual: {fileID: 7454266118925678993, guid: 3290dbfc78f0f134d8ed98bad3be641d,
     type: 3}

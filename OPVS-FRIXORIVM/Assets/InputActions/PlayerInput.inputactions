@@ -40,8 +40,8 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-		},
-		{
+                },
+                {
                     "name": "Look",
                     "type": "Value",
                     "id": "50a4e4fa-e9b9-4573-8e28-af19be84a5db",
@@ -148,11 +148,11 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Attack",
-		    "isComposite": false,
+                    "isComposite": false,
                     "isPartOfComposite": false
-		},
-		{
-		    "name": "",
+                },
+                {
+                    "name": "",
                     "id": "2b7314b3-9419-4dd4-aadd-9a32e0b4dba6",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
@@ -192,11 +192,11 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "Block",
-		    "isComposite": false,
+                    "isComposite": false,
                     "isPartOfComposite": false
-		},
-		{
-		    "name": "",
+                },
+                {
+                    "name": "",
                     "id": "b3ea958e-857a-4507-9000-3f199e4551a5",
                     "path": "<Mouse>/position",
                     "interactions": "",

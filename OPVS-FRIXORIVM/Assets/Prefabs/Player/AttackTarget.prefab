@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8617647420888870148}
   - component: {fileID: 8327638816804000379}
   - component: {fileID: -6499774168343959950}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AttackTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
