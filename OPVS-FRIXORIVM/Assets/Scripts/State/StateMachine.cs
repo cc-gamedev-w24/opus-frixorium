@@ -1,51 +1,93 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-/// <summary>
-///     Abstract state machine
-/// </summary>
-/// <typeparam name="T">Enum type representing available states</typeparam>
-public abstract class StateMachine<T>: MonoBehaviour where T: Enum
+public class StateMachine
 {
-    /// <summary>
-    ///     Dictionary of states mapped to their behaviors
-    /// </summary>
-    protected Dictionary<T, IState<T>> States;
+    private StateNode _current;
+    private Dictionary<Type, StateNode> _nodes = new();
+    private HashSet<Transition> _anyTransitions = new();
+
+    public void Update()
+    {
+        var transition = GetTransition();
+        if (transition != null)
+        {
+            ChangeState(transition.To);
+        }
+        
+        _current.State?.Update();
+    }
+
+    public void FixedUpdate()
+    {
+        _current.State?.FixedUpdate();
+    }
+
+    public void SetState(IState state)
+    {
+        _current = _nodes[state.GetType()];
+        _current.State?.OnEnter();
+    }
+
+    private void ChangeState(IState state)
+    {
+        if(state == _current.State) return;
+        var previousState = _current.State;
+        var next = _nodes[state.GetType()];
+        
+        previousState?.OnExit();
+        next?.State?.OnEnter();
+        _current = next;
+    }
+
+    private ITransition GetTransition()
+    {
+        foreach (var transition in _anyTransitions)
+            if (transition.Condition.Evaluate())
+                return transition;
+        foreach (var transition in _current.Transitions)
+            if (transition.Condition.Evaluate())
+                return transition;
+        return null;
+    }
+
+    public void AddAnyTransition(IState to, IPredicate condition)
+    {
+        _anyTransitions.Add(new(GetOrAddNode(to).State, condition));
+    }
     
-    /// <summary>
-    ///     Current state behavior
-    /// </summary>
-    protected IState<T> CurrentState;
-
-    protected virtual void Start()
+    public void AddTransition(IState from, IState to, IPredicate condition)
     {
-        CurrentState.EnterState();
+        GetOrAddNode(from).AddTransition(GetOrAddNode(to).State, condition);
     }
 
-    private void Update()
+    private StateNode GetOrAddNode(IState state)
     {
-        // Check state to see if transition is necessary
-        var nextStateKey = CurrentState.GetNextState();
-        if (nextStateKey.Equals(CurrentState.StateKey))
+        var node = _nodes.GetValueOrDefault(state.GetType());
+
+        if (node == null)
         {
-            CurrentState.UpdateState();
+            node = new StateNode(state);
+            _nodes.Add(state.GetType(), node);
         }
-        else
+
+        return node;
+    }
+    
+    private class StateNode
+    {
+        public IState State { get; }
+        public HashSet<ITransition> Transitions { get; } = new();
+        
+        public StateNode(IState state) {
+            State = state;
+        }
+        
+        public void AddTransition(IState to, IPredicate condition)
         {
-            TransitionState(nextStateKey);
+            Transitions.Add(new Transition(to, condition));
         }
     }
 
-    /// <summary>
-    ///     Exit current state and enter next
-    /// </summary>
-    /// <param name="nextStateKey">Next state to enter</param>
-    public virtual void TransitionState(T nextStateKey)
-    {
-        CurrentState.ExitState();
-        CurrentState = States[nextStateKey];
-        CurrentState.EnterState();
-    }
 }
 

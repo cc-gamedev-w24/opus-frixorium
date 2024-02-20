@@ -1,14 +1,11 @@
-using System;
 using System.Linq;
 using Events;
 using JetBrains.Annotations;
-using RotaryHeart.Lib.SerializableDictionary;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using static GameStateMachine;
 
 /// <summary>
 ///     Keeps track of number of players in game and prevents PlayerInputManager from adding too many when combined with
@@ -30,6 +27,12 @@ public class PlayerManager : MonoBehaviour
     ///     Array of available player slots. Unoccupied slots will be null.
     /// </summary>
     private Player[] _joinSlots;
+
+    [Header("Incoming Events")]
+    [SerializeField]
+    private GameEvent _gameStartedEvent;
+    [SerializeField]
+    private GameEvent _lobbyEnteredEvent;
     
     [Header("Outgoing Events")]
     [SerializeField] private GameEvent _playerJoinedEvent;
@@ -38,22 +41,28 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private GameEvent _dataChangedEvent;
 
-    [Header("Incoming Events")]
+    [Header("Player Controllers")]
     [SerializeField]
-    private GameEvent _gameStateChangedEvent;
-
-    [FormerlySerializedAs("_playerPrefabs")]
+    private GameObject _menuController;
     [SerializeField]
-    private SerializableDictionaryBase<GameState, PlayerControllerValue> _playerControllers;
-    private GameState _currentState;
+    private GameObject _gameController;
 
-    private DelegateGameEventListener _gameStateChangedListener;
-    
+    [FormerlySerializedAs("_spawnInGameMode")]
+    [SerializeField]
+    private bool _startInGameMode;
+
+    private GameObject _currentController;
+
+    private DelegateGameEventListener _gameStartedListener;
+    private DelegateGameEventListener _lobbyEnteredListener;
+
     private void Awake()
     {
+        _currentController = _startInGameMode ? _gameController : _menuController;
         _playerInputManager = gameObject.GetComponent<PlayerInputManager>();
         _joinSlots = new Player[_maxPlayers];
-        _gameStateChangedListener = new DelegateGameEventListener(_gameStateChangedEvent, UpdatePlayerModelOnStateChange);
+        _gameStartedListener = new DelegateGameEventListener(_gameStartedEvent, _ => EnterGameMode());
+        _lobbyEnteredListener = new DelegateGameEventListener(_lobbyEnteredEvent, _ => EnterLobbyMode());
     }
 
     /// <summary>
@@ -68,9 +77,7 @@ public class PlayerManager : MonoBehaviour
         {
             DeviceClass = input.devices[0].description.deviceClass
         };
-        var controller = _playerControllers[_currentState];
-        _joinSlots[playerIndex].PlayerPrefab = controller.Prefab;
-        _joinSlots[playerIndex].ActionMap = controller.InputActionMap;
+        _joinSlots[playerIndex].PlayerPrefab = _currentController;
         
         if (_joinSlots.All(slot => slot != null))
         {
@@ -95,38 +102,29 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void UpdatePlayerModelOnStateChange(object value)
+    private void EnterLobbyMode()
     {
-        if (value is not GameState gameState) return;
+        _currentController = _menuController;
+        UpdateControllersOnPlayers();
+    }
 
-        _currentState = gameState;
-        if (!_playerControllers.ContainsKey(gameState))
+    private void EnterGameMode()
+    {
+        _currentController = _gameController;
+        UpdateControllersOnPlayers();
+    }
+
+    private void UpdateControllersOnPlayers()
+    {
+        foreach (var player in _joinSlots.NotUnityNull())
         {
-            foreach (var player in _joinSlots.NotNull())
-            {
-                player.gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            foreach (var player in _joinSlots.NotNull())
-            {
-                player.gameObject.SetActive(true);
-                var controller = _playerControllers[gameState];
-                player.SetController(controller.Prefab, controller.InputActionMap);
-            }
+            player.SetController(_currentController);
         }
     }
 
     private void OnDestroy()
     {
-        _gameStateChangedListener.Dispose();
-    }
-
-    [Serializable]
-    private struct PlayerControllerValue
-    {
-        public GameObject Prefab;
-        public string InputActionMap;
+        _lobbyEnteredListener.Dispose();
+        _gameStartedListener.Dispose();
     }
 }

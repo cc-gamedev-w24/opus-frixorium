@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,9 +8,10 @@ using UnityEngine.InputSystem;
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(PlayerInput))]
-public class PlayerMovement: MonoBehaviour
+public class PlayerMovement: PlayerController
 {
+    protected override string ActionMap => "Player Movement";
+    
     private Rigidbody _rigidbody;
     private CharacterController _characterController;
     
@@ -43,13 +43,14 @@ public class PlayerMovement: MonoBehaviour
 
     private Camera _camera;
 
-    private void Awake()
+    protected override void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.isKinematic = true;
         _deviceClass =  GetComponentInParent<PlayerInput>().devices[0].description.deviceClass;
         _camera = Camera.main;
+        base.Awake(); 
     }
 
     private void Update()
@@ -120,5 +121,5 @@ public class PlayerMovement: MonoBehaviour
         _characterController.enabled = true;
         _rigidbody.isKinematic = true;
     }
-    
+
 }

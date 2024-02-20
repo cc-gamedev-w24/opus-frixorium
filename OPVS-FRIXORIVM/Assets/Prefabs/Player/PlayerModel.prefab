@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8339211404980963571}
   - component: {fileID: 4962487966836550660}
   - component: {fileID: 2157808759328391826}
+  - component: {fileID: 7870087504255588369}
   m_Layer: 0
   m_Name: PlayerModel
   m_TagString: Untagged
@@ -123,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseWalkSpeed: 2
   _jumpVelocity: 5
+  _knockoutTime: 4
 --- !u!54 &2157808759328391826
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,3 +152,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!143 &7870087504255588369
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031378577874155225}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}

@@ -13,9 +13,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     public GameObject PlayerPrefab;
 
-    [SerializeField]
-    public string ActionMap;
-
     /// <summary>
     ///     Current player prefab
     /// </summary>
@@ -31,12 +28,11 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
-        if(!_playerObject) SetController(PlayerPrefab, ActionMap);
+        if(!_playerObject) SetController(PlayerPrefab);
     }
 
-    public void SetController(GameObject prefab, string actionMap)
+    public void SetController(GameObject prefab)
     {
-        _playerInput.SwitchCurrentActionMap(actionMap);
         if(_playerObject) Destroy(_playerObject);
         _playerObject = Instantiate(prefab, transform);
     }
