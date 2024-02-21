@@ -1,12 +1,9 @@
 fileFormatVersion: 2
-guid: 142d47f2fdd3468baea96af5e0a09203
+guid: 6b439f19d3b5c564c9176663cac30338
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - _characterController: {instanceID: 0}
-  - _attackTarget: {instanceID: 0}
-  - _blockVisual: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

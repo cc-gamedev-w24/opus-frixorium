@@ -71,6 +71,7 @@ public class PlayerManager : MonoBehaviour
     [UsedImplicitly]
     private void OnPlayerJoined(PlayerInput input)
     {
+
         var playerIndex = ArrayUtility.IndexOf(_joinSlots, null);
         _joinSlots[playerIndex] = input.gameObject.GetComponent<Player>();
         _joinSlots[playerIndex].PlayerData = new PlayerData(_dataChangedEvent, playerIndex)
