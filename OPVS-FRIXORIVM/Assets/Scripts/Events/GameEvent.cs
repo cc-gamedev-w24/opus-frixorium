@@ -38,7 +38,7 @@ public class GameEvent : ScriptableObject
     {
         if (!_channelListeners.TryGetValue(channel, out var listeners))
         {
-            Debug.LogError("Specified channel does not exist!");
+            return;
         }
 
         foreach (var listener in listeners!)
