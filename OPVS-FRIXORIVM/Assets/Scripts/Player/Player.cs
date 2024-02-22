@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 ///     Represents an abstract player instance, handling various input modes and player models
@@ -10,11 +11,17 @@ public class Player : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject _playerPrefab;
 
+
     /// <summary>
     ///     Current player prefab
     /// </summary>
     private GameObject _playerObject;
 
+    /// <summary>
+    ///     Player data
+    /// </summary>
+    public PlayerData PlayerData { get; set; }
+    
     private void Awake()
     {
         SpawnPlayer();

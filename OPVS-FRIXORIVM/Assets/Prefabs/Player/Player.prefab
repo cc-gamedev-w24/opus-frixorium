@@ -61,7 +61,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard & Mouse
-  m_DefaultActionMap: Player Movement
+  m_DefaultActionMap: Lobby
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &7390010142584488930
@@ -76,5 +76,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bca722675fc0ae70b9dc506d9fe81b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 9031378577874155225, guid: b677d52d7eca4e280b251c98aa93b197,
+  _playerPrefab: {fileID: 555629733928860199, guid: 4963c5c30ea42b12688641ed66a2a426,
     type: 3}
+  _dataChangedEvent: {fileID: 11400000, guid: 4c192c652c57cfc5a9a9dbc7a546f4f1, type: 2}
