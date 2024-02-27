@@ -46,4 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingState: 0
   _stateChangedEvent: {fileID: 11400000, guid: ee720ea72dd97c68d8658b6c5976b386, type: 2}
-  _playerManager: {fileID: 0}
+  _playerInputManager: {fileID: 0}
+  _triggerEvent: {fileID: 11400000, guid: 7deb95a7ddc4458adaef36ff91a5a6cb, type: 2}
