@@ -58,7 +58,35 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 956df9ef-3ad8-464f-824b-f816ee05019a
+    m_ActionName: Player Movement/Walk[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2abf53e7-526f-4fac-b14d-7b0341cc5de6
+    m_ActionName: Player Movement/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50a4e4fa-e9b9-4573-8e28-af19be84a5db
+    m_ActionName: Player Movement/Look[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 32cec7b6-5a47-48ee-ad74-1fe3313cb4d1
+    m_ActionName: Menu Navigation/Accept[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c4e97508-b247-4281-836e-057ddd9e9816
+    m_ActionName: Lobby/Ready[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17442be8-12b6-4184-96b1-582ccbe44a87
+    m_ActionName: Lobby/Unready[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3ca7c905-c18f-441f-8fcb-6386a943cbe0
+    m_ActionName: Lobby/DropOut[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Lobby
@@ -76,6 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bca722675fc0ae70b9dc506d9fe81b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 555629733928860199, guid: 4963c5c30ea42b12688641ed66a2a426,
-    type: 3}
-  _dataChangedEvent: {fileID: 11400000, guid: 4c192c652c57cfc5a9a9dbc7a546f4f1, type: 2}
+  PlayerPrefab: {fileID: 0}
+  ActionMap: 

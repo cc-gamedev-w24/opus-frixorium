@@ -1,8 +1,11 @@
 using System.Linq;
+using Events;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 /// <summary>
 ///     Keeps track of number of players in game and prevents PlayerInputManager from adding too many when combined with
@@ -24,19 +27,42 @@ public class PlayerManager : MonoBehaviour
     ///     Array of available player slots. Unoccupied slots will be null.
     /// </summary>
     private Player[] _joinSlots;
+
+    [Header("Incoming Events")]
+    [SerializeField]
+    private GameEvent _gameStartedEvent;
+    [SerializeField]
+    private GameEvent _lobbyEnteredEvent;
     
-    [Header("Game Events")]
+    [Header("Outgoing Events")]
     [SerializeField] private GameEvent _playerJoinedEvent;
     [SerializeField]
     private GameEvent _playerLeftEvent;
     [SerializeField]
     private GameEvent _dataChangedEvent;
 
-    [SerializeField] private Player playerModel;
+    [Header("Player Controllers")]
+    [SerializeField]
+    private GameObject _menuController;
+    [SerializeField]
+    private GameObject _gameController;
+
+    [FormerlySerializedAs("_spawnInGameMode")]
+    [SerializeField]
+    private bool _startInGameMode;
+
+    private GameObject _currentController;
+
+    private DelegateGameEventListener _gameStartedListener;
+    private DelegateGameEventListener _lobbyEnteredListener;
+
     private void Awake()
     {
+        _currentController = _startInGameMode ? _gameController : _menuController;
         _playerInputManager = gameObject.GetComponent<PlayerInputManager>();
         _joinSlots = new Player[_maxPlayers];
+        _gameStartedListener = new DelegateGameEventListener(_gameStartedEvent, _ => EnterGameMode());
+        _lobbyEnteredListener = new DelegateGameEventListener(_lobbyEnteredEvent, _ => EnterLobbyMode());
     }
 
     /// <summary>
@@ -52,6 +78,7 @@ public class PlayerManager : MonoBehaviour
         {
             DeviceClass = input.devices[0].description.deviceClass
         };
+        _joinSlots[playerIndex].PlayerPrefab = _currentController;
         
         if (_joinSlots.All(slot => slot != null))
         {
@@ -74,5 +101,31 @@ public class PlayerManager : MonoBehaviour
         {
             _playerInputManager.EnableJoining();
         }
+    }
+
+    private void EnterLobbyMode()
+    {
+        _currentController = _menuController;
+        UpdateControllersOnPlayers();
+    }
+
+    private void EnterGameMode()
+    {
+        _currentController = _gameController;
+        UpdateControllersOnPlayers();
+    }
+
+    private void UpdateControllersOnPlayers()
+    {
+        foreach (var player in _joinSlots.NotUnityNull())
+        {
+            player.SetController(_currentController);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _lobbyEnteredListener.Dispose();
+        _gameStartedListener.Dispose();
     }
 }
