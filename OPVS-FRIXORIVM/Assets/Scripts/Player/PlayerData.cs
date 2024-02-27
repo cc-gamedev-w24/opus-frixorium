@@ -1,5 +1,3 @@
-
-using UnityEngine;
 /// <summary>
 ///     Player state which triggers event when updated
 /// </summary>
@@ -46,6 +44,14 @@ public class PlayerData
         set => SetValue(out _deviceClass, value);
     }
 
+    private bool _isKnockedOut;
+
+    public bool IsKnockedOut
+    {
+        get => _isKnockedOut;
+        set => SetValue(out _isKnockedOut, value);
+    }
+    
     private int _playerHP;
     /// <summary>
     ///     Device class of this player, e.g. "Keyboard" or "Gamepad"
