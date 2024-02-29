@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -14,10 +15,10 @@ public class HitboxManager : MonoBehaviour
             if (!other.GetComponentInParent<Player>().PlayerData.PlayerBlocked)
             {
                 other.GetComponent<CharacterController>().Move(transform.parent.forward);
-                other.GetComponentInParent<Player>().PlayerData.PlayerHP -= 10;
+                other.GetComponentInParent<Player>().PlayerData.PlayerHP -= GetComponentInParent<PlayerMovement>().EquippedWeapon.GetComponent<WeaponData>().Damage;
 
                 other.GetComponentInParent<Player>().PlayerData.PlayerHit = true;
-                Debug.Log("Hitbox: " + other.GetComponentInParent<Player>().PlayerData.PlayerHit);
+                Debug.Log("Hitbox: " + GetComponentInParent<PlayerMovement>().EquippedWeapon.GetComponent<WeaponData>().Damage);
             }
             else
             {
