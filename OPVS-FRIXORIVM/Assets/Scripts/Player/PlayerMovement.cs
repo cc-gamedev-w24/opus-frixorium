@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 /// <summary>
 ///     Player Movement Handling
@@ -48,11 +50,14 @@ public class PlayerMovement: PlayerController
 
     public GameObject AttackTarget;
     public GameObject BlockVisual;
+    public GameObject EquippedWeapon;
 
     private Quaternion _lookRotation;
     private Vector3 _direction;
     private float _actionCountdown;
     private float _timeSinceLastAction;
+    private float _attackCooldown;
+    private float _blockCooldown;
     private bool _isAttacking;
     private bool _isBlocking;
     private float _iFrameCountdown;
@@ -71,6 +76,7 @@ public class PlayerMovement: PlayerController
     
     private GameObject hitbox;
     private GameObject blockbox;
+    private GameObject weapon;
 
     protected override void Awake()
     {
@@ -84,6 +90,7 @@ public class PlayerMovement: PlayerController
         blockbox = Instantiate(BlockVisual, transform);
         hitbox.SetActive(false);
         blockbox.SetActive(false);
+        weapon = Instantiate(EquippedWeapon, transform);
         _oldWalkSpeed = _baseWalkSpeed;
         _actionCountdown = 0.0f;
         _iFrameCountdown = 0.0f;
@@ -97,7 +104,7 @@ public class PlayerMovement: PlayerController
     private void Update()
     {
         UpdateWalk();
-        
+
         if (_knockedOut) return;
         UpdateLook();
         ApplyGravity();
@@ -105,7 +112,10 @@ public class PlayerMovement: PlayerController
         UpdateAttacks();
         UpdateBlocking();
         UpdateIFrames();
+        UpdateAttackCooldown();
+        UpdateBlockCooldown();
         UpdateStamina();
+        EquipWeapon();
     }
 
     /// <summary>
@@ -156,6 +166,7 @@ public class PlayerMovement: PlayerController
         transform.rotation = _orientation;
         hitbox.transform.rotation = _orientation;
         blockbox.transform.rotation = _orientation;
+        weapon.transform.rotation = _orientation;
     }
 
     /// <summary>
@@ -175,7 +186,7 @@ public class PlayerMovement: PlayerController
         //Attacking calculations
         if (!_isAttacking)
             return;
-        if (_actionCountdown == 3.0f)
+        if (_actionCountdown == weapon.GetComponent<WeaponData>().UseTime)
         {
             hitbox.SetActive(true);
         }
@@ -184,7 +195,9 @@ public class PlayerMovement: PlayerController
             _isAttacking = false;
             _baseWalkSpeed = _oldWalkSpeed;
             hitbox.SetActive(false);
+            _attackCooldown = weapon.GetComponent<WeaponData>().Cooldown;
         }
+
         _actionCountdown -= Time.deltaTime;
     }
 
@@ -198,6 +211,7 @@ public class PlayerMovement: PlayerController
             _isBlocking = false;
             _baseWalkSpeed = _oldWalkSpeed;
             blockbox.SetActive(false);
+            _blockCooldown = 5.0f;
         }
         else if (_actionCountdown < 1.2f)
         {
@@ -240,14 +254,32 @@ public class PlayerMovement: PlayerController
         }
     }
 
+    private void UpdateAttackCooldown()
+    {
+        if (!_isAttacking && _attackCooldown > 0.0f)
+        {
+            _attackCooldown -= Time.deltaTime;
+        }
+    }
+
+    private void UpdateBlockCooldown()
+    {
+        if (!_isAttacking && _blockCooldown > 0.0f)
+        {
+            _blockCooldown -= Time.deltaTime;
+        }
+    }
+
     private void FixedUpdate()
     {
         var transform1 = transform;
         var position = transform1.position;
         var forward = transform1.forward;
         Debug.DrawLine(position, position + forward * 3.0f, Color.red);
-        hitbox.transform.position = position + forward * 2.0f;
+        hitbox.transform.position = position + forward * (1.0f + (weapon.GetComponent<WeaponData>().Range.z / 2.0f));
+        //hitbox.transform.position += new Vector3(0.0f, 0.0f, weapon.GetComponent<WeaponData>().Range.z / 2);
         blockbox.transform.position = position + forward * 2.0f;
+        weapon.transform.position = position + forward * 2.0f;
     }
 
     /// <summary>
@@ -275,22 +307,26 @@ public class PlayerMovement: PlayerController
 
     private void OnAttack()
     {
+        if (_attackCooldown > 0.0f)
+            return;
         if (_isAttacking || _isBlocking)
             return;
-        if (_player.PlayerData.PlayerStamina < 10)
+        if (_player.PlayerData.PlayerStamina < weapon.GetComponent<WeaponData>().StaminaCost)
             return;
         
         _oldWalkSpeed = _baseWalkSpeed;
         _baseWalkSpeed /= 2.0f;
         _isAttacking = true;
         hitbox.SetActive(true);
-        _actionCountdown = 1.0f;
+        _actionCountdown = weapon.GetComponent<WeaponData>().UseTime;
         _timeSinceLastAction = 5.0f;
-        _player.PlayerData.PlayerStamina -= 10;
+        _player.PlayerData.PlayerStamina -= weapon.GetComponent<WeaponData>().StaminaCost;
     }
 
     private void OnBlock()
     {
+        if (_blockCooldown > 0.0f)
+            return;
         if (_isBlocking || _isAttacking)
             return;
         if (_player.PlayerData.PlayerStamina < 10)
@@ -336,6 +372,11 @@ public class PlayerMovement: PlayerController
         _knockedOut = false;
         _characterController.enabled = true;
         _rigidbody.isKinematic = true;
+    }
+
+    private void EquipWeapon()
+    {
+        hitbox.gameObject.transform.localScale = weapon.GetComponent<WeaponData>().Range;
     }
 
 }
