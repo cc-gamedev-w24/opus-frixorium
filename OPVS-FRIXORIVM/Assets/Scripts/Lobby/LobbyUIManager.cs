@@ -2,6 +2,8 @@ using System.Collections;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Lobby
 {
@@ -10,7 +12,9 @@ namespace Lobby
         [SerializeField] private TMP_Text countdownText;
         [SerializeField] private GameObject countdownPanel;
         [SerializeField] private float countdownTimer = 3.0f;
+        [SerializeField] private PlayerManager playerManager;
 
+        
         private bool _cancelled;
         private Coroutine _countdownCoroutine;
 
@@ -22,6 +26,8 @@ namespace Lobby
 
         public void OnStartClick()
         {
+            if (!playerManager.AllPlayersReady())
+                return;
             countdownPanel.SetActive(true);
             _cancelled = false; 
         
