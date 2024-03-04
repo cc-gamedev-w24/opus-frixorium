@@ -1,7 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Rendering;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 /// <summary>
@@ -51,6 +56,7 @@ public class PlayerMovement: PlayerController
     public GameObject AttackTarget;
     public GameObject BlockVisual;
     public GameObject EquippedWeapon;
+    public GameObject DefaultWeapon;
 
     private Quaternion _lookRotation;
     private Vector3 _direction;
@@ -77,6 +83,13 @@ public class PlayerMovement: PlayerController
     private GameObject hitbox;
     private GameObject blockbox;
     private GameObject weapon;
+    private GameObject defaultWeapon;
+
+    private Vector3 rangedTarget = Vector3.zero;
+
+    private List<GameObject> projectiles = new List<GameObject>();
+    private List<Vector3> projectileTargets = new List<Vector3>();
+    private int burstCount;
 
     protected override void Awake()
     {
@@ -90,7 +103,8 @@ public class PlayerMovement: PlayerController
         blockbox = Instantiate(BlockVisual, transform);
         hitbox.SetActive(false);
         blockbox.SetActive(false);
-        weapon = Instantiate(EquippedWeapon, transform);
+        weapon = Instantiate(DefaultWeapon, transform);
+        defaultWeapon = Instantiate(DefaultWeapon, transform);
         _oldWalkSpeed = _baseWalkSpeed;
         _actionCountdown = 0.0f;
         _iFrameCountdown = 0.0f;
@@ -98,6 +112,16 @@ public class PlayerMovement: PlayerController
         _isAttacking = false;
         _playerLayer = LayerMask.NameToLayer("Player");
         _invincibleLayer = LayerMask.NameToLayer("Invincible");
+
+        for (int i = 0; i < 5; i++)
+        {
+            projectiles.Add(Instantiate(AttackTarget));
+            projectiles[i].transform.localScale = new Vector3(0.3f, 0.3f, 1.0f);
+            projectileTargets.Add(projectiles[i].transform.position);
+        }
+
+        EquipWeapon();
+
         base.Awake(); 
     }
 
@@ -115,7 +139,12 @@ public class PlayerMovement: PlayerController
         UpdateAttackCooldown();
         UpdateBlockCooldown();
         UpdateStamina();
-        EquipWeapon();
+        UpdateProjectiles();
+
+        if (weapon.GetComponent<WeaponData>().Type == WeaponData.WeaponType.Ranged && weapon.GetComponent<WeaponData>().AmmoCount <= 0)
+        {
+            weapon = defaultWeapon;
+        }
     }
 
     /// <summary>
@@ -186,16 +215,28 @@ public class PlayerMovement: PlayerController
         //Attacking calculations
         if (!_isAttacking)
             return;
-        if (_actionCountdown == weapon.GetComponent<WeaponData>().UseTime)
+        if (_actionCountdown <= 0.0f)
         {
-            hitbox.SetActive(true);
-        }
-        else if (_actionCountdown <= 0.0f)
-        {
-            _isAttacking = false;
-            _baseWalkSpeed = _oldWalkSpeed;
-            hitbox.SetActive(false);
-            _attackCooldown = weapon.GetComponent<WeaponData>().Cooldown;
+            if (weapon.GetComponent<WeaponData>().Type != WeaponData.WeaponType.Ranged)
+            {
+                _isAttacking = false;
+                _baseWalkSpeed = _oldWalkSpeed;
+                hitbox.SetActive(false);
+                _attackCooldown = weapon.GetComponent<WeaponData>().Cooldown;
+            }
+            else if (burstCount > 1)
+            {
+                burstCount -= 1;
+                _actionCountdown = weapon.GetComponent<WeaponData>().UseTime;
+                FireProjectile();
+            }
+            else
+            {
+                _isAttacking = false;
+                _baseWalkSpeed = _oldWalkSpeed;
+                _attackCooldown = weapon.GetComponent<WeaponData>().Cooldown;
+                burstCount = weapon.GetComponent<WeaponData>().BurstAmount;
+            }
         }
 
         _actionCountdown -= Time.deltaTime;
@@ -276,7 +317,10 @@ public class PlayerMovement: PlayerController
         var position = transform1.position;
         var forward = transform1.forward;
         Debug.DrawLine(position, position + forward * 3.0f, Color.red);
-        hitbox.transform.position = position + forward * (1.0f + (weapon.GetComponent<WeaponData>().Range.z / 2.0f));
+        if (!_isAttacking)
+        {
+            hitbox.transform.position = position + forward * (1.0f + (weapon.GetComponent<WeaponData>().Range.z / 2.0f));
+        }
         //hitbox.transform.position += new Vector3(0.0f, 0.0f, weapon.GetComponent<WeaponData>().Range.z / 2);
         blockbox.transform.position = position + forward * 2.0f;
         weapon.transform.position = position + forward * 2.0f;
@@ -317,10 +361,18 @@ public class PlayerMovement: PlayerController
         _oldWalkSpeed = _baseWalkSpeed;
         _baseWalkSpeed /= 2.0f;
         _isAttacking = true;
-        hitbox.SetActive(true);
         _actionCountdown = weapon.GetComponent<WeaponData>().UseTime;
         _timeSinceLastAction = 5.0f;
         _player.PlayerData.PlayerStamina -= weapon.GetComponent<WeaponData>().StaminaCost;
+        
+        if (weapon.GetComponent<WeaponData>().Type == WeaponData.WeaponType.Ranged)
+        {
+            FireProjectile();
+        }
+        else
+        {
+            hitbox.SetActive(true);
+        }
     }
 
     private void OnBlock()
@@ -377,6 +429,45 @@ public class PlayerMovement: PlayerController
     private void EquipWeapon()
     {
         hitbox.gameObject.transform.localScale = weapon.GetComponent<WeaponData>().Range;
+        burstCount = weapon.GetComponent<WeaponData>().BurstAmount;
     }
 
+    private void UpdateProjectiles()
+    {
+        var speed = 12.0f;
+        var step = speed * Time.deltaTime;
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (projectiles[i].transform.position != projectileTargets[i])
+            {
+                projectiles[i].transform.position = Vector3.MoveTowards(projectiles[i].transform.position, projectileTargets[i], step);
+            }
+            else if (projectiles[i].activeSelf == true)
+            {
+                projectiles[i].SetActive(false);
+            }
+        }
+    }
+
+    private void FireProjectile()
+    {
+        var transform1 = transform;
+        var position = transform1.position;
+        var forward = transform1.forward;
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (projectiles[i].transform.position == projectileTargets[i])
+            {
+                projectiles[i].transform.position = hitbox.transform.position;
+                projectiles[i].transform.rotation = transform.rotation;
+                projectiles[i].SetActive(true);
+                projectileTargets[i] = position + forward * 15.0f;
+                break;
+            }
+        }
+
+        weapon.GetComponent<WeaponData>().AmmoCount -= 1;
+    }
 }

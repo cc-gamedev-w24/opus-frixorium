@@ -159,7 +159,7 @@ MonoBehaviour:
     type: 3}
   EquippedWeapon: {fileID: 5559707567978091978, guid: 6f37ad274cad9e549b05432de156ce77,
     type: 3}
-  coolSlider: {fileID: 7858746364370896559, guid: 45a38c9f1081b7b499937b12e143eef2,
+  DefaultWeapon: {fileID: 5559707567978091978, guid: 6f37ad274cad9e549b05432de156ce77,
     type: 3}
 --- !u!54 &9064255098727593309
 Rigidbody:
