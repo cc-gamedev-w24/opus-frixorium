@@ -2235,6 +2235,8 @@ MonoBehaviour:
     type: 3}
   EquippedWeapon: {fileID: 5559707567978091978, guid: 6f37ad274cad9e549b05432de156ce77,
     type: 3}
+  DefaultWeapon: {fileID: 5559707567978091978, guid: 6f37ad274cad9e549b05432de156ce77,
+    type: 3}
 --- !u!143 &5072941971346356949
 CharacterController:
   m_ObjectHideFlags: 0

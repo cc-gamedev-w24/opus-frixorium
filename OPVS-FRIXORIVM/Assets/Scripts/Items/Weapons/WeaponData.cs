@@ -13,12 +13,6 @@ public class WeaponData : MonoBehaviour
         Ranged
     }
 
-    
-    
-    
-    
-    
-
     /// <summary>
     ///     Device class of this player, e.g. "Keyboard" or "Gamepad"
     /// </summary>
@@ -77,5 +71,26 @@ public class WeaponData : MonoBehaviour
     public WeaponType Type
     {
         get => _weaponType;
+    }
+
+    /// <summary>
+    ///     Device class of this player, e.g. "Keyboard" or "Gamepad"
+    /// </summary>
+    /// 
+    [SerializeField] int _burstAmount;
+    public int BurstAmount
+    {
+        get => _burstAmount;
+    }
+
+    /// <summary>
+    ///     Device class of this player, e.g. "Keyboard" or "Gamepad"
+    /// </summary>
+    /// 
+    [SerializeField] int _ammoCount;
+    public int AmmoCount
+    {
+        get => _ammoCount;
+        set => _ammoCount = value;
     }
 }
