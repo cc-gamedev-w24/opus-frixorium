@@ -1,22 +1,26 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 /// <summary>
 ///     Player Movement Handling
-///     TODO: Abstract to allow for network support
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(RagdollController))]
 public class PlayerMovement: PlayerController
 {
+    private static readonly int WalkSpeedHash = Animator.StringToHash("WalkSpeed");
+    private static readonly int StrafeSpeedHash = Animator.StringToHash("StrafeSpeed");
+    private static readonly int IsJumpingHash = Animator.StringToHash("IsJumping");
+    private static readonly int IsFallingHash = Animator.StringToHash("IsFalling");
+    private static readonly int IsGroundedHash = Animator.StringToHash("IsGrounded");
+    private static readonly int IsAttackingHash = Animator.StringToHash("IsAttacking");
     protected override string ActionMap => "Player Movement";
     
-    private Rigidbody _rigidbody;
     private CharacterController _characterController;
     private Player _player;
+    private Animator _animator;
+    private RagdollController _ragdollController;
     
     /// <summary>
     ///     Base player movement speed
@@ -80,11 +84,11 @@ public class PlayerMovement: PlayerController
 
     protected override void Awake()
     {
+        _animator = GetComponentInChildren<Animator>();
         _characterController = GetComponent<CharacterController>();
-        _rigidbody = GetComponent<Rigidbody>();
         _player = GetComponentInParent<Player>();
-        _rigidbody.isKinematic = true;
         _deviceClass =  GetComponentInParent<PlayerInput>().devices[0].description.deviceClass;
+        _ragdollController = GetComponent<RagdollController>();
         _camera = Camera.main;
         hitbox = Instantiate(AttackTarget, transform);
         blockbox = Instantiate(BlockVisual, transform);
@@ -109,6 +113,7 @@ public class PlayerMovement: PlayerController
         UpdateLook();
         ApplyGravity();
         ApplyMovement();
+        UpdateAnimator();
         UpdateAttacks();
         UpdateBlocking();
         UpdateIFrames();
@@ -174,8 +179,19 @@ public class PlayerMovement: PlayerController
     /// </summary>
     private void ApplyMovement()
     {
-       _characterController.Move(_velocity * Time.deltaTime);
+        _characterController.Move(_velocity * Time.deltaTime);
         if (_characterController.isGrounded) _velocity.y = 0;
+    }
+
+    private void UpdateAnimator()
+    {
+        var localVelocity = transform.InverseTransformVector(_velocity);
+        _animator.SetFloat(WalkSpeedHash, localVelocity.z / _baseWalkSpeed);
+        _animator.SetFloat(StrafeSpeedHash, localVelocity.x / _baseWalkSpeed);
+        _animator.SetBool(IsJumpingHash, _velocity.y > 0);
+        _animator.SetBool(IsFallingHash, _velocity.y < 0);
+        _animator.SetBool(IsAttackingHash, _isAttacking);
+        _animator.SetBool(IsGroundedHash, _characterController.isGrounded);
     }
 
     /// <summary>
@@ -280,6 +296,7 @@ public class PlayerMovement: PlayerController
         //hitbox.transform.position += new Vector3(0.0f, 0.0f, weapon.GetComponent<WeaponData>().Range.z / 2);
         blockbox.transform.position = position + forward * 2.0f;
         weapon.transform.position = position + forward * 2.0f;
+        
     }
 
     /// <summary>
@@ -362,16 +379,14 @@ public class PlayerMovement: PlayerController
 
     private IEnumerator KnockOut()
     {
-        _characterController.enabled = false;
-        _rigidbody.isKinematic = false;
-        _rigidbody.velocity = _velocity;
         _knockedOut = true;
+        _ragdollController.EnableRagdoll();
+        
 
         yield return new WaitForSeconds(_knockoutTime);
 
+        _ragdollController.DisableRagdoll();
         _knockedOut = false;
-        _characterController.enabled = true;
-        _rigidbody.isKinematic = true;
     }
 
     private void EquipWeapon()
