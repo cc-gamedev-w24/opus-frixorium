@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 /// <summary>
 ///     Keeps track of number of players in game and prevents PlayerInputManager from adding too many when combined with
@@ -76,7 +77,8 @@ public class PlayerManager : MonoBehaviour
         _joinSlots[playerIndex] = input.gameObject.GetComponent<Player>();
         _joinSlots[playerIndex].PlayerData = new PlayerData(_dataChangedEvent, playerIndex)
         {
-            DeviceClass = input.devices[0].description.deviceClass
+            DeviceClass = input.devices[0].description.deviceClass,
+            Color = Random.ColorHSV(0, 1, 1, 1, 1, 1)
         };
         _joinSlots[playerIndex].PlayerPrefab = _currentController;
         
