@@ -34,6 +34,8 @@ public class RagdollController : MonoBehaviour
         transform.position = _armatureRoot.position;
         _characterController.enabled = true;
         _animator.enabled = true;
+        _animator.Rebind();
+        _animator.Update(0f);
         foreach (var collider in _colliders)
         {
             collider.attachedRigidbody.useGravity = false;
