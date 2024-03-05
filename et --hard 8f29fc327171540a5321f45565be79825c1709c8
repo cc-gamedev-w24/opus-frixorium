@@ -1,0 +1,514 @@
+[33mcommit 8f29fc327171540a5321f45565be79825c1709c8[m[33m ([m[1;36mHEAD -> [m[1;32mdNavMesh[m[33m)[m
+Author: Blecaj1982 <90987495+Blecaj1982@users.noreply.github.com>
+Date:   Mon Mar 4 18:36:17 2024 -0500
+
+    organized files
+
+[33mcommit b89b85e55ece6b376dea307ea6e9c8164d1353f5[m
+Author: Blecaj1982 <90987495+Blecaj1982@users.noreply.github.com>
+Date:   Fri Mar 1 18:39:49 2024 -0500
+
+    testing navmesh systems
+
+[33mcommit bcdde9bde5bffa9aa543857de51b9b1fad29cff8[m[33m ([m[1;32mmain[m[33m)[m
+Merge: 64b4559 4e64893
+Author: ptoma7542 <95869371+ptoma7542@users.noreply.github.com>
+Date:   Tue Feb 27 22:28:35 2024 -0500
+
+    Merge pull request #30 from cc-gamedev-w24/lobby-ui
+    
+    Lobby UI
+
+[33mcommit 4e64893528ab02affd927dfa1b6d8c2f428f7cfc[m
+Merge: eb0330c 64b4559
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 27 17:40:18 2024 -0500
+
+    Merge branch 'main' of https://github.com/cc-gamedev-w24/opus-frixorium into lobby-ui
+
+[33mcommit 64b4559ee82a6110a90bc496870ccf3c6949f670[m
+Merge: 0e29646 88f7457
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 27 17:39:36 2024 -0500
+
+    Merge pull request #26 from cc-gamedev-w24/item-pickups
+    
+    Item pickups
+
+[33mcommit 88f7457e4cdc6c5a9ee368fd6c73a9419654978d[m
+Merge: 914d534 0e29646
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 27 17:39:00 2024 -0500
+
+    Merge branch 'main' of https://github.com/cc-gamedev-w24/opus-frixorium into item-pickups
+
+[33mcommit 0e29646997fbe74922d3ef5b10d8a690df7a47bc[m
+Merge: a581ad1 12e1351
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 27 17:32:43 2024 -0500
+
+    Merge pull request #29 from cc-gamedev-w24/improved-player-controls
+    
+    Improved player controls
+
+[33mcommit eb0330cd706fb85e111e446cd8a1e61baf542388[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 27 17:31:18 2024 -0500
+
+    Removed unnecessary game state files
+
+[33mcommit 914d53404f7012cc8722c5ea15bcb5046488495f[m[33m ([m[1;31morigin/item-pickups[m[33m)[m
+Merge: db1011e a581ad1
+Author: ptoma7542 <95869371+ptoma7542@users.noreply.github.com>
+Date:   Wed Feb 21 20:24:44 2024 -0500
+
+    Merge branch 'main' into item-pickups
+
+[33mcommit 12e135105a01fe01308d9d2a0bdf5e28c15e48e2[m[33m ([m[1;31morigin/improved-player-controls[m[33m)[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Wed Feb 21 03:06:12 2024 -0500
+
+    Removed Serializable Dictionary Package
+
+[33mcommit f7071560596adf4bfd31a65c14bbbca720604cdf[m
+Merge: 07a6074 a581ad1
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Wed Feb 21 03:03:08 2024 -0500
+
+    Merge branch 'main' into improved-player-controls
+
+[33mcommit 07a6074b7137378cb584dd3f5a31868faeea16da[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Wed Feb 21 02:25:11 2024 -0500
+
+    Added New Comments
+
+[33mcommit 38383492050652660533bb3ac5ff3b69b0f3d2a3[m
+Merge: 91670dc a581ad1
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 20 21:12:38 2024 -0500
+
+    Merge branch 'main' into lobby-ui
+
+[33mcommit a581ad105faf7aad9f9a492ff00dab5554898684[m
+Merge: 1d86c52 e44f7ec
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Tue Feb 20 01:09:50 2024 -0500
+
+    Merge pull request #28 from cc-gamedev-w24/combat
+    
+    Basic combat
+
+[33mcommit e44f7ec7590f6f90e260c730794f3ec919aa0204[m
+Merge: c1ba704 1d86c52
+Author: Brendan Blais <Bblais4121@conestogac.on.ca>
+Date:   Tue Feb 20 00:59:16 2024 -0500
+
+    Merge branch 'main' of https://github.com/cc-gamedev-w24/opus-frixorium into combat
+
+[33mcommit c1ba70451c10b9fda2c4dc0e3abdffe03cb33313[m
+Author: Brendan Blais <Bblais4121@conestogac.on.ca>
+Date:   Tue Feb 20 00:58:05 2024 -0500
+
+    Basic combat system finished
+
+[33mcommit f945c263f2cb17654b43e0aa1cbaadbb1e41f965[m
+Author: Brendan Blais <Bblais4121@conestogac.on.ca>
+Date:   Tue Feb 20 00:57:04 2024 -0500
+
+    Basic combat system finished
+
+[33mcommit b4510013bf560044161fb16abf71a7740bb1c63c[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Tue Feb 20 00:36:09 2024 -0500
+
+    State Machine + Player Controller Swap Refactor
+
+[33mcommit 6bb39d9dbed4893c9d4b81f79d53be9bb330c3b1[m
+Merge: c138041 162cb41
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Mon Feb 19 22:52:26 2024 -0500
+
+    Merge branch 'improved-player-controls' of github.com:cc-gamedev-w24/opus-frixorium into improved-player-controls
+
+[33mcommit c138041663b10988acb785b6a1b3019aa7bb2de1[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Thu Feb 15 12:44:02 2024 -0500
+
+    WIP - Player Movement Rework
+
+[33mcommit 887ef6cc637b709a4ab8af84c130339696c0188f[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Thu Feb 15 03:01:24 2024 -0500
+
+    PlayerModel/ActionMap Swapping
+
+[33mcommit db1011e0f8f73fc93969ffa8a3eb452d37cd2389[m
+Author: ptoma7542 <ptoma7542@conestogac.on.ca>
+Date:   Thu Feb 15 18:09:20 2024 -0500
+
+    adjusted the rotator class to include trigger detection as well as abstracted pickup behaviours
+
+[33mcommit 162cb41e29c9dd2bc378c1a92e1bdefd8ffe0cba[m
+Merge: ab59ad8 1d86c52
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Thu Feb 15 16:10:16 2024 -0500
+
+    Merge branch 'main' into improved-player-controls
+
+[33mcommit 1d86c52b3c7e67ed44fd0fa3ec78859c542f9f33[m
+Merge: e816802 557c699
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Thu Feb 15 15:03:17 2024 -0500
+
+    Merge pull request #25 from cc-gamedev-w24/game-states
+    
+    Game State Machine + Sample
+
+[33mcommit ab59ad838aa0006988e85cdb5a30b5eb6e01c3e5[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Thu Feb 15 12:44:02 2024 -0500
+
+    WIP - Player Movement Rework
+
+[33mcommit 5469d6dba3d482665c13b0d82930bcf523553c03[m
+Merge: eec344d 9b219bc
+Author: ptoma7542 <ptoma7542@conestogac.on.ca>
+Date:   Thu Feb 15 03:24:55 2024 -0500
+
+    Merge branch 'item-pickups' of https://github.com/cc-gamedev-w24/opus-frixorium into item-pickups
+
+[33mcommit eec344dbf7ef11f5047c1d929390ef3ff7c291a4[m
+Author: ptoma7542 <ptoma7542@conestogac.on.ca>
+Date:   Thu Feb 15 03:24:22 2024 -0500
+
+    Added 4 new pickups and basic functionalities
+
+[33mcommit c8c8b570f84c6e4ee8f62c7071d9fa4e90b3bcfa[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Thu Feb 15 03:01:24 2024 -0500
+
+    PlayerModel/ActionMap Swapping
+
+[33mcommit 557c699a299593dca1ff035930acbacf9e3a75fe[m[33m ([m[1;31morigin/game-states[m[33m)[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Wed Feb 14 14:51:42 2024 -0500
+
+    Game State Machine + Sample
+
+[33mcommit 91670dc204d07f90bf65aea4e31c9e2a2ea6f5cb[m[33m ([m[1;31morigin/lobby-ui[m[33m)[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 13 22:40:46 2024 -0500
+
+    Added cancel button for start countdown
+
+[33mcommit 8c7d58e0027ca17bb64655814e08fe0ee21eb0be[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 13 18:20:25 2024 -0500
+
+    Created lobby panel and countdown timer
+
+[33mcommit f731ddd57790b1008a5d56a3ab211e680c850cb2[m
+Merge: 75d2864 e816802
+Author: Brendan Blais <Bblais4121@conestogac.on.ca>
+Date:   Tue Feb 13 17:06:22 2024 -0500
+
+    Merge branch 'main' of https://github.com/cc-gamedev-w24/opus-frixorium into combat
+
+[33mcommit 75d28642ceb285cb85578eb474654ffa1d366524[m
+Author: Brendan Blais <Bblais4121@conestogac.on.ca>
+Date:   Tue Feb 13 16:59:45 2024 -0500
+
+    combat wip
+
+[33mcommit e81680264110e5860febb537756d5f14ffd19e97[m
+Merge: 3202228 a278132
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Tue Feb 13 16:29:01 2024 -0500
+
+    Merge pull request #24 from cc-gamedev-w24/7-settings-menu-ui
+    
+    Input rebinding and hookup to audio system
+
+[33mcommit a278132bc5006fae74043d35ed557e4bce279480[m
+Merge: a82f90a 3202228
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Tue Feb 13 16:25:47 2024 -0500
+
+    Merge branch 'main' into 7-settings-menu-ui
+
+[33mcommit 3202228002efc80b0146961cd590660ef595e869[m
+Merge: 9b219bc a527121
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 13 14:27:21 2024 -0500
+
+    Merge pull request #23 from cc-gamedev-w24/lobby-joining
+    
+    Lobby joining
+
+[33mcommit a82f90a3826c5f5f896009ad52a4d5accfe3881f[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 13 14:24:28 2024 -0500
+
+    Implemented dynamic input rebinding. Hooked up audio system
+
+[33mcommit a52712165c64abf467b89f21aec051fe1f484dd6[m[33m ([m[1;31morigin/lobby-joining[m[33m)[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Tue Feb 13 04:55:42 2024 -0500
+
+    Lobby Join/Drop Out + Lobby Player Controller
+
+[33mcommit 84097092253d86abe96a9f57e05414c0632906b2[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Tue Feb 13 03:01:48 2024 -0500
+
+    Panel Color Change in Response to PlayerManager Events
+
+[33mcommit d463371c3c8aee2ed235801aaf75ad5746c057ef[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Tue Feb 13 02:58:24 2024 -0500
+
+    GameEventListener Interface Abstraction
+
+[33mcommit 77aa6751bfcf87f6562feefa6f2827dba6ea9f50[m
+Merge: 73fa3b1 9b219bc
+Author: Brendan Blais <Bblais4121@conestogac.on.ca>
+Date:   Mon Feb 12 17:08:38 2024 -0500
+
+    yaya
+
+[33mcommit 73fa3b116997eaebaffbc4e73ebaaaf3032e0b9d[m
+Author: Brendan Blais <Bblais4121@conestogac.on.ca>
+Date:   Mon Feb 12 16:57:21 2024 -0500
+
+    combat wip
+
+[33mcommit 9b219bce6ee92442d116a5bb62c2033ad494f515[m
+Merge: 92cf08e 667bb8c
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Mon Feb 12 14:47:21 2024 -0500
+
+    Merge pull request #22 from cc-gamedev-w24/event-system
+    
+    Event System
+
+[33mcommit 667bb8cd5910ff7b6595691694bda698c254dbaa[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Fri Feb 9 02:42:19 2024 -0500
+
+    Events with values
+
+[33mcommit 5060bb47cbde871345416a5485cf849b28b07f0d[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Fri Feb 9 01:24:43 2024 -0500
+
+    Channel Support
+
+[33mcommit 9cf23c2403e980ac767475864dc15a3b7d2bacd7[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Fri Feb 9 00:12:02 2024 -0500
+
+    Events/Listeners + Sample Scene
+
+[33mcommit 8dbae15cc94013e1ce28d3ddb02d31656d1d38d6[m
+Merge: 73e182d 92cf08e
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Thu Feb 8 16:39:28 2024 -0500
+
+    Merge pull request #21 from cc-gamedev-w24/main
+    
+    Bring branch up to date
+
+[33mcommit 92cf08e1f19c658d373e8d5e0239343f865428b0[m
+Merge: 27897d5 efdddc2
+Author: ptoma7542 <95869371+ptoma7542@users.noreply.github.com>
+Date:   Thu Feb 8 13:41:43 2024 -0500
+
+    Merge pull request #20 from cc-gamedev-w24/player-look
+    
+    Player Look
+
+[33mcommit efdddc228e821359b00ed0c9b978129a654338ba[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Wed Feb 7 19:09:02 2024 -0500
+
+    Player Look
+
+[33mcommit 27897d5785e0b3568329bb8236ba422a6f6b47f8[m
+Merge: 48a34d1 36474bb
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Wed Feb 7 15:19:48 2024 -0500
+
+    Merge pull request #19 from cc-gamedev-w24/9-audio-manager
+    
+    9 audio manager
+
+[33mcommit 36474bbf55e7fbfc94e006981be5efb76a31219d[m
+Merge: f547175 48a34d1
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Wed Feb 7 15:19:29 2024 -0500
+
+    Merge branch 'main' into 9-audio-manager
+
+[33mcommit f5471755c6eae4ad9fe8c1c19c2d9b2a0745403f[m
+Author: Blecaj1982 <90987495+Blecaj1982@users.noreply.github.com>
+Date:   Wed Feb 7 00:13:44 2024 -0500
+
+    added and linked VolumeSettings.cs to canvas sliders in Settings Scene, included audioManager and audioevents prefabs aswell
+
+[33mcommit 69cb5914229a7924d2c6b0ffa77da4d1167f3664[m
+Author: Blecaj1982 <90987495+Blecaj1982@users.noreply.github.com>
+Date:   Wed Feb 7 00:05:23 2024 -0500
+
+    cleaned up scripts/audio folder
+
+[33mcommit accd2ec5cb0e75ffdbc58847bb7e114763e19b2c[m
+Author: Blecaj1982 <90987495+Blecaj1982@users.noreply.github.com>
+Date:   Tue Feb 6 23:35:21 2024 -0500
+
+    Audio mixer added with persistant scene volume saving
+
+[33mcommit 72fa6318eef485dffd7ab9dc1a04e5d00f27f528[m
+Author: Blecaj1982 <90987495+Blecaj1982@users.noreply.github.com>
+Date:   Tue Feb 6 22:16:49 2024 -0500
+
+    Event Based Sound manager added
+
+[33mcommit 7bc9b4c1aad562627bacfcb986b2fe20db6e58a9[m
+Author: Blecaj1982 <90987495+Blecaj1982@users.noreply.github.com>
+Date:   Tue Feb 6 19:33:39 2024 -0500
+
+    Added audio manager, test scene
+
+[33mcommit 73e182dfa8bfb1b216370ea334789a86b236b447[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 6 14:00:25 2024 -0500
+
+    Grouped all UI interactions + Commenting
+
+[33mcommit 48a34d194e3aecb4455b4bebbab0c362f17586e4[m
+Merge: e649e9a 1bf04e8
+Author: ptoma7542 <95869371+ptoma7542@users.noreply.github.com>
+Date:   Tue Feb 6 00:18:39 2024 -0500
+
+    Merge pull request #18 from cc-gamedev-w24/7-settings-menu-ui
+    
+    Started implementing PlayerPref settings persistence
+
+[33mcommit 1bf04e8de04f3fd647df47e08d96d0c70ceb00bb[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Tue Feb 6 00:02:10 2024 -0500
+
+    General refactoring and organization
+    
+    Moved resolution dropdown to SettingsManager. Refactored how the resolution dropdown is filled by default and how the current resolution index is found
+
+[33mcommit 67e6f2ecf9c42c2e756d6f95cb61ef89dc64b29f[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Mon Feb 5 23:27:29 2024 -0500
+
+    Volume settings now being saved in PlayerPrefs
+
+[33mcommit 30ba85013e32065c2f70a79a00b82989e3505213[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Mon Feb 5 23:09:20 2024 -0500
+
+    Started implementing setting persistence using PlayerPrefs
+
+[33mcommit b965544888b0080e300306d75e6568235ddb0155[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Mon Feb 5 22:37:00 2024 -0500
+
+    Added back button to UI
+
+[33mcommit f89a5dbef03d83a7bb846c5a60e46d34a3240b2e[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Mon Feb 5 21:57:25 2024 -0500
+
+    Fixed bug where UI wouldn't scale with resolution properly
+
+[33mcommit b373ce295a603933896423087693b9cefb6b29cf[m
+Merge: 74b3afc e649e9a
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Mon Feb 5 21:49:42 2024 -0500
+
+    Merge pull request #17 from cc-gamedev-w24/main
+    
+    Bring branch up to date with main
+
+[33mcommit e649e9a2c0ccbb78652ace6b3ce451942ad9a1fc[m
+Merge: 119cbe4 7e0e79d
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Mon Feb 5 21:48:17 2024 -0500
+
+    Merge pull request #16 from cc-gamedev-w24/4-main-menu-ui
+    
+    Added Main Menu UI
+
+[33mcommit 7e0e79d021529e4a75f36df68f7d5abcf6bf84eb[m
+Author: ptoma7542 <ptoma7542@conestogac.on.ca>
+Date:   Mon Feb 5 21:36:27 2024 -0500
+
+    Fixed an issue where the menu would display incorrectly depending on resolution
+
+[33mcommit cfabd494265337864663cbb27971b8895f1cabb7[m
+Author: ptoma7542 <ptoma7542@conestogac.on.ca>
+Date:   Mon Feb 5 18:14:26 2024 -0500
+
+    Added main menu ui as a prefab
+
+[33mcommit c04dba888d84492daca8384afd23c0c1e95a97c5[m
+Merge: 0c24a4b 119cbe4
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Mon Feb 5 17:49:55 2024 -0500
+
+    Merge pull request #14 from cc-gamedev-w24/main
+    
+    Get branch up to date with main
+
+[33mcommit 119cbe4b2ca1c97d31d40fbc1ff02b74e17d0572[m
+Merge: 76b6d73 74b3afc
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Sun Feb 4 16:56:16 2024 -0500
+
+    Merge pull request #13 from cc-gamedev-w24/7-settings-menu-ui
+    
+    Frameworked Settings Menu + Graphics Settings Implemented
+
+[33mcommit 74b3afcc4bc77b2ddb6796d69f0fa6874830ed02[m
+Merge: 32b24f9 76b6d73
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Sun Feb 4 16:52:10 2024 -0500
+
+    Merge branch 'main' into 7-settings-menu-ui
+
+[33mcommit 32b24f9497a201d442de69feacb7e698322599c2[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Sun Feb 4 16:30:54 2024 -0500
+
+    Fixed fullscreen toggle not working
+
+[33mcommit c8617d3a998f4aca1049e1b7dd2b6c4d6c619a3b[m
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Sun Feb 4 15:57:59 2024 -0500
+
+    Restructured menus. Graphics settings implemented
+
+[33mcommit 76b6d73d21c41bee77d87b7ebe255ccf40d7efa6[m
+Merge: 0c24a4b d384b65
+Author: Ethan Major <ethanmajor9@gmail.com>
+Date:   Sun Feb 4 12:00:40 2024 -0500
+
+    Merge pull request #10 from cc-gamedev-w24/3-player-controls
+    
+    Basic Player Controls + Local Multiplayer
+
+[33mcommit d384b658db67fecf3edc4269ddf82457c3be3751[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Fri Feb 2 21:24:10 2024 -0500
+
+    Player Manager + Comments
+
+[33mcommit 404d2bb004f8214d8248f0fa371b57b339232e63[m
+Author: Silas Bartha <silas@exvacuum.dev>
+Date:   Fri Feb 2 19:16:46 20

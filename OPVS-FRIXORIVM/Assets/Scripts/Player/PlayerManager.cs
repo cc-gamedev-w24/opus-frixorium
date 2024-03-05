@@ -1,11 +1,12 @@
+using System;
 using System.Linq;
 using Events;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 /// <summary>
 ///     Keeps track of number of players in game and prevents PlayerInputManager from adding too many when combined with
@@ -72,11 +73,12 @@ public class PlayerManager : MonoBehaviour
     private void OnPlayerJoined(PlayerInput input)
     {
 
-        var playerIndex = ArrayUtility.IndexOf(_joinSlots, null);
+        var playerIndex = Array.IndexOf(_joinSlots, null);
         _joinSlots[playerIndex] = input.gameObject.GetComponent<Player>();
         _joinSlots[playerIndex].PlayerData = new PlayerData(_dataChangedEvent, playerIndex)
         {
-            DeviceClass = input.devices[0].description.deviceClass
+            DeviceClass = input.devices[0].description.deviceClass,
+            Color = Random.ColorHSV(0, 1, 1, 1, 1, 1)
         };
         _joinSlots[playerIndex].PlayerPrefab = _currentController;
         
@@ -94,7 +96,7 @@ public class PlayerManager : MonoBehaviour
     private void OnPlayerLeft(PlayerInput input)
     {
         var leftPlayer = input.gameObject.GetComponent<Player>();
-        var playerIndex = ArrayUtility.IndexOf(_joinSlots, leftPlayer);
+        var playerIndex = Array.IndexOf(_joinSlots, leftPlayer);
         _joinSlots[playerIndex] = null;
         _playerLeftEvent.Invoke(playerIndex);
         if (_joinSlots.Any(slot => slot == null))
@@ -121,6 +123,29 @@ public class PlayerManager : MonoBehaviour
         {
             player.SetController(_currentController);
         }
+    }
+
+    public bool AllPlayersReady()
+    {
+        var readyCount = 0;
+        var playerCount = 4;
+        
+        if (_joinSlots[0] == null)
+            return false;
+        
+        foreach (var player in _joinSlots)
+        {
+            if (player == null)
+            {
+                playerCount--;
+                continue;
+            }
+                
+            if (player.PlayerData.IsReady)
+                readyCount++;
+        }
+
+        return readyCount == playerCount;
     }
 
     private void OnDestroy()

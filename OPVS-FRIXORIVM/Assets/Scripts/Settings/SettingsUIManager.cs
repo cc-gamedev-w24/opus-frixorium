@@ -15,6 +15,7 @@ namespace Settings
         [SerializeField] private GameObject graphicsMenu;
         [SerializeField] private GameObject volumeMenu;
         [SerializeField] private GameObject controlsMenu;
+        [SerializeField] private GameObject mainMenu;
     
         /// <summary>
         ///    Currently selected menu
@@ -64,6 +65,7 @@ namespace Settings
         public void OnBackClick()
         {
             gameObject.SetActive(false);
+            mainMenu.SetActive(true);
         }
 
         /// <summary>
