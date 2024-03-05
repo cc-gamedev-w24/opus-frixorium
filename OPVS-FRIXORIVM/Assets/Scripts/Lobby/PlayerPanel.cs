@@ -1,6 +1,8 @@
+using DG.Tweening;
 using Events;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 /// <summary>
@@ -9,8 +11,24 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class PlayerPanel : MonoBehaviour
 {
+    private readonly int JoinedHash = Animator.StringToHash("Joined");
+    
     [SerializeField]
-    private TextMeshProUGUI _text;
+    private RawImage _previewImage;
+    [SerializeField]
+    private CanvasGroup _previewCanvasGroup;
+    [SerializeField]
+    private Camera _previewCamera;
+    [SerializeField]
+    private int _previewSize = 256;
+    [SerializeField]
+    private Animator _previewAnimator;
+    [SerializeField]
+    private Renderer _previewRenderer;
+    [SerializeField]
+    private GameObject _colorWheel;
+    [SerializeField]
+    private Transform _colorWheelKnob;
     
     [Header("Events")]
     [SerializeField]
@@ -35,11 +53,16 @@ public class PlayerPanel : MonoBehaviour
     private DelegateGameEventListener _playerDataChangedListener;
 
     private Image _backgroundImage;
+    private RenderTexture _previewRenderTexture;
 
     private void Awake()
     {
         _backgroundImage = GetComponent<Image>();
         _backgroundImage.color = _disabledColor;
+        
+        _previewRenderTexture = RenderTexture.GetTemporary(_previewSize, _previewSize);
+        _previewCamera.targetTexture = _previewRenderTexture;
+        _previewImage.texture = _previewRenderTexture;
         
         _joinedListener = new DelegateGameEventListener(_playerJoinedEvent, _ => OnJoinedEvent(), _playerNumber);
         _leftListener = new DelegateGameEventListener(_playerLeftEvent, _ => OnLeftEvent(), _playerNumber);
@@ -57,10 +80,15 @@ public class PlayerPanel : MonoBehaviour
             Debug.LogError("Provided event data is wrong type");
             return;
         }
+
+        _previewRenderer.material.color = playerData.Color;
+        
+        Color.RGBToHSV(playerData.Color, out var hue, out _, out _);
+        _colorWheelKnob.rotation = Quaternion.AngleAxis(hue * -360.0f, Vector3.forward);
+        _colorWheel.SetActive(!playerData.IsReady);
         
         // Update UI
-        _text.text =  playerData.DeviceClass;
-        _backgroundImage.color = playerData.IsReady ? _readyColor : _joinedColor;
+        _backgroundImage.DOColor(playerData.IsReady ? _readyColor : _joinedColor, 0.5f);
     }
 
     /// <summary>
@@ -75,12 +103,18 @@ public class PlayerPanel : MonoBehaviour
     
     private void OnJoinedEvent()
     {
-        _backgroundImage.color = _joinedColor;
+        _backgroundImage.DOColor(_joinedColor, 0.5f);
+        _previewCanvasGroup.DOFade(1f, 0.5f);
+        _colorWheel.SetActive(true);
+        _previewAnimator.SetBool(JoinedHash, true);
     }
 
     private void OnLeftEvent()
     {
-        _text.text = "Join";
-        _backgroundImage.color = _disabledColor;
+        _backgroundImage.DOColor(_disabledColor, 0.5f);
+        _previewCanvasGroup.DOFade(0.5f, 0.5f);
+        _colorWheel.SetActive(false);
+        _previewRenderer.material.color = Color.grey;
+        _previewAnimator.SetBool(JoinedHash, false);
     }
 }
