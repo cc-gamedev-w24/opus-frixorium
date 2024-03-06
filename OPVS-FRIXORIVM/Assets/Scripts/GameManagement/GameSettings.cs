@@ -4,14 +4,42 @@ using UnityEngine;
 public class GameSettings : ScriptableObject
 {
     [Header("General Settings")] 
-    public int numberOfRounds = 3;
-    public float roundTimeLimit = 60.0f;
-    public bool audienceEnabled = false;
+    [SerializeField]
+    private int _numberOfRounds = 3;
+    public int NumberOfRounds
+    {
+        get => _numberOfRounds;
+        set => _numberOfRounds = value;
+    }
+    
+    [SerializeField]
+    private float _roundTimeLimit = 60.0f;
+    public float RoundTimeLimit
+    {
+        get => _roundTimeLimit;
+        set => _roundTimeLimit = value;
+    }
+    
+    [SerializeField]
+    private bool _audienceEnabled;
+    public bool AudienceEnabled
+    {
+        get => _audienceEnabled;
+        set => _audienceEnabled = value;
+    }
+
+    [SerializeField]
+    private bool _wakingUpEnabled = true;
+    public bool WakingUpEnabled
+    {
+        get => _wakingUpEnabled;
+        set => _wakingUpEnabled = value;
+    }
 
     public void UpdateGameSettings(int roundCount, int roundTimer, bool isAudienceEnabled)
     {
-        numberOfRounds = roundCount;
-        audienceEnabled = isAudienceEnabled;
-        roundTimeLimit = roundTimer;
+        _numberOfRounds = roundCount;
+        _audienceEnabled = isAudienceEnabled;
+        _roundTimeLimit = roundTimer;
     }
 }

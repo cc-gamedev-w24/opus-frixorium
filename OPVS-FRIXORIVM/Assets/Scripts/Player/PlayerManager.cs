@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Events;
 using JetBrains.Annotations;
@@ -152,5 +153,10 @@ public class PlayerManager : MonoBehaviour
     {
         _lobbyEnteredListener.Dispose();
         _gameStartedListener.Dispose();
+    }
+
+    public IEnumerable<PlayerData> GetAllPlayerData()
+    {
+        return _joinSlots.NotNull().Select(player => player.PlayerData);
     }
 }

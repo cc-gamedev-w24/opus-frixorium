@@ -1,11 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameSettings gameSettings;
+    [SerializeField]
+    private GameState _gameState;
     
-    private void Awake()
+    void Start()
     {
-        Debug.Log($"Audience Enabled: {gameSettings.audienceEnabled}\nRound Count: {gameSettings.numberOfRounds} Round Timer: {gameSettings.roundTimeLimit}");
+        _gameState.StartGame();
+    }
+
+    void Update()
+    {
+        _gameState.Update();
     }
 }
