@@ -104,5 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bca722675fc0ae70b9dc506d9fe81b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 0}
-  ActionMap: 
+  PlayerPrefab: {fileID: 555629733928860199, guid: 4963c5c30ea42b12688641ed66a2a426,
+    type: 3}

@@ -129,23 +129,25 @@ public class PlayerMovement: PlayerController
     {
         UpdateWalk();
 
-        if (_knockedOut) return;
-        UpdateLook();
-        ApplyGravity();
-        ApplyMovement();
-        UpdateAnimator();
-        UpdateAttacks();
-        UpdateBlocking();
-        UpdateIFrames();
-        UpdateAttackCooldown();
-        UpdateBlockCooldown();
-        UpdateStamina();
-        UpdateProjectiles();
+        if (!_knockedOut) {
+            UpdateLook();
+            ApplyGravity();
+            ApplyMovement();
+            UpdateAnimator();
+            UpdateAttacks();
+            UpdateBlocking();
+            UpdateIFrames();
+            UpdateAttackCooldown();
+            UpdateBlockCooldown();
+            UpdateStamina();
+            UpdateProjectiles();
 
-        if (weapon.GetComponent<WeaponData>().Type == WeaponData.WeaponType.Ranged && weapon.GetComponent<WeaponData>().AmmoCount <= 0)
-        {
-            weapon = defaultWeapon;
+            if (weapon.GetComponent<WeaponData>().Type == WeaponData.WeaponType.Ranged && weapon.GetComponent<WeaponData>().AmmoCount <= 0)
+            {
+                weapon = defaultWeapon;
+            }
         }
+        
     }
 
     /// <summary>
