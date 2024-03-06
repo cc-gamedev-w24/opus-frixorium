@@ -2681,6 +2681,7 @@ MonoBehaviour:
   _decelerationSpeed: 16
   _jumpVelocity: 5
   _knockoutTime: 4
+  _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
   AttackTarget: {fileID: 8261348225827988244, guid: 295f2f01fe33fa547a9b4411f46ae438,
     type: 3}
   BlockVisual: {fileID: 7454266118925678993, guid: 3290dbfc78f0f134d8ed98bad3be641d,
