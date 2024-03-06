@@ -1,3 +1,5 @@
+using UnityEngine;
+
 /// <summary>
 ///     Player state which triggers event when updated
 /// </summary>
@@ -112,6 +114,12 @@ public class PlayerData
         set => SetValue(out _playerHit, value);
     }
 
+    private Color _color;
+    public Color Color {
+        get => _color;
+        set => SetValue(out _color, value);
+    }
+    
     /// <summary>
     ///     Sets value and invokes event
     /// </summary>
