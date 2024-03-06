@@ -48,6 +48,9 @@ public class PlayerMovement: PlayerController
     [SerializeField]
     private float _knockoutTime = 4.0f;
 
+    [SerializeField]
+    private GameSettings _gameSettings;
+
     /// <summary>
     ///      Current velocity of player
     /// </summary>
@@ -432,8 +435,9 @@ public class PlayerMovement: PlayerController
         _knockedOut = true;
         _ragdollController.EnableRagdoll();
         
-
         yield return new WaitForSeconds(_knockoutTime);
+
+        while (!_gameSettings.WakingUpEnabled) yield return 0;
 
         _ragdollController.DisableRagdoll();
         _knockedOut = false;
