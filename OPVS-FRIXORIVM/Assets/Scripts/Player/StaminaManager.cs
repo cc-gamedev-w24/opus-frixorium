@@ -1,22 +1,30 @@
 using Events;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StaminaManager : MonoBehaviour
 {
     // Start is called before the first frame update
 
     private DelegateGameEventListener _changeListener;
-    [SerializeField]
     private int _playerNumber;
     [SerializeField]
     private GameEvent _playerDataChangeEvent;
     [SerializeField]
-    private TextMeshProUGUI _staminaText;
+    private Image _staminaFill;
 
+    private Vector3 fillSize;
 
+    void Start()
+    {
+        _playerNumber = GetComponentInParent<Player>().PlayerData.PlayerNumber;
+        fillSize = new Vector3(1.0f, 1.0f, 1.0f);
+        Debug.Log("player: " + GetComponentInParent<Player>().PlayerData.PlayerNumber);
+    }
 
     private void OnPlayerDataChangedEvent(object value)
     {
@@ -26,8 +34,10 @@ public class StaminaManager : MonoBehaviour
             return;
         }
 
+        fillSize.x = playerData.PlayerStamina / 100.0f;
         // Update UI
-        _staminaText.text = playerData.PlayerStamina.ToString();
+        _staminaFill.transform.localScale = fillSize;
+        Debug.Log("new size: " + _staminaFill.transform.localScale);
     }
     void Awake()
     {
@@ -37,10 +47,6 @@ public class StaminaManager : MonoBehaviour
     private void OnDestroy()
     {
         _changeListener.Dispose();
-    }
-    void Start()
-    {
-
     }
 
     // Update is called once per frame

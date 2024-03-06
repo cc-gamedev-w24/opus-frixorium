@@ -403,7 +403,7 @@ public class PlayerMovement: PlayerController
         _isBlocking = true;
         blockbox.SetActive(true);
         _actionCountdown = 2.0f;
-        _player.PlayerData.PlayerStamina -= 10;
+        _player.PlayerData.PlayerStamina -= 25;
         _player.PlayerData.PlayerBlocked = true;
         _timeSinceLastAction = 5.0f;
     }
