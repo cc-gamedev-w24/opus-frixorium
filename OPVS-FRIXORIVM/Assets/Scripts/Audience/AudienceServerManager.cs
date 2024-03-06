@@ -3,14 +3,18 @@ using TMPro;
 using WebSocketSharp;
 using UnityEngine;
 
-public class AudienceCommunication : MonoBehaviour
+public class AudienceServerManager : MonoBehaviour
 {
-    [SerializeField] private TMP_Text gameCodeText;
-
-    private static AudienceCommunication _instance;
+    
+    public delegate void PlayerCountChangedEventHandler(int newPlayerCount);
+    public event PlayerCountChangedEventHandler OnPlayerCountChangedEvent;
+    public delegate void GameCodeGeneratedEventHandler(string newLobbyCode);
+    public event GameCodeGeneratedEventHandler OnGameCodeGeneratedEvent;
+    
+    private static AudienceServerManager _instance;
     private WebSocket _socket;
     private string _gameCode;
-    private int _playerCount;
+    private int _audienceCount;
 
     private const string ServerURL = "ws://localhost:8080/";
     private const string AuthenticationToken = "BTS02OQVKJ";
@@ -62,16 +66,16 @@ public class AudienceCommunication : MonoBehaviour
 
     private void OnSocketMessage(object sender, MessageEventArgs e)
     {
-        switch (e.Data)
+        if (e.Data == "new_connection")
         {
-            case "new_connection":
-                _playerCount++;
-                break;
-            case "client_disconnected":
-                _playerCount--;
-                break;
+            _audienceCount += 1;
+            OnPlayerCountChangedEvent?.Invoke(_audienceCount);
+        } 
+        else if (e.Data == "client_disconnected")
+        {
+            _audienceCount -= 1;
+            OnPlayerCountChangedEvent?.Invoke(_audienceCount);
         }
-        Debug.Log($"Player count: {_playerCount}");
     }
 
     private void GenerateGameCode()
@@ -86,7 +90,7 @@ public class AudienceCommunication : MonoBehaviour
         }
 
         _gameCode = new string(stringChars);
-        gameCodeText.text = $"Game Code: {_gameCode}";
+        OnGameCodeGeneratedEvent?.Invoke(_gameCode);
     }
 
     private void SendAuthenticationData()
@@ -99,18 +103,6 @@ public class AudienceCommunication : MonoBehaviour
         };
         
         _socket.Send(JsonUtility.ToJson(initData));
-    }
-
-    public void OnStartGame()
-    {
-        var gameData = new GameData
-        {
-            messageType = "voting",
-            token = AuthenticationToken,
-            gameCode = _gameCode
-        };
-        
-        _socket.Send(JsonUtility.ToJson(gameData));
     }
 }
 
