@@ -48,6 +48,9 @@ public class PlayerMovement: PlayerController
     [SerializeField]
     private float _knockoutTime = 4.0f;
 
+    [SerializeField]
+    private GameSettings _gameSettings;
+
     /// <summary>
     ///      Current velocity of player
     /// </summary>
@@ -129,23 +132,25 @@ public class PlayerMovement: PlayerController
     {
         UpdateWalk();
 
-        if (_knockedOut) return;
-        UpdateLook();
-        ApplyGravity();
-        ApplyMovement();
-        UpdateAnimator();
-        UpdateAttacks();
-        UpdateBlocking();
-        UpdateIFrames();
-        UpdateAttackCooldown();
-        UpdateBlockCooldown();
-        UpdateStamina();
-        UpdateProjectiles();
+        if (!_knockedOut) {
+            UpdateLook();
+            ApplyGravity();
+            ApplyMovement();
+            UpdateAnimator();
+            UpdateAttacks();
+            UpdateBlocking();
+            UpdateIFrames();
+            UpdateAttackCooldown();
+            UpdateBlockCooldown();
+            UpdateStamina();
+            UpdateProjectiles();
 
-        if (weapon.GetComponent<WeaponData>().Type == WeaponData.WeaponType.Ranged && weapon.GetComponent<WeaponData>().AmmoCount <= 0)
-        {
-            weapon = defaultWeapon;
+            if (weapon.GetComponent<WeaponData>().Type == WeaponData.WeaponType.Ranged && weapon.GetComponent<WeaponData>().AmmoCount <= 0)
+            {
+                weapon = defaultWeapon;
+            }
         }
+        
     }
 
     /// <summary>
@@ -401,7 +406,7 @@ public class PlayerMovement: PlayerController
         _isBlocking = true;
         blockbox.SetActive(true);
         _actionCountdown = 2.0f;
-        _player.PlayerData.PlayerStamina -= 10;
+        _player.PlayerData.PlayerStamina -= 25;
         _player.PlayerData.PlayerBlocked = true;
         _timeSinceLastAction = 5.0f;
     }
@@ -430,8 +435,9 @@ public class PlayerMovement: PlayerController
         _knockedOut = true;
         _ragdollController.EnableRagdoll();
         
-
         yield return new WaitForSeconds(_knockoutTime);
+
+        while (!_gameSettings.WakingUpEnabled) yield return 0;
 
         _ragdollController.DisableRagdoll();
         _knockedOut = false;
