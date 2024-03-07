@@ -15,4 +15,6 @@ MonoBehaviour:
   _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
   _availableTrials:
   - {fileID: 11400000, guid: d24e46ecd5cdae85182e5a9721235d41, type: 2}
+  - {fileID: 11400000, guid: 72a5d8e9996e35b3ca0b4004c6d5b3a2, type: 2}
   _gameStartedEvent: {fileID: 11400000, guid: 8b08c2977a02c6308899743704722c6c, type: 2}
+  _trialStartedEvent: {fileID: 11400000, guid: 2e8a7564c315789a38665c13cd6fee70, type: 2}

@@ -19,13 +19,6 @@ public class StaminaManager : MonoBehaviour
 
     private Vector3 fillSize;
 
-    void Start()
-    {
-        _playerNumber = GetComponentInParent<Player>().PlayerData.PlayerNumber;
-        fillSize = new Vector3(1.0f, 1.0f, 1.0f);
-        Debug.Log("player: " + GetComponentInParent<Player>().PlayerData.PlayerNumber);
-    }
-
     private void OnPlayerDataChangedEvent(object value)
     {
         if (value is not PlayerData playerData)
@@ -41,7 +34,10 @@ public class StaminaManager : MonoBehaviour
     }
     void Awake()
     {
+        _playerNumber = GetComponentInParent<Player>().PlayerData.PlayerNumber;
         _changeListener = new DelegateGameEventListener(_playerDataChangeEvent, OnPlayerDataChangedEvent, _playerNumber);
+        fillSize = new Vector3(1.0f, 1.0f, 1.0f);
+        Debug.Log("player: " + GetComponentInParent<Player>().PlayerData.PlayerNumber);
     }
 
     private void OnDestroy()
