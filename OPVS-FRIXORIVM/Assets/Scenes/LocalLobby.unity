@@ -447,6 +447,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1221757220}
     m_Modifications:
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3139555975389571108, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
         type: 3}
       propertyPath: m_Pivot.x
@@ -735,6 +755,7 @@ MonoBehaviour:
   countdownTimer: 5
   playerManager: {fileID: 661534445}
   gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
+  _lobbyEnteredEvent: {fileID: 11400000, guid: e65bca57daf63fffa832acc67e41b925, type: 2}
 --- !u!4 &166441184
 Transform:
   m_ObjectHideFlags: 0
@@ -899,6 +920,26 @@ PrefabInstance:
         type: 3}
       propertyPath: _playerNumber
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3139555975389571108, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
         type: 3}
@@ -1674,6 +1715,26 @@ PrefabInstance:
         type: 3}
       propertyPath: _playerNumber
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3139555975389571108, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
         type: 3}
@@ -4157,6 +4218,26 @@ PrefabInstance:
         type: 3}
       propertyPath: _playerNumber
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2453834503777220486, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3139555975389571108, guid: 0c584d2d6a183ee84ab6d7a7994a3260,
         type: 3}

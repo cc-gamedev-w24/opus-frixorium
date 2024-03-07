@@ -25,6 +25,9 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     [SerializeField] private uint _maxPlayers = 4;
 
+    [SerializeField]
+    private float _spawnDistance = 2.0f;
+    
     /// <summary>
     ///     Array of available player slots. Unoccupied slots will be null.
     /// </summary>
@@ -65,6 +68,7 @@ public class PlayerManager : MonoBehaviour
         _joinSlots = new Player[_maxPlayers];
         _gameStartedListener = new DelegateGameEventListener(_gameStartedEvent, _ => EnterGameMode());
         _lobbyEnteredListener = new DelegateGameEventListener(_lobbyEnteredEvent, _ => EnterLobbyMode());
+        DontDestroyOnLoad(gameObject);
     }
 
     /// <summary>
@@ -73,8 +77,11 @@ public class PlayerManager : MonoBehaviour
     [UsedImplicitly]
     private void OnPlayerJoined(PlayerInput input)
     {
-
+        var playerTransform = input.gameObject.transform;
+        playerTransform.parent = transform;
         var playerIndex = Array.IndexOf(_joinSlots, null);
+        playerTransform.position += Quaternion.AngleAxis((360.0f / _maxPlayers) * playerIndex, Vector3.up) * Vector3.right * _spawnDistance;
+        
         _joinSlots[playerIndex] = input.gameObject.GetComponent<Player>();
         _joinSlots[playerIndex].PlayerData = new PlayerData(_dataChangedEvent, playerIndex)
         {
@@ -109,12 +116,14 @@ public class PlayerManager : MonoBehaviour
     private void EnterLobbyMode()
     {
         _currentController = _menuController;
+        _playerInputManager.EnableJoining();
         UpdateControllersOnPlayers();
     }
 
     private void EnterGameMode()
     {
         _currentController = _gameController;
+        _playerInputManager.DisableJoining();
         UpdateControllersOnPlayers();
     }
 

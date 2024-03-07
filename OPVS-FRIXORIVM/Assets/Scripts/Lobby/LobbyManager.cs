@@ -24,6 +24,9 @@ namespace Lobby
         [SerializeField] private PlayerManager playerManager;
         [SerializeField] private GameSettings gameSettings;
 
+        [SerializeField]
+        private GameEvent _lobbyEnteredEvent;
+        
         private bool _cancelled;
         private Coroutine _countdownCoroutine;
         private const string GameScenePath = "Assets/Scenes/GameScene.unity";
@@ -32,6 +35,7 @@ namespace Lobby
         {
             countdownPanel.SetActive(false);
             _cancelled = false;
+            _lobbyEnteredEvent.Invoke();
         }
 
         public void OnStartClick()

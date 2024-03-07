@@ -2,11 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public abstract class Trial : ScriptableObject
 {
-    [SerializeField]
-    protected string Name;
+    public string Name;
 
-    [SerializeField]
-    protected string Description;
+    public string Description;
     
     protected abstract IPredicate _winCondition { get; }
 
