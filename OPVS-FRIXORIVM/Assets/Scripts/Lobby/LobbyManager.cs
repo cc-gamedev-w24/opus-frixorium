@@ -30,6 +30,9 @@ namespace Lobby
         [SerializeField] private AudienceServerManager audienceServerManager;
 
 
+        [SerializeField]
+        private GameEvent _lobbyEnteredEvent;
+        
         private bool _cancelled;
         private Coroutine _countdownCoroutine;
         private const string GameScenePath = "Assets/Scenes/GameScene.unity";
@@ -38,6 +41,7 @@ namespace Lobby
         {
             countdownPanel.SetActive(false);
             _cancelled = false;
+            _lobbyEnteredEvent.Invoke();
 
             audienceServerManager.OnPlayerCountChangedEvent += UpdatePlayerCountUI;
             audienceServerManager.OnGameCodeGeneratedEvent += UpdateLobbyCodeUI;

@@ -833,6 +833,7 @@ MonoBehaviour:
   countdownTimer: 5
   playerManager: {fileID: 661534445}
   gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
+  _lobbyEnteredEvent: {fileID: 11400000, guid: e65bca57daf63fffa832acc67e41b925, type: 2}
   audienceServerManager: {fileID: 1531156101}
 --- !u!4 &166441184
 Transform:

@@ -7,10 +7,14 @@ public class GameState : ScriptableObject
     [SerializeField]
     private Trial[] _availableTrials;
 
+    [SerializeField]
+    private GameEvent _gameStartedEvent;
+    
     public Trial CurrentTrial { get; private set; }
     
     public void StartGame()
     {
+        _gameStartedEvent.Invoke();
         CurrentTrial = GetRandomTrial();
         CurrentTrial.OnStartTrial();
     }

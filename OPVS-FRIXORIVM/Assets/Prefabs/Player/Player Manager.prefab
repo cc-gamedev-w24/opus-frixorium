@@ -101,3 +101,4 @@ MonoBehaviour:
     type: 3}
   _gameController: {fileID: 9031378577874155225, guid: b677d52d7eca4e280b251c98aa93b197,
     type: 3}
+  _startInGameMode: 0
