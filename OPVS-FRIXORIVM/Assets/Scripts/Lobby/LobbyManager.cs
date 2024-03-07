@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Globalization;
+using Audience;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,9 @@ namespace Lobby
         [SerializeField] private TMP_Dropdown roundTimerDropdown;
         [SerializeField] private TMP_Dropdown numberOfRoundsDropdown;
         [SerializeField] private Toggle audienceEnabledToggle;
+        [SerializeField] private GameObject audienceSettingsPanel;
+        [SerializeField] private TMP_Text lobbyCode;
+        [SerializeField] private TMP_Text audienceCountText;
 
         [Header("Countdown Settings")]
         [SerializeField] private float countdownTimer = 3.0f;
@@ -23,6 +27,8 @@ namespace Lobby
         [Header("References")]
         [SerializeField] private PlayerManager playerManager;
         [SerializeField] private GameSettings gameSettings;
+        [SerializeField] private AudienceServerManager audienceServerManager;
+
 
         [SerializeField]
         private GameEvent _lobbyEnteredEvent;
@@ -36,6 +42,9 @@ namespace Lobby
             countdownPanel.SetActive(false);
             _cancelled = false;
             _lobbyEnteredEvent.Invoke();
+
+            audienceServerManager.OnPlayerCountChangedEvent += UpdatePlayerCountUI;
+            audienceServerManager.OnGameCodeGeneratedEvent += UpdateLobbyCodeUI;
         }
 
         public void OnStartClick()
@@ -69,6 +78,31 @@ namespace Lobby
             _cancelled = false;
             UpdateGameSettings();
             SceneManager.LoadScene(GameScenePath, LoadSceneMode.Single);
+        }
+
+        public void ToggleAudience()
+        {
+            if (!audienceEnabledToggle.isOn)
+            {
+                audienceServerManager.enabled = false;
+                audienceSettingsPanel.SetActive(false);
+            }
+            else
+            {
+                audienceServerManager.enabled = true;
+                audienceSettingsPanel.SetActive(true);
+            }
+        }
+
+        private void UpdatePlayerCountUI(int newPlayerCount)
+        {
+            audienceCountText.text = newPlayerCount.ToString();
+            Canvas.ForceUpdateCanvases();
+        }
+
+        private void UpdateLobbyCodeUI(string newLobbyCode)
+        {
+            lobbyCode.text = newLobbyCode;
         }
 
         private void UpdateGameSettings()

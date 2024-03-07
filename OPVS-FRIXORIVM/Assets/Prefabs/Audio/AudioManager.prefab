@@ -50,6 +50,7 @@ MonoBehaviour:
   _eventChannel: {fileID: 11400000, guid: 927d19291cd862244abfc4b309b43940, type: 2}
   _musicSource: {fileID: 3870635020234329344}
   _effectsSource: {fileID: 7986416775639093571}
+  _voicesSource: {fileID: 0}
   _clips:
   - _name: Yay
     _clips:
@@ -72,7 +73,7 @@ GameObject:
   - component: {fileID: 8410310867145664064}
   - component: {fileID: 3550936330879867003}
   m_Layer: 0
-  m_Name: EffectsSource (1)
+  m_Name: VoicesSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -80,7 +80,7 @@ public class PlayerManager : MonoBehaviour
         var playerTransform = input.gameObject.transform;
         playerTransform.parent = transform;
         var playerIndex = Array.IndexOf(_joinSlots, null);
-        playerTransform.position += Quaternion.AngleAxis((360.0f / _maxPlayers) * playerIndex, Vector3.up) * Vector3.right * _spawnDistance;
+        playerTransform.position += Quaternion.AngleAxis((360.0f / _maxPlayers) * playerIndex, Vector3.up) * Vector3.right * _spawnDistance + Vector3.up;
         
         _joinSlots[playerIndex] = input.gameObject.GetComponent<Player>();
         _joinSlots[playerIndex].PlayerData = new PlayerData(_dataChangedEvent, playerIndex)
