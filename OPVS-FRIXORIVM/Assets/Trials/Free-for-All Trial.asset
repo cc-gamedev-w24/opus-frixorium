@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 951eb5a9c8372814aa7940a47c35cb20, type: 3}
-  m_Name: GameSettings
+  m_Script: {fileID: 11500000, guid: 9fade2b82ce44c32b26ed578bc6c08af, type: 3}
+  m_Name: Free-for-All Trial
   m_EditorClassIdentifier: 
-  _numberOfRounds: 3
-  _roundTimeLimit: 60
-  _audienceEnabled: 1
-  _wakingUpEnabled: 1
+  Name: Free-for-All
+  Description: Score points by knocking other players out
+  _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}

@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     ///     Maximum number of total players allowed
     /// </summary>
     [SerializeField] private uint _maxPlayers = 4;
+    public uint MaxPlayers => _maxPlayers;
 
     [SerializeField]
     private float _spawnDistance = 2.0f;
@@ -86,7 +87,7 @@ public class PlayerManager : MonoBehaviour
         _joinSlots[playerIndex].PlayerData = new PlayerData(_dataChangedEvent, playerIndex)
         {
             DeviceClass = input.devices[0].description.deviceClass,
-            Color = Random.ColorHSV(0, 1, 1, 1, 1, 1)
+            Color = Color.HSVToRGB((float)playerIndex/_maxPlayers, 1, 1)
         };
         _joinSlots[playerIndex].PlayerPrefab = _currentController;
         

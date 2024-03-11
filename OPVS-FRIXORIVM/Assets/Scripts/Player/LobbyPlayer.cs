@@ -34,7 +34,7 @@ public class LobbyPlayer : PlayerController
 
     private void Update()
     {
-        if (_shiftInput != 0f)
+        if (!PlayerData.IsReady && _shiftInput != 0f)
         {
             Color.RGBToHSV(PlayerData.Color, out var hue, out _, out _);
             PlayerData.Color = Color.HSVToRGB(hue + _shiftInput * _colorShiftSpeed * Time.deltaTime, 1f, 1f);

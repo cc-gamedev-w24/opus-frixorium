@@ -12,12 +12,17 @@ public class HitboxManager : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerMovement>(out _))
         {
-            if (!other.GetComponentInParent<Player>().PlayerData.PlayerBlocked)
+            var otherPlayerData = other.GetComponentInParent<Player>().PlayerData;
+            if (!otherPlayerData.PlayerBlocked)
             {
-                other.GetComponent<CharacterController>().Move(transform.parent.forward);
-                other.GetComponentInParent<Player>().PlayerData.PlayerHP -= GetComponentInParent<PlayerMovement>().EquippedWeapon.GetComponent<WeaponData>().Damage;
+                var otherController = other.GetComponent<CharacterController>();
+                var forward = transform.forward;
+                otherController.Move(forward);
+                otherController.SimpleMove(forward);
+                
+                otherPlayerData.PlayerHP -= GetComponentInParent<PlayerMovement>().EquippedWeapon.GetComponent<WeaponData>().Damage;
 
-                other.GetComponentInParent<Player>().PlayerData.PlayerHit = true;
+                otherPlayerData.PlayerHit = true;
                 Debug.Log("Hitbox: " + GetComponentInParent<PlayerMovement>().EquippedWeapon.GetComponent<WeaponData>().Damage);
             }
             else

@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 951eb5a9c8372814aa7940a47c35cb20, type: 3}
-  m_Name: GameSettings
+  m_Script: {fileID: 11500000, guid: 390b75862b0e8a59fa31348e53c0bd38, type: 3}
+  m_Name: Trial Started
   m_EditorClassIdentifier: 
-  _numberOfRounds: 3
-  _roundTimeLimit: 60
-  _audienceEnabled: 1
-  _wakingUpEnabled: 1

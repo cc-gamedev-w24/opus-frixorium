@@ -81,7 +81,6 @@ public class PlayerMovement: PlayerController
     /// </summary>
     private string _deviceClass;
     
-    private bool _knockedOut;
     private Camera _camera;
     private Quaternion _orientation;
     private Vector2 _walkValue;
@@ -135,8 +134,9 @@ public class PlayerMovement: PlayerController
     private void Update()
     {
         UpdateWalk();
+        UpdateKnockout();
 
-        if (!_knockedOut) {
+        if (!PlayerData.IsKnockedOut) {
             UpdateLook();
             ApplyGravity();
             ApplyMovement();
@@ -158,6 +158,16 @@ public class PlayerMovement: PlayerController
         
     }
 
+    private void UpdateKnockout()
+    {
+        if (PlayerData.IsKnockedOut)
+            return;
+        if (PlayerData.PlayerHP <= 0)
+        {
+            StartCoroutine(KnockOut());
+        }
+    }
+
     /// <summary>
     ///     Applies gravity
     /// </summary>
@@ -172,7 +182,7 @@ public class PlayerMovement: PlayerController
     private void UpdateWalk()
     {
         // Stop moving character controller if knocked out (rigidbody will continue on its own)
-        if (_knockedOut)
+        if (PlayerData.IsKnockedOut)
         {
             _velocity = Vector3.zero;
             return;
@@ -356,12 +366,8 @@ public class PlayerMovement: PlayerController
     {
         if (!value.isPressed)
             return;
-        _velocity.y = _jumpVelocity;
-
-        if (!_characterController.isGrounded && !_knockedOut)
-        {
-            StartCoroutine(KnockOut());
-        }
+        if(_characterController.isGrounded)
+            _velocity.y = _jumpVelocity;
     }
 
     /// <summary>
@@ -425,7 +431,7 @@ public class PlayerMovement: PlayerController
     /// </summary>
     private void OnLook(InputValue value)
     {
-        if (_knockedOut) return;
+        if (PlayerData.IsKnockedOut) return;
         if (_isBlocking || _isAttacking) return;
         
         var vecValue = value.Get<Vector2>();
@@ -441,7 +447,7 @@ public class PlayerMovement: PlayerController
 
     private IEnumerator KnockOut()
     {
-        _knockedOut = true;
+        PlayerData.IsKnockedOut = true;
         _ragdollController.EnableRagdoll();
         
         yield return new WaitForSeconds(_knockoutTime);
@@ -449,7 +455,8 @@ public class PlayerMovement: PlayerController
         while (!_gameSettings.WakingUpEnabled) yield return 0;
 
         _ragdollController.DisableRagdoll();
-        _knockedOut = false;
+        PlayerData.IsKnockedOut = false;
+        PlayerData.PlayerHP = PlayerData.PlayerMaxHP;
     }
 
     private void EquipWeapon()

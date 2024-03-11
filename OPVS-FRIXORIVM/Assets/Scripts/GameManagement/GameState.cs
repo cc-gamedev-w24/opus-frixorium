@@ -9,6 +9,8 @@ public class GameState : ScriptableObject
 
     [SerializeField]
     private GameEvent _gameStartedEvent;
+    [SerializeField]
+    private GameEvent _trialStartedEvent;
     
     public Trial CurrentTrial { get; private set; }
     
@@ -17,6 +19,7 @@ public class GameState : ScriptableObject
         _gameStartedEvent.Invoke();
         CurrentTrial = GetRandomTrial();
         CurrentTrial.OnStartTrial();
+        _trialStartedEvent.Invoke(GameEvent.GlobalChannel, CurrentTrial);
     }
 
     public void Update()
@@ -26,12 +29,18 @@ public class GameState : ScriptableObject
             CurrentTrial.OnEndTrial();
             NextTrial();
             CurrentTrial.OnStartTrial();
+            _trialStartedEvent.Invoke(GameEvent.GlobalChannel, CurrentTrial);
         }
     }
 
     public void NextTrial()
     {
-        CurrentTrial = GetRandomTrial();
+        var nextTrial = GetRandomTrial();
+        while (nextTrial == CurrentTrial)
+        {
+            nextTrial = GetRandomTrial();
+        }
+        CurrentTrial = nextTrial;
     }
 
     private Trial GetRandomTrial()
