@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7795288517374522468}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 0, y: -0, z: -0.2099}
+  m_LocalScale: {x: 1, y: 1.3506, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
 --- !u!114 &7681562150629086256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,6 +52,8 @@ MonoBehaviour:
   _useTime: 0.4
   _range: {x: 0.7, y: 1, z: 3}
   _weaponType: 3
+  _burstAmount: 0
+  _ammoCount: 0
 --- !u!23 &-7160966188238164125
 MeshRenderer:
   m_ObjectHideFlags: 0

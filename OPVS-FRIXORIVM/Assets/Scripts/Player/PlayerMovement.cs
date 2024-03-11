@@ -51,6 +51,9 @@ public class PlayerMovement: PlayerController
     [SerializeField]
     private GameSettings _gameSettings;
 
+    [SerializeField]
+    private GameObject weaponRig;
+
     /// <summary>
     ///      Current velocity of player
     /// </summary>
@@ -106,8 +109,9 @@ public class PlayerMovement: PlayerController
         blockbox = Instantiate(BlockVisual, transform);
         hitbox.SetActive(false);
         blockbox.SetActive(false);
-        weapon = Instantiate(DefaultWeapon, transform);
-        defaultWeapon = Instantiate(DefaultWeapon, transform);
+        weapon = Instantiate(EquippedWeapon, weaponRig.transform);
+        defaultWeapon = Instantiate(DefaultWeapon, weaponRig.transform);
+        defaultWeapon.SetActive(false);
         _oldWalkSpeed = _baseWalkSpeed;
         _actionCountdown = 0.0f;
         _iFrameCountdown = 0.0f;
@@ -148,6 +152,7 @@ public class PlayerMovement: PlayerController
             if (weapon.GetComponent<WeaponData>().Type == WeaponData.WeaponType.Ranged && weapon.GetComponent<WeaponData>().AmmoCount <= 0)
             {
                 weapon = defaultWeapon;
+                weapon.SetActive(true);
             }
         }
         
@@ -201,7 +206,7 @@ public class PlayerMovement: PlayerController
         transform.rotation = _orientation;
         hitbox.transform.rotation = _orientation;
         blockbox.transform.rotation = _orientation;
-        weapon.transform.rotation = _orientation;
+        //weapon.transform.rotation = _orientation;
     }
 
     /// <summary>
@@ -340,7 +345,7 @@ public class PlayerMovement: PlayerController
         }
         //hitbox.transform.position += new Vector3(0.0f, 0.0f, weapon.GetComponent<WeaponData>().Range.z / 2);
         blockbox.transform.position = position + forward * 2.0f;
-        weapon.transform.position = position + forward * 2.0f;
+        //weapon.transform.position = position + forward * 2.0f;
         
     }
 
@@ -369,6 +374,8 @@ public class PlayerMovement: PlayerController
 
     private void OnAttack()
     {
+        if (_knockedOut)
+            return;
         if (_attackCooldown > 0.0f)
             return;
         if (_isAttacking || _isBlocking)
@@ -395,6 +402,8 @@ public class PlayerMovement: PlayerController
 
     private void OnBlock()
     {
+        if (_knockedOut)
+            return;
         if (_blockCooldown > 0.0f)
             return;
         if (_isBlocking || _isAttacking)
