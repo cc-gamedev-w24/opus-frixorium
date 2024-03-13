@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private GameEvent _trialStartedEvent;
     
     public Trial CurrentTrial { get; private set; }
+    private float _elapsedTime;
     
     void Start()
     {
@@ -28,6 +29,13 @@ public class GameManager : MonoBehaviour
         if (!CurrentTrial.IsCompleted)
         {
             CurrentTrial.OnUpdate();
+            if (_elapsedTime < _gameSettings.RoundTimeLimit) {
+                _elapsedTime += Time.deltaTime;
+                if (_elapsedTime >= _gameSettings.RoundTimeLimit)
+                {
+                    CurrentTrial.OnTimeUp();
+                }
+            }
             if (CurrentTrial.IsCompleted)
             {
                 CurrentTrial.OnEndTrial();
@@ -55,6 +63,7 @@ public class GameManager : MonoBehaviour
         }
         
         CurrentTrial.OnStartTrial();
+        _elapsedTime = 0;
         _trialStartedEvent.Invoke(GameEvent.GlobalChannel, CurrentTrial);
     }
     

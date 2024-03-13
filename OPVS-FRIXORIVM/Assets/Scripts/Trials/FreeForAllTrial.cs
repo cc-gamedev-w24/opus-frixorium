@@ -10,14 +10,12 @@ public class FreeForAllTrial : Trial
 
     private int[] _scores;
 
-    private float _elapsedTime;
     
     public override void OnStartTrial()
     {
         base.OnStartTrial();
         _playerManager = FindObjectOfType<PlayerManager>();
         _scores = new int[_playerManager.MaxPlayers]; // TODO: maybe move round score to game manager? idk
-        _elapsedTime = 0;
     }
 
     public override void OnEndTrial()
@@ -27,8 +25,10 @@ public class FreeForAllTrial : Trial
 
     public override void OnUpdate()
     {
-        _elapsedTime += Time.deltaTime;
-        if (_elapsedTime < _gameSettings.RoundTimeLimit) return;
+    }
+
+    public override void OnTimeUp()
+    {
         IsCompleted = true;
     }
 }

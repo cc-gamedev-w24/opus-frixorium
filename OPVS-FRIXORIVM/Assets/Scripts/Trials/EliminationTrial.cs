@@ -38,4 +38,9 @@ public class EliminationTrial : Trial
         }
         IsCompleted = true;
     }
+
+    public override void OnTimeUp()
+    {
+        Debug.Log("TODO: Sudden Death");
+    }
 }

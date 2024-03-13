@@ -17,7 +17,9 @@ public abstract class Trial : ScriptableObject
     public abstract void OnEndTrial();
 
     public abstract void OnUpdate();
-    
+
+    public abstract void OnTimeUp();
+
     public bool IsCompleted { get; set; }
 
     public List<PlayerData> Winners { get; } = new();
