@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameSettings", menuName = "Game/Game Settings")]
@@ -34,6 +35,11 @@ public class GameSettings : ScriptableObject
     {
         get => _wakingUpEnabled;
         set => _wakingUpEnabled = value;
+    }
+
+    private void OnEnable()
+    {
+        WakingUpEnabled = true;
     }
 
     public void UpdateGameSettings(int roundCount, int roundTimer, bool isAudienceEnabled)

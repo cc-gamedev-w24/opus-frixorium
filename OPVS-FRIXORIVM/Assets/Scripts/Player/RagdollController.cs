@@ -31,7 +31,7 @@ public class RagdollController : MonoBehaviour
     
     public void DisableRagdoll()
     {
-        transform.position = _armatureRoot.position;
+        transform.position = _armatureRoot.position + Vector3.up;
         _characterController.enabled = true;
         _animator.enabled = true;
         _animator.Rebind();

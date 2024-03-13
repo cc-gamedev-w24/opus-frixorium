@@ -8,8 +8,11 @@ public abstract class Trial : ScriptableObject
     
     protected abstract IPredicate _winCondition { get; }
 
-    public abstract void OnStartTrial();
-    
+    public virtual void OnStartTrial()
+    {
+        Winners.Clear();
+    }
+
     public abstract void OnEndTrial();
 
     public bool IsCompleted => _winCondition.Evaluate();

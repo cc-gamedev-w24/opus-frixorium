@@ -67,15 +67,19 @@ namespace Lobby
         private IEnumerator StartCountdown()
         {
             var countdown = countdownTimer;
-            while (countdown > 0 && !_cancelled)
+            while (countdown > 0)
             {
+                if (_cancelled)
+                {
+                    yield break;
+                }
+                
                 countdownText.text = countdown.ToString(CultureInfo.InvariantCulture);
                 yield return new WaitForSeconds(1);
                 countdown--;
             }
 
             countdownPanel.SetActive(false); 
-            _cancelled = false;
             UpdateGameSettings();
             SceneManager.LoadScene(GameScenePath, LoadSceneMode.Single);
         }

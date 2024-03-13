@@ -13,8 +13,8 @@ public class EliminationTrial : Trial
     
     public override void OnStartTrial()
     {
+        base.OnStartTrial();
         _playerManager = FindObjectOfType<PlayerManager>();
-        Winners.Clear();
 
         _gameSettings.WakingUpEnabled = false;
     }
