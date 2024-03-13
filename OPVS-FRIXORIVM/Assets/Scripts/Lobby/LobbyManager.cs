@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Globalization;
-using Audience;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -88,12 +87,12 @@ namespace Lobby
         {
             if (!audienceEnabledToggle.isOn)
             {
-                audienceServerManager.enabled = false;
+                audienceServerManager.Disable();
                 audienceSettingsPanel.SetActive(false);
             }
             else
             {
-                audienceServerManager.enabled = true;
+                audienceServerManager.Enable();
                 audienceSettingsPanel.SetActive(true);
             }
         }

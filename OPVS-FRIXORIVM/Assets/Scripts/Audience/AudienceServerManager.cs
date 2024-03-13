@@ -1,135 +1,126 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WebSocketSharp;
 
-namespace Audience
+    
+[CreateAssetMenu(menuName = "Single-Instance SOs/Audience Manager")]
+public class AudienceServerManager : ScriptableObject
 {
-    public class AudienceServerManager : MonoBehaviour
+    public event Action<int> OnPlayerCountChangedEvent;
+    public event Action<string> OnGameCodeGeneratedEvent;
+
+    public event Action<string> OnTrialSelectedEvent;
+
+    public bool Enabled { get; private set; }
+
+    private WebSocket _socket;
+    private string _gameCode;
+    private int _audienceCount;
+
+    private const string ServerURL = "ws://localhost:8080/";
+    private const string AuthenticationToken = "BTS02OQVKJ";
+
+    private void OnEnable() => Enable();
+
+    public void Enable()
     {
-        [SerializeField] private Trial[] trials;
-        
-        public event Action<int> OnPlayerCountChangedEvent;
-        public event Action<string> OnGameCodeGeneratedEvent;
+        GenerateGameCode();
+        InitializeSocket();
+        SendAuthenticationData();
+        Enabled = true;
+    }
+
+    private void OnDisable() => Disable();
+    public void Disable()
+    {
+        CloseSocket();
+        Enabled = false;
+    }
+
+    private void InitializeSocket()
+    {
+        _socket = new WebSocket(ServerURL);
+        _socket.OnMessage += OnSocketMessage;
+        _socket.Connect();
+    }
+
+    private void CloseSocket()
+    {
+        if (_socket != null && _socket.IsAlive)
+        {
+            _socket.Close();
+        }
+    }
+
+    private void OnSocketMessage(object sender, MessageEventArgs e)
+    {
+        var messageData = JsonUtility.FromJson<Message>(e.Data);
+        switch (messageData.messageType)
+        {
+            case "new_connection":
+                _audienceCount++;
+                OnPlayerCountChangedEvent?.Invoke(_audienceCount);
+                break;
+            case "client_disconnected":
+                _audienceCount--;
+                OnPlayerCountChangedEvent?.Invoke(_audienceCount);
+                break;
+            case "vote_result":
+                Debug.Log(messageData.winningTrial);
+                OnTrialSelectedEvent?.Invoke(messageData.winningTrial);
+                break;
+        }
+    }
+
+    private void GenerateGameCode()
+    {
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var stringChars = new char[8];
+        var random = new System.Random();
+
+        for (var i = 0; i < stringChars.Length; i++)
+        {
+            stringChars[i] = chars[random.Next(chars.Length)];
+        }
+
+        _gameCode = new string(stringChars);
+        OnGameCodeGeneratedEvent?.Invoke(_gameCode);
+    }
+
+    private void SendAuthenticationData()
+    {
+        var initData = new Message
+        {
+            messageType = "authentication",
+            token = AuthenticationToken,
+            gameCode = _gameCode
+        };
     
-        private static AudienceServerManager _instance;
-        private WebSocket _socket;
-        private string _gameCode;
-        private int _audienceCount;
+        _socket.Send(JsonUtility.ToJson(initData));
+    }
 
-        private const string ServerURL = "ws://localhost:8080/";
-        private const string AuthenticationToken = "BTS02OQVKJ";
-
-        private void Awake()
+    public void SendTrialDataToServer(IEnumerable<Trial> trials)
+    {
+        var trialData = new Message
         {
-            if (_instance != null && _instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
+            messageType = "voting",
+            token = AuthenticationToken,
+            gameCode = _gameCode,
+            trialNames = trials.Select(trial => trial.TrialName).ToArray()
+        };
 
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    
-        private void Start()
-        {
-            GenerateGameCode();
-            InitializeSocket();
-            SendAuthenticationData();
-        }
+        _socket.Send(JsonUtility.ToJson(trialData));
+    }
 
-        private void OnDestroy()
-        {
-            CloseSocket();
-        }
-
-        private void InitializeSocket()
-        {
-            _socket = new WebSocket(ServerURL);
-            _socket.OnMessage += OnSocketMessage;
-            _socket.Connect();
-        }
-
-        private void CloseSocket()
-        {
-            if (_socket != null && _socket.IsAlive)
-            {
-                _socket.Close();
-            }
-        }
-    
-        private void OnSocketMessage(object sender, MessageEventArgs e)
-        {
-            var messageData = JsonUtility.FromJson<Message>(e.Data);
-            switch (messageData.messageType)
-            {
-                case "new_connection":
-                    _audienceCount++;
-                    OnPlayerCountChangedEvent?.Invoke(_audienceCount);
-                    break;
-                case "client_disconnected":
-                    _audienceCount--;
-                    OnPlayerCountChangedEvent?.Invoke(_audienceCount);
-                    break;
-                case "vote_result":
-                    Debug.Log(messageData.winningTrial);
-                    break;
-            }
-        }
-
-        private void GenerateGameCode()
-        {
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            var stringChars = new char[8];
-            var random = new System.Random();
-
-            for (var i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            _gameCode = new string(stringChars);
-            OnGameCodeGeneratedEvent?.Invoke(_gameCode);
-        }
-
-        private void SendAuthenticationData()
-        {
-            var initData = new Message
-            {
-                messageType = "authentication",
-                token = AuthenticationToken,
-                gameCode = _gameCode
-            };
-        
-            _socket.Send(JsonUtility.ToJson(initData));
-        }
-
-        public void SendTrialDataToServer()
-        {
-            var trialData = new Message
-            {
-                messageType = "voting",
-                token = AuthenticationToken,
-                gameCode = _gameCode,
-                trialNames = new string[trials.Length]
-            };
-
-            for (var i = 0; i < trials.Length; i++)
-            {
-                trialData.trialNames[i] = trials[i].name;
-            }
-        
-            _socket.Send(JsonUtility.ToJson(trialData));
-        }
-
-        [Serializable]
-        public class Message
-        {
-            public string messageType;
-            public string token;
-            public string gameCode;
-            public string[] trialNames;
-            public string winningTrial;
-        }
+    [Serializable]
+    public class Message
+    {
+        public string messageType;
+        public string token;
+        public string gameCode;
+        public string[] trialNames;
+        public string winningTrial;
     }
 }

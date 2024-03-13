@@ -16,3 +16,6 @@ MonoBehaviour:
   _roundTimeLimit: 60
   _audienceEnabled: 1
   _wakingUpEnabled: 1
+  AvailableTrials:
+  - {fileID: 11400000, guid: d24e46ecd5cdae85182e5a9721235d41, type: 2}
+  - {fileID: 11400000, guid: 72a5d8e9996e35b3ca0b4004c6d5b3a2, type: 2}

@@ -44,4 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55ccc6fadceaea05b707ca016492532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameState: {fileID: 11400000, guid: 8dc8193d55d92d2a69815d03a355bcd3, type: 2}
+  _audienceServerManager: {fileID: 11400000, guid: 356e750569a06e4e19bef9bec41831d5,
+    type: 2}
+  _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
+  _gameStartedEvent: {fileID: 11400000, guid: 8b08c2977a02c6308899743704722c6c, type: 2}
+  _trialStartedEvent: {fileID: 11400000, guid: 2e8a7564c315789a38665c13cd6fee70, type: 2}

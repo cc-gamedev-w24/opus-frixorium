@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Trials/Free-for-All", fileName = "Free-for-All Trial")]
@@ -8,8 +7,6 @@ public class FreeForAllTrial : Trial
     
     [SerializeField]
     private GameSettings _gameSettings;
-
-    protected override IPredicate _winCondition => new FuncPredicate(EndAfterTimeUp);
 
     private int[] _scores;
 
@@ -28,10 +25,10 @@ public class FreeForAllTrial : Trial
         // TODO Add way to track round & game points
     }
 
-    private bool EndAfterTimeUp()
+    public override void OnUpdate()
     {
         _elapsedTime += Time.deltaTime;
-        if (_elapsedTime < _gameSettings.RoundTimeLimit) return false;
-        return true;
+        if (_elapsedTime < _gameSettings.RoundTimeLimit) return;
+        IsCompleted = true;
     }
 }

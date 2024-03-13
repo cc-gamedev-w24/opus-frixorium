@@ -1,21 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 public abstract class Trial : ScriptableObject
 {
-    public string Name;
+    [FormerlySerializedAs("Name")]
+    public string TrialName;
 
     public string Description;
     
-    protected abstract IPredicate _winCondition { get; }
-
     public virtual void OnStartTrial()
     {
+        IsCompleted = false;
         Winners.Clear();
     }
 
     public abstract void OnEndTrial();
 
-    public bool IsCompleted => _winCondition.Evaluate();
+    public abstract void OnUpdate();
+    
+    public bool IsCompleted { get; set; }
 
     public List<PlayerData> Winners { get; } = new();
 }

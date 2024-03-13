@@ -1,17 +1,65 @@
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private GameState _gameState;
+    private AudienceServerManager _audienceServerManager;
+    [SerializeField] private GameSettings _gameSettings;
+
+    [SerializeField]
+    private GameEvent _gameStartedEvent;
+    [SerializeField]
+    private GameEvent _trialStartedEvent;
+    
+    public Trial CurrentTrial { get; private set; }
     
     void Start()
     {
-        _gameState.StartGame();
+        _gameStartedEvent.Invoke();
+        CurrentTrial = GetRandomTrial();
+        CurrentTrial.OnStartTrial();
+        _trialStartedEvent.Invoke(GameEvent.GlobalChannel, CurrentTrial);
     }
 
     void Update()
     {
-        _gameState.Update();
+        if (!CurrentTrial.IsCompleted)
+        {
+            CurrentTrial.OnUpdate();
+            if (CurrentTrial.IsCompleted)
+            {
+                CurrentTrial.OnEndTrial();
+                StartCoroutine(NextTrial());
+            }
+        }
+    }
+    
+    public IEnumerator NextTrial()
+    {
+        if (_audienceServerManager.Enabled)
+        {
+            var options = Enumerable.Range(0, 3).Select(_ => GetRandomTrial());
+            _audienceServerManager.SendTrialDataToServer(options);
+            var received = false;
+            _audienceServerManager.OnTrialSelectedEvent += selected => {
+                CurrentTrial = _gameSettings.AvailableTrials.First(trial => trial.TrialName == selected);
+                received = true;
+            };
+            while(!received) yield return 0;
+        }
+        else
+        {
+            CurrentTrial = GetRandomTrial();
+        }
+        
+        CurrentTrial.OnStartTrial();
+        _trialStartedEvent.Invoke(GameEvent.GlobalChannel, CurrentTrial);
+    }
+    
+    private Trial GetRandomTrial()
+    {
+        return _gameSettings.AvailableTrials.Where(trial => trial != CurrentTrial).ToArray()[Random.Range(0, _gameSettings.AvailableTrials.Length-1)];
     }
 }
