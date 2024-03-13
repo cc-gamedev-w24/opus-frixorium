@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     
     public IEnumerator NextTrial()
     {
-        if (_audienceServerManager.Enabled)
+        if (_audienceServerManager.Enabled && _audienceServerManager.AudienceCount > 0)
         {
             var options = Enumerable.Range(0, 3).Select(_ => GetRandomTrial());
             _audienceServerManager.SendTrialDataToServer(options);

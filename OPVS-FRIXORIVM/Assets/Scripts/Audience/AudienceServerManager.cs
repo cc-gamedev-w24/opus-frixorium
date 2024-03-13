@@ -17,7 +17,7 @@ public class AudienceServerManager : ScriptableObject
 
     private WebSocket _socket;
     private string _gameCode;
-    private int _audienceCount;
+    public int AudienceCount { get; private set; }
 
     private const string ServerURL = "ws://localhost:8080/";
     private const string AuthenticationToken = "BTS02OQVKJ";
@@ -60,12 +60,12 @@ public class AudienceServerManager : ScriptableObject
         switch (messageData.messageType)
         {
             case "new_connection":
-                _audienceCount++;
-                OnPlayerCountChangedEvent?.Invoke(_audienceCount);
+                AudienceCount++;
+                OnPlayerCountChangedEvent?.Invoke(AudienceCount);
                 break;
             case "client_disconnected":
-                _audienceCount--;
-                OnPlayerCountChangedEvent?.Invoke(_audienceCount);
+                AudienceCount--;
+                OnPlayerCountChangedEvent?.Invoke(AudienceCount);
                 break;
             case "vote_result":
                 Debug.Log(messageData.winningTrial);
