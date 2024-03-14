@@ -1213,6 +1213,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2721907242716916231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 683180699480980231}
+  m_Layer: 6
+  m_Name: Weapon Rig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &683180699480980231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721907242716916231}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.521831, y: 0.53022563, z: -0.47195637, w: 0.47308603}
+  m_LocalPosition: {x: 0.059385043, y: 0.09223788, z: 0.036447804}
+  m_LocalScale: {x: 2.2727273, y: 2.2727273, z: 2.2727277}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4481741857211697463}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2758611080251444563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2516,6 +2547,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2791870307784001430}
+  - {fileID: 683180699480980231}
   m_Father: {fileID: 4046504334636347786}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8696949100622247828
@@ -2617,8 +2649,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6879153466224842212}
   - {fileID: 6988138789572713428}
+  - {fileID: 6879153466224842212}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4962487966836550660
@@ -2639,11 +2671,12 @@ MonoBehaviour:
   _jumpVelocity: 8
   _knockoutTime: 4
   _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
+  weaponRig: {fileID: 2721907242716916231}
   AttackTarget: {fileID: 8261348225827988244, guid: 295f2f01fe33fa547a9b4411f46ae438,
     type: 3}
   BlockVisual: {fileID: 7454266118925678993, guid: 3290dbfc78f0f134d8ed98bad3be641d,
     type: 3}
-  EquippedWeapon: {fileID: 5559707567978091978, guid: 6f37ad274cad9e549b05432de156ce77,
+  EquippedWeapon: {fileID: 7021245912269933767, guid: e822903b00ed5974f8b6c77508a684e0,
     type: 3}
   DefaultWeapon: {fileID: 5559707567978091978, guid: 6f37ad274cad9e549b05432de156ce77,
     type: 3}

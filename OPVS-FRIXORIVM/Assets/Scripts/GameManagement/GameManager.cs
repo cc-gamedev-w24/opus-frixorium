@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class GameManager : MonoBehaviour
     private GameEvent _gameStartedEvent;
     [SerializeField]
     private GameEvent _trialStartedEvent;
-    
+    [SerializeField]
+    private GameEvent _timerChangeEvent;
+
     public Trial CurrentTrial { get; private set; }
     private float _elapsedTime;
     
@@ -31,6 +34,8 @@ public class GameManager : MonoBehaviour
             CurrentTrial.OnUpdate();
             if (_elapsedTime < _gameSettings.RoundTimeLimit) {
                 _elapsedTime += Time.deltaTime;
+                int timeRemaining = (int)Math.Truncate(_gameSettings.RoundTimeLimit - _elapsedTime);
+                _timerChangeEvent.Invoke(GameEvent.GlobalChannel, timeRemaining);
                 if (_elapsedTime >= _gameSettings.RoundTimeLimit)
                 {
                     CurrentTrial.OnTimeUp();
@@ -69,6 +74,7 @@ public class GameManager : MonoBehaviour
     
     private Trial GetRandomTrial()
     {
-        return _gameSettings.AvailableTrials.Where(trial => trial != CurrentTrial).ToArray()[Random.Range(0, _gameSettings.AvailableTrials.Length-1)];
+        //return _gameSettings.AvailableTrials.Where(trial => trial != CurrentTrial).ToArray()[UnityEngine.Random.Range(0, _gameSettings.AvailableTrials.Length-1)];
+        return _gameSettings.AvailableTrials.Where(trial => trial != CurrentTrial).ToArray()[2];
     }
 }

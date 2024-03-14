@@ -1,3 +1,6 @@
+using System.Linq;
+using System;
+using TMPro;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Trials/Free-for-All", fileName = "Free-for-All Trial")]
@@ -7,6 +10,8 @@ public class FreeForAllTrial : Trial
     
     [SerializeField]
     private GameSettings _gameSettings;
+
+    
 
     private int[] _scores;
 

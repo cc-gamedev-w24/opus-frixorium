@@ -30,6 +30,10 @@ public class HitboxManager : MonoBehaviour
                 GetComponentInParent<Player>().PlayerData.PlayerStamina = 0;
             }
         }
+        else if (other.TryGetComponent<BallController>(out _))
+        {
+            other.attachedRigidbody.AddForce(transform.forward * 10, ForceMode.Impulse);
+        }
         else
         {
             Debug.Log("not player");
