@@ -1642,6 +1642,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3767980622440163653, guid: 8f5c45910f1f54d4397d133d1a78b4fd,
+        type: 3}
+      propertyPath: _timerChangeEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ba2f856368bac8428b27a76f14d164a,
+        type: 2}
     - target: {fileID: 594925471856042526, guid: 8f5c45910f1f54d4397d133d1a78b4fd,
         type: 3}
       propertyPath: m_Name

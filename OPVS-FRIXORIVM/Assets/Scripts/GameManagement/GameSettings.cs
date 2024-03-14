@@ -36,6 +36,9 @@ public class GameSettings : ScriptableObject
         get => _wakingUpEnabled;
         set => _wakingUpEnabled = value;
     }
+    
+    [SerializeField]
+    public Trial[] AvailableTrials;
 
     private void OnEnable()
     {

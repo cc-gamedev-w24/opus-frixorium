@@ -19,7 +19,7 @@ public class HillController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent<PlayerMovement>(out _))
+        if (other.GetComponentInParent<PlayerMovement>() != null)
         {
             var playerData = other.GetComponentInParent<Player>().PlayerData;
 

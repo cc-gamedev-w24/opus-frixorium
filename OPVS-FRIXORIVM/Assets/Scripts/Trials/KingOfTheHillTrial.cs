@@ -28,8 +28,6 @@ public class KingOfTheHillTrial : Trial
     private GameObject _hill;
 
 
-    protected override IPredicate _winCondition => new FuncPredicate(EndAfterTimeUp);
-
     private int[] _scores;
 
     public int[] Scores
@@ -44,6 +42,11 @@ public class KingOfTheHillTrial : Trial
     void Awake()
     {
         _listener = new DelegateGameEventListener(_trialAddScoreEvent, UpdateScoreOnEvent);
+    }
+
+    public override void OnUpdate()
+    {
+        _trialScoreChangeEvent.Invoke(GameEvent.GlobalChannel, _scores);
     }
 
     private void UpdateScoreOnEvent(object data)
@@ -72,15 +75,10 @@ public class KingOfTheHillTrial : Trial
         // TODO Add way to track round & game points
     }
 
-    private bool EndAfterTimeUp()
+    public override void OnTimeUp()
     {
-        _elapsedTime += Time.deltaTime;
-        int timeRemaining = (int)Math.Truncate(_gameSettings.RoundTimeLimit - _elapsedTime);
-        _timerChangeEvent.Invoke(GameEvent.GlobalChannel, timeRemaining);
-        _trialScoreChangeEvent.Invoke(GameEvent.GlobalChannel, _scores);
-        if (_elapsedTime < _gameSettings.RoundTimeLimit) return false;
         Array.Fill(_scores, 0);
         Destroy(_hill);
-        return true;
+        IsCompleted = true;
     }
 }
