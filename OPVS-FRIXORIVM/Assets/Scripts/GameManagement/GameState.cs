@@ -45,6 +45,6 @@ public class GameState : ScriptableObject
 
     private Trial GetRandomTrial()
     {
-        return _availableTrials[Random.Range(0, _availableTrials.Length)];
+        return _availableTrials[2]; //[Random.Range(0, _availableTrials.Length)];
     }
 }

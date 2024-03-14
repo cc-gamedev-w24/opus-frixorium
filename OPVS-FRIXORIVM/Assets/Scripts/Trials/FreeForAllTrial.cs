@@ -1,4 +1,6 @@
 using System.Linq;
+using System;
+using TMPro;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Trials/Free-for-All", fileName = "Free-for-All Trial")]
@@ -8,6 +10,9 @@ public class FreeForAllTrial : Trial
     
     [SerializeField]
     private GameSettings _gameSettings;
+
+    [SerializeField]
+    private GameEvent _timerChangeEvent;
 
     protected override IPredicate _winCondition => new FuncPredicate(EndAfterTimeUp);
 
@@ -31,6 +36,8 @@ public class FreeForAllTrial : Trial
     private bool EndAfterTimeUp()
     {
         _elapsedTime += Time.deltaTime;
+        int timeRemaining = (int)Math.Truncate(_gameSettings.RoundTimeLimit - _elapsedTime);
+        _timerChangeEvent.Invoke(GameEvent.GlobalChannel, timeRemaining);
         if (_elapsedTime < _gameSettings.RoundTimeLimit) return false;
         return true;
     }

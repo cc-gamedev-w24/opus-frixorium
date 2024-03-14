@@ -14,7 +14,7 @@ public class GameSettings : ScriptableObject
     }
     
     [SerializeField]
-    private float _roundTimeLimit = 60.0f;
+    private float _roundTimeLimit = 10.0f;
     public float RoundTimeLimit
     {
         get => _roundTimeLimit;

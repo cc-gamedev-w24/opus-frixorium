@@ -30,14 +30,12 @@ public class StaminaManager : MonoBehaviour
         fillSize.x = playerData.PlayerStamina / 100.0f;
         // Update UI
         _staminaFill.transform.localScale = fillSize;
-        Debug.Log("new size: " + _staminaFill.transform.localScale);
     }
     void Awake()
     {
         _playerNumber = GetComponentInParent<Player>().PlayerData.PlayerNumber;
         _changeListener = new DelegateGameEventListener(_playerDataChangeEvent, OnPlayerDataChangedEvent, _playerNumber);
         fillSize = new Vector3(1.0f, 1.0f, 1.0f);
-        Debug.Log("player: " + GetComponentInParent<Player>().PlayerData.PlayerNumber);
     }
 
     private void OnDestroy()

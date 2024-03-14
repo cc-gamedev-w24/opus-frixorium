@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5586e336141e7674cad6fe12a8f4e9e1, type: 3}
+  m_Name: King-Of-The-Hill Trial
+  m_EditorClassIdentifier: 
+  Name: King of the Hill
+  Description: Score points by staying on the hill.
+  _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
+  _timerChangeEvent: {fileID: 11400000, guid: 0ba2f856368bac8428b27a76f14d164a, type: 2}
+  _trialScoreChangeEvent: {fileID: 11400000, guid: f2fc06b3d41376a4ab2a09ae04982d1b,
+    type: 2}
+  _trialAddScoreEvent: {fileID: 11400000, guid: 9c1d687c81cbcb74cb60bfaf236b0c09,
+    type: 2}
+  _hillObject: {fileID: 1343626719347644520, guid: 849c4b3ddcf268945ab4db930aa82aca,
+    type: 3}

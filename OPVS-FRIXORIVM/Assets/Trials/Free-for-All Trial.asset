@@ -15,3 +15,4 @@ MonoBehaviour:
   Name: Free-for-All
   Description: Score points by knocking other players out
   _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
+  _timerChangeEvent: {fileID: 11400000, guid: 0ba2f856368bac8428b27a76f14d164a, type: 2}

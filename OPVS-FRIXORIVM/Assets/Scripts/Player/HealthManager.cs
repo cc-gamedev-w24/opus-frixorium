@@ -41,10 +41,4 @@ public class HealthManager : MonoBehaviour
     {
         _changeListener.Dispose();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

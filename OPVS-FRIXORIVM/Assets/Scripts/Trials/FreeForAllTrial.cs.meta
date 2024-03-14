@@ -1,3 +1,13 @@
 fileFormatVersion: 2
 guid: 9fade2b82ce44c32b26ed578bc6c08af
-timeCreated: 1709794716
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _gameSettings: {instanceID: 0}
+  - _timerChangeEvent: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

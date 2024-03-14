@@ -380,7 +380,7 @@ public class PlayerMovement: PlayerController
 
     private void OnAttack()
     {
-        if (_knockedOut)
+        if (PlayerData.IsKnockedOut)
             return;
         if (_attackCooldown > 0.0f)
             return;
@@ -408,7 +408,7 @@ public class PlayerMovement: PlayerController
 
     private void OnBlock()
     {
-        if (_knockedOut)
+        if (PlayerData.IsKnockedOut)
             return;
         if (_blockCooldown > 0.0f)
             return;

@@ -22,6 +22,7 @@ public class PlayerData
         _playerBlocked = false;
         _dataChangedEvent = dataChangedEvent;
         PlayerNumber = playerNumber;
+        _playerScore = 0;
     }
 
     private bool _isReady;
@@ -112,6 +113,16 @@ public class PlayerData
     {
         get => _playerBlocked;
         set => SetValue(out _playerHit, value);
+    }
+
+    private int _playerScore;
+    /// <summary>
+    ///     Device class of this player, e.g. "Keyboard" or "Gamepad"
+    /// </summary>
+    public int PlayerScore
+    {
+        get => _playerScore;
+        set => SetValue(out _playerScore, value);
     }
 
     private Color _color;
