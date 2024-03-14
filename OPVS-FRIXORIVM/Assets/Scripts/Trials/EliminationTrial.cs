@@ -9,8 +9,6 @@ public class EliminationTrial : Trial
     [SerializeField]
     private GameSettings _gameSettings;
 
-    protected override IPredicate _winCondition => new FuncPredicate(OnePlayerStanding);
-    
     public override void OnStartTrial()
     {
         base.OnStartTrial();
@@ -25,7 +23,7 @@ public class EliminationTrial : Trial
         _gameSettings.WakingUpEnabled = true;
     }
 
-    private bool OnePlayerStanding()
+    public override void OnUpdate()
     {
         var awakePlayers = 0;
         foreach (var playerData in _playerManager.GetAllPlayerData())
@@ -35,9 +33,14 @@ public class EliminationTrial : Trial
             awakePlayers++;
             if (awakePlayers > 1)
             {
-                return false;
+                return;
             }
         }
-        return awakePlayers == 1;
+        IsCompleted = true;
+    }
+
+    public override void OnTimeUp()
+    {
+        Debug.Log("TODO: Sudden Death");
     }
 }
