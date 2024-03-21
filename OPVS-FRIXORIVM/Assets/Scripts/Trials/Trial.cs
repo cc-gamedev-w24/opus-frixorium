@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 public abstract class Trial : ScriptableObject
 {
-    [FormerlySerializedAs("Name")]
     public string TrialName;
 
     public string Description;
+
+    public int PointsAwarded = 100;
     
     public virtual void OnStartTrial()
     {
