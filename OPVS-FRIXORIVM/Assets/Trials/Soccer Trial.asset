@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b0dfa510b32da4ab6d360623aff87c, type: 3}
+  m_Name: Soccer Trial
+  m_EditorClassIdentifier: 
+  TrialName: Soccer
+  Description: Score points by launching the ball into the opposing net.
+  _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
+  _timerChangeEvent: {fileID: 11400000, guid: 0ba2f856368bac8428b27a76f14d164a, type: 2}
+  _soccerTrialAddScoreEvent: {fileID: 11400000, guid: 61107d0e34e1bfc48ad6e721f756c97c,
+    type: 2}
+  _netObject: {fileID: 2981246962799551583, guid: da321088f096a9242932bed46d12ae38,
+    type: 3}
+  _ballObject: {fileID: 5636658985247904715, guid: 221c87351de9dfd43b53e8beba3df3fa,
+    type: 3}
+  _teamScorePanelObject: {fileID: 8093187442679710000, guid: 01d5515b5a244714e9b47a7a135c263d,
+    type: 3}
