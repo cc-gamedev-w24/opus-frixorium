@@ -19,9 +19,12 @@ public class GameManager : MonoBehaviour
     public Trial CurrentTrial { get; private set; }
     private float _elapsedTime;
     
+    public int RemainingRounds { get; private set; }
+    
     void Start()
     {
         _gameStartedEvent.Invoke();
+        RemainingRounds = _gameSettings.NumberOfRounds;
         CurrentTrial = GetRandomTrial();
         CurrentTrial.OnStartTrial();
         _trialStartedEvent.Invoke(GameEvent.GlobalChannel, CurrentTrial);
@@ -44,6 +47,16 @@ public class GameManager : MonoBehaviour
             if (CurrentTrial.IsCompleted)
             {
                 CurrentTrial.OnEndTrial();
+                foreach (var winner in CurrentTrial.Winners)
+                {
+                    winner.PlayerScore += CurrentTrial.PointsAwarded;
+                }
+                RemainingRounds--;
+                if (RemainingRounds <= 0)
+                {
+                    //TODO: Game Over
+                    return;
+                }
                 StartCoroutine(NextTrial());
             }
         }
