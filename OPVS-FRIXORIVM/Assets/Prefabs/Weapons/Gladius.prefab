@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 18
   _staminaCost: 15
-  _cooldown: 1.5
+  _cooldown: 0
   _useTime: 0.8
   _range: {x: 2, y: 1, z: 1.5}
   _weaponType: 1

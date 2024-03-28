@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b005c30a23e12df7af6b19fae76af75, type: 3}
   m_Name: Elimination Trial
   m_EditorClassIdentifier: 
-  Name: Elimination
+  TrialName: Elimination
   Description: Fight to be the last one standing
+  PointsAwarded: 100
   _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}

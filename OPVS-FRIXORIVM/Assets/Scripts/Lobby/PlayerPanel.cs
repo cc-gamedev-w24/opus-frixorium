@@ -20,7 +20,7 @@ public class PlayerPanel : MonoBehaviour
     [SerializeField]
     private Camera _previewCamera;
     [SerializeField]
-    private int _previewSize = 256;
+    private int _previewSize = 512;
     [SerializeField]
     private Animator _previewAnimator;
     [SerializeField]
