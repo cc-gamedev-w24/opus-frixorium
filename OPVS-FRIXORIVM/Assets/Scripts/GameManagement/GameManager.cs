@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     
     private Trial GetRandomTrial()
     {
-        //return _gameSettings.AvailableTrials.Where(trial => trial != CurrentTrial).ToArray()[UnityEngine.Random.Range(0, _gameSettings.AvailableTrials.Length-1)];
-        return _gameSettings.AvailableTrials.Where(trial => trial != CurrentTrial).ToArray()[2];
+        return _gameSettings.AvailableTrials.Where(trial => trial != CurrentTrial).ToArray()[UnityEngine.Random.Range(0, _gameSettings.AvailableTrials.Length-1)];
+        //return _gameSettings.AvailableTrials.Where(trial => trial != CurrentTrial).ToArray()[3];
     }
 }

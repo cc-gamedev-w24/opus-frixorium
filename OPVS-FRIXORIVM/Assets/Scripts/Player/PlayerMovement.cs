@@ -87,7 +87,14 @@ public class PlayerMovement: PlayerController
     
     private GameObject hitbox;
     private GameObject blockbox;
+
     private GameObject weapon;
+    public GameObject Weapon
+    {
+        get => weapon; 
+        set => weapon = value;
+    }
+
     private GameObject defaultWeapon;
 
     private Vector3 rangedTarget = Vector3.zero;
@@ -164,6 +171,7 @@ public class PlayerMovement: PlayerController
             return;
         if (PlayerData.PlayerHP <= 0)
         {
+            GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().PlaySound("knockout");
             StartCoroutine(KnockOut());
         }
     }
@@ -403,6 +411,7 @@ public class PlayerMovement: PlayerController
         else
         {
             hitbox.SetActive(true);
+            GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().PlaySound(GetComponentInParent<PlayerMovement>().weapon.GetComponent<WeaponData>().SwingSound);
         }
     }
 
@@ -502,5 +511,6 @@ public class PlayerMovement: PlayerController
         }
 
         weapon.GetComponent<WeaponData>().AmmoCount -= 1;
+        GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().PlaySound(GetComponentInParent<PlayerMovement>().weapon.GetComponent<WeaponData>().SwingSound);
     }
 }

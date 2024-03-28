@@ -93,4 +93,18 @@ public class WeaponData : MonoBehaviour
         get => _ammoCount;
         set => _ammoCount = value;
     }
+
+    [SerializeField] string _swingSound;
+    public string SwingSound
+    {
+        get => _swingSound;
+        set => _swingSound = value;
+    }
+
+    [SerializeField] string _hitSound;
+    public string HitSound
+    {
+        get => _hitSound;
+        set => _hitSound = value;
+    }
 }

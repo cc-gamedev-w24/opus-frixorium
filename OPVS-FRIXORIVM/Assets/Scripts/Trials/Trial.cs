@@ -12,6 +12,7 @@ public abstract class Trial : ScriptableObject
     {
         IsCompleted = false;
         Winners.Clear();
+        GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().PlaySound("trial_start");
     }
 
     public abstract void OnEndTrial();

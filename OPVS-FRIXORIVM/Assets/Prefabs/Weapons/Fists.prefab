@@ -52,3 +52,5 @@ MonoBehaviour:
   _weaponType: 0
   _burstAmount: 0
   _ammoCount: 0
+  _swingSound: punch
+  _hitSound: punch_hit

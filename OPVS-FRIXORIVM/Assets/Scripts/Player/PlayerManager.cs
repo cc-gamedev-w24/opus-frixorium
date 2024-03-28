@@ -34,6 +34,11 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private Player[] _joinSlots;
 
+    public Player[] Players
+    {
+        get => _joinSlots;
+    }
+
     [Header("Incoming Events")]
     [SerializeField]
     private GameEvent _gameStartedEvent;

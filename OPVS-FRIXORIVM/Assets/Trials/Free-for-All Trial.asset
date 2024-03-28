@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fade2b82ce44c32b26ed578bc6c08af, type: 3}
   m_Name: Free-for-All Trial
   m_EditorClassIdentifier: 
-  Name: Free-for-All
+  TrialName: 
   Description: Score points by knocking other players out
+  PointsAwarded: 100
+  _bgm: {fileID: 8300000, guid: ffc755e02e9562243a2b2fff2a65b19c, type: 3}
   _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
-  _timerChangeEvent: {fileID: 11400000, guid: 0ba2f856368bac8428b27a76f14d164a, type: 2}

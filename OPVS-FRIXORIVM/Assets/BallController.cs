@@ -16,4 +16,10 @@ public class BallController : MonoBehaviour
     {
         
     }
+
+    public void RespawnBall()
+    {
+        rb.velocity = Vector3.zero;
+        gameObject.transform.position = GameObject.FindWithTag("Ball Transform").transform.position;
+    }
 }

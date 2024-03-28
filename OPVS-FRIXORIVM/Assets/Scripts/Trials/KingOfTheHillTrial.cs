@@ -11,6 +11,9 @@ public class KingOfTheHillTrial : Trial
     private PlayerManager _playerManager;
 
     [SerializeField]
+    private AudioClip _bgm;
+
+    [SerializeField]
     private GameSettings _gameSettings;
 
     [SerializeField]
@@ -39,6 +42,10 @@ public class KingOfTheHillTrial : Trial
 
     private DelegateGameEventListener _listener;
 
+    private bool _roundOver;
+
+    private float _countdownUntilMusic;
+
     void Awake()
     {
         _listener = new DelegateGameEventListener(_trialAddScoreEvent, UpdateScoreOnEvent);
@@ -47,6 +54,14 @@ public class KingOfTheHillTrial : Trial
     public override void OnUpdate()
     {
         _trialScoreChangeEvent.Invoke(GameEvent.GlobalChannel, _scores);
+        if (_countdownUntilMusic > 0.0f)
+        {
+            _countdownUntilMusic -= Time.deltaTime;
+        }
+        else
+        {
+            PlayMusic();
+        }
     }
 
     private void UpdateScoreOnEvent(object data)
@@ -68,11 +83,15 @@ public class KingOfTheHillTrial : Trial
         _elapsedTime = 0;
         _hill = Instantiate<GameObject>(_hillObject);
         _hill.transform.position = new Vector3(7.63f, -3.82f, 0.94f);
+        _roundOver = false;
+        _countdownUntilMusic = 1.8f;
     }
 
     public override void OnEndTrial()
     {
         // TODO Add way to track round & game points
+        _roundOver = true;
+        GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().StopBackgroundMusic();
     }
 
     public override void OnTimeUp()
@@ -80,5 +99,16 @@ public class KingOfTheHillTrial : Trial
         Array.Fill(_scores, 0);
         Destroy(_hill);
         IsCompleted = true;
+    }
+
+    public void PlayMusic()
+    {
+        if (!_roundOver)
+        {
+            if (!GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().IsMusicPlagying())
+            {
+                GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().PlayBackgroundMusic(_bgm);
+            }
+        }
     }
 }

@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PlayerManager
+  - Net One Transform
+  - Net Two Transform
+  - Ball Transform
+  - GameUI
+  - Audio Manager
   layers:
   - Default
   - TransparentFX
