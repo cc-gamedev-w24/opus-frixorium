@@ -20,10 +20,9 @@ public class HitboxManager : MonoBehaviour
                 otherController.Move(forward);
                 otherController.SimpleMove(forward);
                 
-                otherPlayerData.PlayerHP -= GetComponentInParent<PlayerMovement>().EquippedWeapon.GetComponent<WeaponData>().Damage;
-
+                otherPlayerData.PlayerHP -= GetComponentInParent<PlayerMovement>().Weapon.GetComponent<WeaponData>().Damage;
+                GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().PlaySound(GetComponentInParent<PlayerMovement>().Weapon.GetComponent<WeaponData>().HitSound);
                 otherPlayerData.PlayerHit = true;
-                Debug.Log("Hitbox: " + GetComponentInParent<PlayerMovement>().EquippedWeapon.GetComponent<WeaponData>().Damage);
             }
             else
             {

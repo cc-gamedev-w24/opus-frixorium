@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrialName: Soccer
   Description: Score points by launching the ball into the opposing net.
+  PointsAwarded: 100
+  _bgm: {fileID: 8300000, guid: 8d87d745b747fee45a3fe7b33d97e7b8, type: 3}
   _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
   _timerChangeEvent: {fileID: 11400000, guid: 0ba2f856368bac8428b27a76f14d164a, type: 2}
   _soccerTrialAddScoreEvent: {fileID: 11400000, guid: 61107d0e34e1bfc48ad6e721f756c97c,

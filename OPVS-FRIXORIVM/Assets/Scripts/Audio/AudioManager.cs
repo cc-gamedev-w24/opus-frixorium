@@ -79,7 +79,16 @@ public class AudioManager : MonoBehaviour
     {
         _musicSource.PlayOneShot(Music);
     }
-    
+
+    public void StopBackgroundMusic()
+    {
+        _musicSource.Stop();
+    }
+
+    public bool IsMusicPlagying()
+    {
+        return _musicSource.isPlaying;
+    }
 }
 
 [Serializable]

@@ -52,3 +52,5 @@ MonoBehaviour:
   _weaponType: 4
   _burstAmount: 0
   _ammoCount: 5
+  _swingSound: crossbow_fire
+  _hitSound: punch_hit

@@ -9,6 +9,7 @@ TagManager:
   - Net Two Transform
   - Ball Transform
   - GameUI
+  - Audio Manager
   layers:
   - Default
   - TransparentFX

@@ -13,6 +13,9 @@ public class SoccerTrial : Trial
     private PlayerManager _playerManager;
 
     [SerializeField]
+    private AudioClip _bgm;
+
+    [SerializeField]
     private GameSettings _gameSettings;
 
     [SerializeField]
@@ -51,6 +54,10 @@ public class SoccerTrial : Trial
     private GameObject _teamScorePanelObject;
     private GameObject _teamScorePanel;
 
+    private bool _roundOver;
+
+    private float _countdownUntilMusic;
+
     void Awake()
     {
         _listener = new DelegateGameEventListener(_soccerTrialAddScoreEvent, UpdateScoreOnEvent);
@@ -58,7 +65,14 @@ public class SoccerTrial : Trial
 
     public override void OnUpdate()
     {
- 
+        if (_countdownUntilMusic > 0.0f)
+        {
+            _countdownUntilMusic -= Time.deltaTime;
+        }
+        else
+        {
+            PlayMusic();
+        }
     }
 
     private void UpdateScoreOnEvent(object data)
@@ -106,6 +120,7 @@ public class SoccerTrial : Trial
         _teamOneScore = 0;
         _teamTwoScore = 0;
         _teamScorePanel = Instantiate(_teamScorePanelObject, GameObject.FindWithTag("GameUI").transform);
+        _countdownUntilMusic = 1.8f;
 
         Player[] players = _playerManager.GetComponent<PlayerManager>().Players;
 
@@ -133,6 +148,7 @@ public class SoccerTrial : Trial
         _netOne.GetComponentInChildren<NetController>().NetColor = new Color(1f, 0f, 0f, 0.5f);
         _netTwo.GetComponentInChildren<NetController>().NetColor = new Color(0f, 0f, 1f, 0.5f);
         _ball = Instantiate(_ballObject, GameObject.FindWithTag("Ball Transform").transform);
+        _roundOver = false;
     }
 
     public override void OnEndTrial()
@@ -142,11 +158,24 @@ public class SoccerTrial : Trial
         Destroy(_netTwo);
         Destroy(_ball);
         Destroy(_teamScorePanel);
+        _roundOver = true;
+        GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().StopBackgroundMusic();
     }
 
     public override void OnTimeUp()
     {
         Array.Fill(_scores, 0);
         IsCompleted = true;
+    }
+
+    public void PlayMusic()
+    {
+        if (!_roundOver)
+        {
+            if (!GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().IsMusicPlagying())
+            {
+                GameObject.FindWithTag("Audio Manager").GetComponent<AudioManager>().PlayBackgroundMusic(_bgm);
+            }
+        }
     }
 }

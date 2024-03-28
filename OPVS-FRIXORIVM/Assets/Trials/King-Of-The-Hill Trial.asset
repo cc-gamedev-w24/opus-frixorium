@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5586e336141e7674cad6fe12a8f4e9e1, type: 3}
   m_Name: King-Of-The-Hill Trial
   m_EditorClassIdentifier: 
-  Name: King of the Hill
+  TrialName: 
   Description: Score points by staying on the hill.
+  PointsAwarded: 100
+  _bgm: {fileID: 8300000, guid: 536aeb311c604224984c7cb6b9405fb9, type: 3}
   _gameSettings: {fileID: 11400000, guid: de5ee00bc1d88d844909a10c78212c7e, type: 2}
   _timerChangeEvent: {fileID: 11400000, guid: 0ba2f856368bac8428b27a76f14d164a, type: 2}
   _trialScoreChangeEvent: {fileID: 11400000, guid: f2fc06b3d41376a4ab2a09ae04982d1b,

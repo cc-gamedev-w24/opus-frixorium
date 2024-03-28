@@ -50,3 +50,7 @@ MonoBehaviour:
   _useTime: 1
   _range: {x: 1, y: 1, z: 1.5}
   _weaponType: 3
+  _burstAmount: 0
+  _ammoCount: 0
+  _swingSound: punch
+  _hitSound: punch_hit

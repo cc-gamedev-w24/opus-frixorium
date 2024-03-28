@@ -2676,7 +2676,7 @@ MonoBehaviour:
     type: 3}
   BlockVisual: {fileID: 7454266118925678993, guid: 3290dbfc78f0f134d8ed98bad3be641d,
     type: 3}
-  EquippedWeapon: {fileID: 5559707567978091978, guid: 6f37ad274cad9e549b05432de156ce77,
+  EquippedWeapon: {fileID: 971422684306103765, guid: 0ebdd984ee4973b4db11d43f261c7bd4,
     type: 3}
   DefaultWeapon: {fileID: 5559707567978091978, guid: 6f37ad274cad9e549b05432de156ce77,
     type: 3}

@@ -153,6 +153,8 @@ MonoBehaviour:
   _weaponType: 1
   _burstAmount: 0
   _ammoCount: 0
+  _swingSound: blade_swing
+  _hitSound: blade_hit
 --- !u!33 &-582641216732021466
 MeshFilter:
   m_ObjectHideFlags: 0
